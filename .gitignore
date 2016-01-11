@@ -55,3 +55,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Huge Data Files
+data/raw_data/expenditures/oppexp.txt
