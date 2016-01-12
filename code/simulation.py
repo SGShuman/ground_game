@@ -13,19 +13,27 @@ class one_party_strat(object):
     def __init__(self, df, X, y, num_offices, mod_type='dem'):
         self.df = df
         self.num_offices = num_offices
+        self.mod_type = mod_type
         
         # Fit a linear model to get the coefficients
         model = sm.GLSAR(y, X, rho=1).iterative_fit(1)
         [self.one_coef, self.two_coef, self.int_coef] = model.params[-3:]
         [self.one_std, self.two_std, self.int_std] = model.bse[-3:]
+
+        # Use the model to predict without offices
+        counter_params = model.params[:-3]
+        X_counter = X[X.columns[:-3]]
+        y_pred = X_counter.dot(counter_params).values
         
         # Return the models vote predictions (disallow negative votes)
-        counter_model = sm.GLSAR(y, X.drop(['1_office', '2_office', 'cook * office_bool'], axis=1), rho=1).iterative_fit(1)
-        self.df['votes_predicted'] = counter_model.predict(X.drop(['1_office', '2_office', 'cook * office_bool'], axis=1)) * self.df['CVAP_EST']
+        self.df['votes_predicted'] = y_pred * self.df['CVAP_EST']
         self.df['votes_predicted'] = self.df['votes_predicted'].apply(lambda x: max(x, 0))
 
         # Greatly increase the speed of simulation using a dictionary
         self.data_dict = df.set_index('NAME').to_dict('index')
+
+        if self.mod_type == 'rep':
+            self.int_std *= -1 # cook score is negative for republicans
     
     def set_params(self, one_coef, two_coef, int_coef, one_std, two_std, int_std):
     	'''Reset the office and interaction coefficients'''
@@ -212,19 +220,20 @@ class simulation(object):
         return output.sort_values(by='swing')
 
 
-    def plot_swing(self):
+    def plot_swing(self, plots_on=False):
     	'''Show simulation results and plot swing states'''
     	self.states['swing'] = np.absolute(self.states['dem'] - self.states['rep'])
     	self.states['color'] = self.states['dem'] > self.states['rep']
     	self.states['color'] = self.states['color'].apply(lambda x: 'b' if x else 'r')
     	output = self.states.drop(['AK', 'SD'], axis=0)
     	print output.sort_values(by='swing').head(25)
-    	sizes = (1. / output['swing']) * 1000
-    	plt.scatter(output['dem'], sizes, s=100, alpha=.4, c=self.states['color'])
-    	plt.title('Swing States')
-    	plt.xlabel('Sims Won Dem')
-    	plt.ylabel('Variability')
-    	plt.show()
+    	if plots_on:
+            sizes = (1. / output['swing']) * 1000
+            plt.scatter(output['dem'], sizes, s=100, alpha=.4, c=self.states['color'])
+            plt.title('Swing States')
+            plt.xlabel('Sims Won Dem')
+            plt.ylabel('Variability')
+            plt.show()
 
 if __name__ == '__main__':
 	featurizer = Featurize()
@@ -255,9 +264,9 @@ if __name__ == '__main__':
 
 	# Activate these lines to set the republican effect equal to the democtratic effect
 	model = sm.GLSAR(y_obama, X_obama, rho=1).iterative_fit(1)
-	# [one_coef, two_coef, int_coef] = model.params[-3:]
-	# [one_std, two_std, int_std] = model.bse[-3:]
-	# rep.set_params(one_coef, two_coef, -int_coef, one_std, two_std, int_std)
+	[one_coef, two_coef, int_coef] = model.params[-3:]
+	[one_std, two_std, int_std] = model.bse[-3:]
+	rep.set_params(one_coef, two_coef, -int_coef, one_std, two_std, int_std)
 
 	electoral = featurizer.get_electoral_df()
 

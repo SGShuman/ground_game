@@ -156,7 +156,9 @@ def get_candidate(candidate, text):
 
 # Get 2012 election results and make a DataFrame
 def get_2012_election_results(path='data/raw_data/election-2012-results/data'):
-	'''Return the 2012 election_results as a DataFrame'''
+	'''Return the 2012 election_results as a DataFrame
+
+	https://github.com/huffpostdata/election-2012-results'''
 	files = os.listdir(path)
 	files.remove('ma_towns.csv')
 	files.remove('ri_towns.csv')
@@ -180,14 +182,15 @@ def get_2012_election_results(path='data/raw_data/election-2012-results/data'):
 	return df
 
 def get_2008_election_results(path='data/raw_data/vote08_by_county.xls'):
-	'''Return a DataFrame contain the 08 election results'''
+	'''Return a DataFrame contain the 08 election results
+
+	'''
 	df = pd.read_excel(path)
 	df['FIPS'] = df['FIPS'].astype(float).astype(str)
 	df['st_num'] = df['FIPS'].apply(get_st)
 	df['county_num'] = df['FIPS'].apply(get_county)
 	df.dropna(inplace=True)
 	return df
-
 
 def strip_period(county):
 	'''Strip a period from a county
