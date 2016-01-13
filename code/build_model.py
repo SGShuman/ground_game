@@ -186,6 +186,7 @@ def plot_resids(fit_model, y):
 
 
 def plot_box_resids(fit_model, y_pred, subset=None):
+    '''More than you ever wanted to know about your residuals'''
     s_resid = (fit_model.resid - np.mean(fit_model.resid)) /
                np.var(fit_model.resid)
     if subset:
