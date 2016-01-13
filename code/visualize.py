@@ -356,5 +356,6 @@ if __name__ == '__main__':
 	# States by County Effect
 	state_list = ['NH', 'OH', 'FL', 'NC', 'VA', 'CA', 'MO', 'IN']
 	states, population_perc, colors, size_effect = inlfu_counties_vars(dem, rep, state_inc_dem, obama_df, county_win_dict, state_win_dict, state_list, red, blue)
+	print 'Trying to Plot The Hard One'
 	influ_counties_plot(states, population_perc, colors, size_effect, 'NH has one very influential county')
 

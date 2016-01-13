@@ -47,7 +47,7 @@ Campaign expenditures [13] in a county summed over all monthly finance reports a
 #### Office Data and Interaction
 I obtained the locations of each of the 786 Obama offices and 284 Romney offices [2] from John Sides who generously sent me a well formatted file.  Obama placed anywhere from 1 to 21 offices in a county (with by far most having one office), so I used the presence of 1 office or 2+ offices as dummy variables as well as interacting the Cook score with a boolean variable indicating the presence of an office.  Thus offices have three layers of importance: their presence, their quantity, and their interaction with the Cook score.  In the end, counties with larger Cook scores (indicating more partisan historical voting) had a larger effect from office placement.
 
-I won't include a map here, but please refer to <a href='http://blogs.lse.ac.uk/usappblog/2014/05/12/when-placed-strategically-campaign-field-offices-can-be-very-important-in-turning-battleground-states-during-presidential-elections/'> Joshua Darr's and Matthew Levendusky's maps </a> for additional clarity [15] on office placement.
+I won't include a map here, but please refer to <a href='http://blogs.lse.ac.uk/usappblog/2014/05/12/when-placed-strategically-campaign-field-offices-can-be-very-important-in-turning-battleground-states-during-presidential-elections/'> Joshua Darr's and Matthew Levendusky's maps </a> for additional clarity [3] on office placement.
 
 ### Linear Model Results
 As found in previous papers, Democratic and Republican field offices offer starkly different in results.  While a field office placed by Democrats offers the chance for an increase in votes, Republican field offices have no statistical effect.  Obama's offices in my model were responsible for about 2.0M votes.
@@ -103,32 +103,56 @@ But much can change between now and election day. Some states may have smaller p
 
 
 #### References
-[1] http://www.mischiefsoffaction.com/2013/01/the-ground-game-in-2012.html
+[1] The Ground Game in 2012, Seth Masket. Mischiefs of Faction
 
-[2] http://themonkeycage.org/2013/05/how-much-did-the-2012-air-war-and-ground-game-matter/
+http://www.mischiefsoffaction.com/2013/01/the-ground-game-in-2012.html
 
-[3] http://www.personal.psu.edu/ljk20/GroundGame.pdf
+[2] How Much Did the 2012 Air War and Ground Game Matter?, John Sides. The Monkey Cage
 
-[4] http://poq.oxfordjournals.org/content/73/5/1023.full
+http://themonkeycage.org/2013/05/how-much-did-the-2012-air-war-and-ground-game-matter/
 
-[5] http://www.acweinschenk.net/uploads/1/7/3/6/17361647/psq12213.pdf
+[3] Relying on the Ground Game: The Placement and Effect of Campaign Field Offices, Joshua P. Darr, Matthew S. Levendusky. American Politics Research May 2014 vol. 42 no. 3 529-548
+
+http://apr.sagepub.com/content/42/3/529
+
+[4] Did Obama's Ground Game Matter?, Seth E. Masket. Public Opin Q (2009) 73 (5): 1023-1039.
+
+http://poq.oxfordjournals.org/content/73/5/1023.full
+
+[5] Campaign Field Offices and Voter Mobilization in 2012, Aaron C. Weinschenk. Presidential Studies Quarterly 45, no. 3 (September)
+
+http://www.acweinschenk.net/uploads/1/7/3/6/17361647/psq12213.pdf
 
 [6] http://static1.1.sqspcdn.com/static/f/864938/25350207/1408716516677/Allen+et+al.+APSA+2014.pdf?token=8SQWbYH63TzRnaVXi9JXF1mWlTY%3D
 
-[7] http://www.ers.usda.gov/data-products/county-level-data-sets.aspx
+[7] United States Department of Agriculture Economic Research Service
 
-[8] http://www.thearda.com/Archive/Files/Downloads/RCMSCY10_DL2.asp
+http://www.ers.usda.gov/data-products/county-level-data-sets.aspx
 
-[9] http://bipartisanpolicy.org/library/2012-voter-turnout/
+[8] Association of Relgion Data Archives
 
-[10] http://cookpolitical.com/house/pvi
+http://www.thearda.com/Archive/Files/Downloads/RCMSCY10_DL2.asp
 
-[11] https://github.com/huffpostdata/election-2012-results
+[9] Bipartisan Policy Center, 2012 Voter Turnout Report.
 
-[12] https://www.udel.edu/johnmack/frec682/red_state_blue_state/
+http://bipartisanpolicy.org/library/2012-voter-turnout/
 
-[13] http://www.fec.gov/finance/disclosure/ftpdet.shtml#a2011_2012
+[10] Cook Partisan Voting Index (Self Calculated)
 
-[14] https://sunlightfoundation.com/blog/2013/10/23/political-influence-by-county-a-new-way-to-look-at-campaign-finance-data/
+https://en.wikipedia.org/wiki/Cook_Partisan_Voting_Index
 
-[15] http://blogs.lse.ac.uk/usappblog/2014/05/12/when-placed-strategically-campaign-field-offices-can-be-very-important-in-turning-battleground-states-during-presidential-elections/
+[11] HuffPostData Election 2012 Results, Aaron Bycoffe, Jay Boice.
+
+https://github.com/huffpostdata/election-2012-results
+
+[12] Homework Data Set, John Mackenzie.
+
+https://www.udel.edu/johnmack/frec682/red_state_blue_state/
+
+[13] Federal Election Commission: Detailed Files About Candidates, Parties and Other Committees
+
+http://www.fec.gov/finance/disclosure/ftpdet.shtml#a2011_2012
+
+[14] Political influence by county: A new way to look at campaign finance data, Ryan Sibley, Bob Lannon, Ben Chartoff. Sunlight Foundation Blog
+
+https://sunlightfoundation.com/blog/2013/10/23/political-influence-by-county-a-new-way-to-look-at-campaign-finance-data/
