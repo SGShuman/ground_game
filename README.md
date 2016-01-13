@@ -107,58 +107,44 @@ But much can change between now and election day. Some states may have smaller p
 
 
 #### References
-[1] The Ground Game in 2012, Seth Masket. Mischiefs of Faction
-
+[1] The Ground Game in 2012, Seth Masket. Mischiefs of Faction  
 http://www.mischiefsoffaction.com/2013/01/the-ground-game-in-2012.html
 
-[2] How Much Did the 2012 Air War and Ground Game Matter?, John Sides. The Monkey Cage
-
+[2] How Much Did the 2012 Air War and Ground Game Matter?, John Sides. The Monkey Cage  
 http://themonkeycage.org/2013/05/how-much-did-the-2012-air-war-and-ground-game-matter/
 
-[3] Relying on the Ground Game: The Placement and Effect of Campaign Field Offices, Joshua P. Darr, Matthew S. Levendusky. American Politics Research May 2014 vol. 42 no. 3 529-548
-
+[3] Relying on the Ground Game: The Placement and Effect of Campaign Field Offices, Joshua P. Darr, Matthew S. Levendusky. American Politics Research May 2014 vol. 42 no. 3 529-548  
 http://apr.sagepub.com/content/42/3/529
 
-[4] Did Obama's Ground Game Matter?, Seth E. Masket. Public Opin Q (2009) 73 (5): 1023-1039.
-
+[4] Did Obama's Ground Game Matter?, Seth E. Masket. Public Opin Q (2009) 73 (5): 1023-1039.  
 http://poq.oxfordjournals.org/content/73/5/1023.full
 
-[5] Campaign Field Offices and Voter Mobilization in 2012, Aaron C. Weinschenk. Presidential Studies Quarterly 45, no. 3 (September)
-
+[5] Campaign Field Offices and Voter Mobilization in 2012, Aaron C. Weinschenk. Presidential Studies Quarterly 45, no. 3 (September)  
 http://www.acweinschenk.net/uploads/1/7/3/6/17361647/psq12213.pdf
 
-[6] Office Space: A Geo-Spatial Analysis of the Effects of Field Offices on Voter Turnout, Seth Masket et al. American Political Science Association, August 28-31, 2014, Washington, D.C.
-
+[6] Office Space: A Geo-Spatial Analysis of the Effects of Field Offices on Voter Turnout, Seth Masket et al. American Political Science Association, August 28-31, 2014, Washington, D.C.  
 http://static1.1.sqspcdn.com/static/f/864938/25350207/1408716516677/Allen+et+al.+APSA+2014.pdf?token=8SQWbYH63TzRnaVXi9JXF1mWlTY%3D
 
-[7] United States Department of Agriculture Economic Research Service
-
+[7] United States Department of Agriculture Economic Research Service  
 http://www.ers.usda.gov/data-products/county-level-data-sets.aspx
 
-[8] Association of Relgion Data Archives
-
+[8] Association of Relgion Data Archives  
 http://www.thearda.com/Archive/Files/Downloads/RCMSCY10_DL2.asp
 
-[9] Bipartisan Policy Center, 2012 Voter Turnout Report.
-
+[9] Bipartisan Policy Center, 2012 Voter Turnout Report.  
 http://bipartisanpolicy.org/library/2012-voter-turnout/
 
-[10] Cook Partisan Voting Index (Self Calculated)
-
+[10] Cook Partisan Voting Index (Self Calculated)  
 https://en.wikipedia.org/wiki/Cook_Partisan_Voting_Index
 
-[11] HuffPostData Election 2012 Results, Aaron Bycoffe, Jay Boice.
-
+[11] HuffPostData Election 2012 Results, Aaron Bycoffe, Jay Boice.  
 https://github.com/huffpostdata/election-2012-results
 
-[12] Homework Data Set, John Mackenzie.
-
+[12] Homework Data Set, John Mackenzie.  
 https://www.udel.edu/johnmack/frec682/red_state_blue_state/
 
-[13] Federal Election Commission: Detailed Files About Candidates, Parties and Other Committees
-
+[13] Federal Election Commission: Detailed Files About Candidates, Parties and Other Committees  
 http://www.fec.gov/finance/disclosure/ftpdet.shtml#a2011_2012
 
-[14] Political influence by county: A new way to look at campaign finance data, Ryan Sibley, Bob Lannon, Ben Chartoff. Sunlight Foundation Blog
-
+[14] Political influence by county: A new way to look at campaign finance data, Ryan Sibley, Bob Lannon, Ben Chartoff. Sunlight Foundation Blog  
 https://sunlightfoundation.com/blog/2013/10/23/political-influence-by-county-a-new-way-to-look-at-campaign-finance-data/
