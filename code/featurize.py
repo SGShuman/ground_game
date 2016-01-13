@@ -20,7 +20,7 @@ class Featurize(object):
 		files = os.listdir(path)
 		# Initialize the DataFrame
 		init = files.pop()
-		df = pd.read_csv(path + '/' + init)
+		df = pd.read_csv(path + '/' + init, low_memory=False)
 		df.drop('Unnamed: 0', axis=1, inplace=True)
 
 		# Append unique columns to the inital data frame
