@@ -39,7 +39,7 @@ The Cook score [10], which here I calucated on a county basis although it is typ
 </div>
 
 
-Interestingly the cook score is not entirely predictive of the results (see the big block of historically Democratic counties in the red), but does provide an interesting look at which party has more counties on the extreme and overall.
+Interestingly the cook score is not entirely predictive of the results (see the big block of historically Republican counties in the blue), but does provide an interesting look at which party has more counties on the extreme and overall.
 
 #### Campaign Expenditures and Donations
 Campaign expenditures [13] in a county summed over all monthly finance reports available offers some predictive power but donations [14] weren't statistically significant in the result and so are not included in the model.
