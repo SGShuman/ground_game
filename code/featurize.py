@@ -1,13 +1,13 @@
 import pandas as pd
 import numpy as np
-import cPickle as pkl
 from sklearn.decomposition import NMF
 from sklearn.preprocessing import normalize
 import os
 import matplotlib.pyplot as plt
 import us
+from load_data import get_st, get_county,
+                      get_2008_election_results, get_2012_election_results
 
-from load_data import get_st, get_county, get_2008_election_results, get_2012_election_results
 
 class Featurize(object):
 	'''Feature engineering made easy'''
@@ -26,7 +26,7 @@ class Featurize(object):
 		# Append unique columns to the inital data frame
 		for f in files:
 			temp = pd.read_csv(path + '/' + f, low_memory=False)
-			temp.drop(['Unnamed: 0', 'NAME', 'state', 'county'], 
+			temp.drop(['Unnamed: 0', 'NAME', 'state', 'county'],
 				      axis=1, inplace=True)
 			df = pd.concat([df, temp], axis=1, join_axes=[df.index])
 
@@ -62,7 +62,8 @@ class Featurize(object):
 		elif 'city,' in count:
 			idx = count.index('city,') + 1
 		# Some don't end in either, so this assumes the state is one word
-		else: idx = len(count) -2
+		else:
+			idx = len(count) - 2
 		# Take the words from name that are probably county related
 		count = count[:idx]
 		output = ''
@@ -84,22 +85,25 @@ class Featurize(object):
 		df = pd.read_stata(path)
 		id_df = df[['stcode', 'cntycode']].copy()
 		id_df.columns = ['st_num', 'county_num']
-		cols = [x for x in df.columns if 'rate' in x] #only take percentage cols
+		cols = [x for x in df.columns if 'rate' in x]  # only take percentage cols
 		nmf_data = df[cols].fillna(0)
 		model = NMF(n_components=k).fit(nmf_data)
 		features = model.transform(nmf_data)
 		nmf_feats = pd.DataFrame(features)
 		# Name columns for interperatibility
-		nmf_feats.columns = ['relig_nmf_feat_' + str(x) for x in list(nmf_feats.columns)]
+		nmf_feats.columns = ['relig_nmf_feat_' + str(x) 
+		                     for x in list(nmf_feats.columns)]
 		# Join the NMF. k = number of topics / cols to add
 		output = id_df.join(nmf_feats)
 
 		return output
 
-	def load_demo(self, path='data/summary_census', profile_path='data/profile_census/census_data_profile.csv', k=5):
-		'''Return nmf features from demographic census data, both Summary and Profile'''
+	def load_demo(self, path='data/summary_census',
+		          profile_path='data/profile_census/census_data_profile.csv', k=5):
+		'''Return nmf features from demographic data, both Summary and Profile'''
 		df = self.load_summary_cols(path)
-		df = df.join(pd.read_csv(profile_path, low_memory=False).drop(['NAME', 'state', 'county'], axis=1))
+		df = df.join(pd.read_csv(profile_path, low_memory=False)
+			   .drop(['NAME', 'state', 'county'], axis=1))
 		id_df = df[['state', 'county']].copy()
 		id_df.columns = ['st_num', 'county_num']
 		df = df.drop(['state', 'county'], axis=1)
@@ -107,12 +111,13 @@ class Featurize(object):
 		# Only take columns that are integers
 		cols = df.columns[df.dtypes != object]
 		nmf_data = df[cols].fillna(0)
-		nmf_data = normalize(nmf_data, norm='l1', axis=0) # preprocessing
+		nmf_data = normalize(nmf_data, norm='l1', axis=0)  # preprocessing
 		model = NMF(n_components=k).fit(nmf_data)
 		features = model.transform(nmf_data)
 		nmf_feats = pd.DataFrame(features)
 		# Name columns for interperatibility
-		nmf_feats.columns = ['demo_nmf_feat_' + str(x) for x in list(nmf_feats.columns)]
+		nmf_feats.columns = ['demo_nmf_feat_' + str(x)
+		                     for x in list(nmf_feats.columns)]
 		# Join the NMF. k = number of topics / cols to add
 		output = id_df.join(nmf_feats)
 
@@ -122,9 +127,9 @@ class Featurize(object):
 		'''Return a DataFrame of education features'''
 		# http://www.ers.usda.gov/data-products/county-level-data-sets.aspx
 		df = pd.read_excel(fname, header=2)
-		df.drop(0, inplace=True) # Drop the summary row
+		df.drop(0, inplace=True)  # Drop the summary row
 		# Get FIPS code in the same format as other documents
-		df['FIPS Code'] = df['FIPS Code'].astype(float).astype(str) 
+		df['FIPS Code'] = df['FIPS Code'].astype(float).astype(str)
 		df['st_num'] = df['FIPS Code'].apply(get_st)
 		df['county_num'] = df['FIPS Code'].apply(get_county)
 		return df
@@ -133,7 +138,7 @@ class Featurize(object):
 		'''Return a DataFrame of unemployment features'''
 		df = pd.read_excel(fname, header=6)
 		# Get FIPS code in the same format as other documents
-		df['FIPS_Code'] = df['FIPS_Code'].astype(float).astype(str) 
+		df['FIPS_Code'] = df['FIPS_Code'].astype(float).astype(str)
 		df['st_num'] = df['FIPS_Code'].apply(get_st)
 		df['county_num'] = df['FIPS_Code'].apply(get_county)
 		return df
@@ -141,10 +146,10 @@ class Featurize(object):
 	def load_poverty(self, fname='data/county_data/PovertyEstimates.xls'):
 		''' Return a DataFrame of poverty features'''
 		df = pd.read_excel(fname, header=2)
-		df.drop(0, inplace=True) # Drop the summary row
+		df.drop(0, inplace=True)  # Drop the summary row
 		# Get FIPS code in the same format as other documents
-		df = df[df['Area_Name'] != 'Kalawao County'] # No data
-		df['FIPStxt'] = df['FIPStxt'].astype(float).astype(str) 
+		df = df[df['Area_Name'] != 'Kalawao County']  # No data
+		df['FIPStxt'] = df['FIPStxt'].astype(float).astype(str)
 		df['st_num'] = df['FIPStxt'].apply(get_st)
 		df['county_num'] = df['FIPStxt'].apply(get_county)
 		return df
@@ -155,7 +160,7 @@ class Featurize(object):
 			df[feat] = pd.to_numeric(df[feat], errors='coerce')
 		grouped = df.groupby(col).max().fillna(0)
 		grouped[col] = grouped.index.copy()
-		df_merged = pd.merge(df, grouped, on=col, suffixes=('','_st_avg'))
+		df_merged = pd.merge(df, grouped, on=col, suffixes=('', '_st_avg'))
 		for feat in cols:
 			if df[feat].dtype != 'object':
 				df[feat] = df[feat] / df_merged[feat + '_st_avg']
@@ -193,10 +198,11 @@ class Featurize(object):
 	def load_offices(self, fname, suffix='dem'):
 		'''Load data on organizing offices by county'''
 		df = pd.read_csv(fname, "|")
-		df['county_stripped'] = df['County'].apply(lambda x: x.strip('"').replace('.', ''))
-		
+		df['county_stripped'] = df['County'].apply(lambda x: 
+			                                x.strip('"').replace('.', ''))
+
 		df['county_id'] = df['State'] + '_' + df['county_stripped']
-		output = df[['county_id','County']].groupby('county_id').count()
+		output = df[['county_id', 'County']].groupby('county_id').count()
 		output.columns = ['Num_offices_' + suffix]
 		return output
 
@@ -208,14 +214,17 @@ class Featurize(object):
 
 	def load_donations(self, path='data/political_influence_by_county_20131023.csv'):
 		'''Return a DataFrame of donations by county'''
-		#https://sunlightfoundation.com/blog/2013/10/23/political-influence-by-county-a-new-way-to-look-at-campaign-finance-data/
+		# https://sunlightfoundation.com/blog/2013/10/23/
+		# political-influence-by-county-a-new-way-to-look-at-campaign-finance-data/
 		df = pd.read_csv(path)
 		df = df[df['cycle'] == 2012]
-		df = df[['state_code', 'county_code', 'dem_prez_amount', 'rep_prez_amount', 'diff_rep-dem_percent', 'est_population']]
+		df = df[['state_code', 'county_code', 'dem_prez_amount',
+		         'rep_prez_amount', 'diff_rep-dem_percent', 'est_population']]
 		df['dem_prez_amount'] /= df['est_population']
 		df['rep_prez_amount'] /= df['est_population']
 		df.drop('est_population', axis=1, inplace=True)
-		df.columns = ['st_num', 'county_num', 'dem_prez_amount', 'rep_prez_amount', 'Rep Cont % - Dem Cont %']
+		df.columns = ['st_num', 'county_num', 'dem_prez_amount',
+		              'rep_prez_amount', 'Rep Cont % - Dem Cont %']
 		return df
 
 	def load_expenditures(self, path='data/expenditures_cleaned.csv'):
@@ -228,42 +237,53 @@ class Featurize(object):
 		df.columns = ['state_abbr', 'expenditure']
 		return df
 
-	def calc_cook(self, path12='data/election_2012_cleaned.csv', path08='data/raw_data/vote08_by_county.xls'):
+	def calc_cook(self, path12='data/election_2012_cleaned.csv',
+		                path08='data/raw_data/vote08_by_county.xls'):
 		'''https://en.wikipedia.org/wiki/Cook_Partisan_Voting_Index
 
 		Calculate the cook score based on the description in the link
-		Typically at state or congressional district level, here calculated for county'''
+		Typically at state or congressional district, here calculated for county'''
 		df_08 = get_2008_election_results(path08)
 		df_12 = pd.read_csv(path12)
 
-		df_08['vote_share_08'] = df_08['OBAMA'] / (df_08['OBAMA'] + df_08['MCCAIN']).astype(float)
-		
+		df_08['vote_share_08'] = df_08['OBAMA'] /\
+		                        (df_08['OBAMA'] + df_08['MCCAIN']).astype(float)
+
 		dem_mask = df_12['dem'] == 1
 		rep_mask = df_12['rep'] == 1
-		
+
+		id_cols = ['votes', 'st_num', 'county_num']
 		# Get Democratic Votes
-		df_merged = pd.merge(df_08, df_12[dem_mask][['votes', 'st_num', 'county_num']], on=['st_num', 'county_num'], how='left')
+		df_merged = pd.merge(df_08, df_12[dem_mask][id_cols],
+			                 on=['st_num', 'county_num'], how='left')
 		new_cols = list(df_merged.columns)
 		new_cols[-1] = 'votes_dem_12'
 		df_merged.columns = new_cols
 
 		# Get Republican Votes
-		df_merged = pd.merge(df_merged, df_12[rep_mask][['votes', 'st_num', 'county_num']], on=['st_num', 'county_num'], how='left')
+		df_merged = pd.merge(df_merged, df_12[rep_mask][id_cols],
+			                 on=['st_num', 'county_num'], how='left')
 		new_cols = list(df_merged.columns)
 		new_cols[-1] = 'votes_rep_12'
 		df_merged.columns = new_cols
 
-		df_merged['vote_share_12'] = df_merged['votes_dem_12'] / (df_merged['votes_dem_12'] + df_merged['votes_rep_12']).astype(float)
+		df_merged['vote_share_12'] = df_merged['votes_dem_12'] /
+		(df_merged['votes_dem_12'] + df_merged['votes_rep_12']).astype(float)
 
-		av_08 = df_08['OBAMA'].sum() / float(df_08['OBAMA'].sum() + df_08['MCCAIN'].sum())
-		av_12 = df_12[dem_mask]['votes'].sum() / float(df_12[dem_mask]['votes'].sum() + df_12[rep_mask]['votes'].sum())
+		av_08 = df_08['OBAMA'].sum() /
+		float(df_08['OBAMA'].sum() + df_08['MCCAIN'].sum())
+
+		av_12 = df_12[dem_mask]['votes'].sum() /
+		float(df_12[dem_mask]['votes'].sum() + df_12[rep_mask]['votes'].sum())
 
 		av_overall = (av_08 + av_12) / 2.
 
-		df_merged['avg_vote_share'] = (df_merged['vote_share_08'] + df_merged['vote_share_12']) / 2.
+		df_merged['avg_vote_share'] = (df_merged['vote_share_08'] +
+			                           df_merged['vote_share_12']) / 2.
 		df_merged['cook_score'] = df_merged['avg_vote_share'] - av_overall
-		df_merged['delta_vote_share'] = df_merged['vote_share_12'] - df_merged['vote_share_08']
+		df_merged['delta_vote_share'] = df_merged['vote_share_12'] -
+		                                df_merged['vote_share_08']
 
 		# More positive means more democratic bias
-		return df_merged[['st_num', 'county_num', 'cook_score', 'delta_vote_share', 'vote_share_12']]
-
+		return df_merged[['st_num', 'county_num', 'cook_score',
+		                  'delta_vote_share', 'vote_share_12']]
