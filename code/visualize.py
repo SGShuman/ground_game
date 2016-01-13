@@ -235,7 +235,16 @@ def get_close_calls(state_obama_df, state_romney_df, state_inc_dem, state_inc_re
 
 def inlfu_counties_vars(dem_strat, rep_strat, state_inc_dem, obama_df, county_win_dict, state_win_dict, state_list, red, blue):
 	mask = obama_df['state_abbr'].isin(state_list)
-	obama_df = obama_df[mask].copy()
+	temp_df = obama_df[mask].copy()
+	
+	df_list = []
+	for x in state_list:
+		mask = temp_df['state_abbr'] == x
+		temp = temp_df[mask].sort_values('CVAP_EST', ascending=False).head()
+		df_list.append(temp)
+
+	obama_df = pd.concat(df_list)
+
 	states = obama_df['state_abbr'].values
 
 	state_pop = state_inc_dem['CVAP_EST'].to_dict()
@@ -280,14 +289,15 @@ def influ_counties_plot(states, population_perc, colors, size_effect, text, titl
 	    text = text,
 	    marker=dict(
 	        color=colors,
-	        size=size_effect * 1000
+	        size=size_effect * 1000,
+	        opacity=.8
 	    )
 	)
 	data = [trace0]
 	layout = go.Layout(
 	    title=title,
 	    xaxis=dict(
-	        title='State',
+	        title='State with Top 5 Counties by Voting Age Pop',
 	        titlefont=dict(
 	            family='Courier New, monospace',
 	            size=18,
@@ -301,7 +311,19 @@ def influ_counties_plot(states, population_perc, colors, size_effect, text, titl
 	            size=18,
 	            color='#7f7f7f'
 	        )
-	    )
+	    ),
+	    annotations=[
+        dict(
+            x='NH',
+            y=.29229539372092217,
+            xref='x',
+            yref='y',
+            text='Hillsborough County',
+            showarrow=True,
+            arrowhead=7,
+            ax=0,
+            ay=-40
+        )]
 	)
 	fig = go.Figure(data=data, layout=layout)
 	plot_url = py.plot(fig, filename=title)
@@ -365,7 +387,7 @@ if __name__ == '__main__':
 
 	# Vertical split Bar Plot
 	state_inc_dem, state_inc_rep = split_bar_vars(dem, rep)
-	split_bar_plot(state_inc_dem, state_inc_rep, 'Average Percent Vote Increase by State', red, blue)
+	# split_bar_plot(state_inc_dem, state_inc_rep, 'Average Percent Vote Increase by State', red, blue)
 
 	# Swing State Bubble - Naive
 	state_obama_df, state_romney_df, color, close_calls, voting_pop, size, text = swing_state_bubble_vars(obama_df, romney_df, electoral_dict, red, blue, thresh=.05)
@@ -378,6 +400,5 @@ if __name__ == '__main__':
 	# States by County Effect
 	state_list = ['NH', 'OH', 'FL', 'NC', 'VA', 'CA', 'MO', 'IN']
 	states, population_perc, colors, size_effect, text = inlfu_counties_vars(dem, rep, state_inc_dem, obama_df, county_win_dict, state_win_dict, state_list, red, blue)
-	print 'Trying to Plot The Hard One'
-	# influ_counties_plot(states, population_perc, colors, size_effect, text, 'NH has one very influential county')
+	influ_counties_plot(states, population_perc, colors, size_effect, text, 'Top 5 Counties by Population')
 

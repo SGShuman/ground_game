@@ -59,8 +59,6 @@ With the results of the linear model able to offer a statistical range of effect
 
 First the simulation calculates the number of votes per county without any field office placement.  Then the simulation places a limited number of field offices in counties, weighted by how close an election it was in the state the county is located.  Once the offices are placed, the vote increase is drawn from a normal distribution based off the coefficients and standard errors from the linear model.
 
- might want error bars
-
 <div>
     <a href="https://plot.ly/~SGShuman/53/" target="_blank" title="Average Percent Vote Increase by State" style="display: block; text-align: center;"><img src="https://plot.ly/~SGShuman/53.png" alt="Average Percent Vote Increase by State" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
     <script data-plotly="SGShuman:53"  src="https://plot.ly/embed.js" async></script>
