@@ -85,7 +85,7 @@
     
 </div>
 
-<p>Interestingly the cook score is not entirely predictive of the results (see the big block of historically Democratic counties in the red), but does provide an interesting look at which party has more counties on the extreme and overall.</p>
+<p>Interestingly the cook score is not entirely predictive of the results (see the big block of historically Republican counties in the blue), but does provide an interesting look at which party has more counties on the extreme and overall.</p>
 
 <h4>
 <a id="campaign-expenditures-and-donations" class="anchor" href="#campaign-expenditures-and-donations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Campaign Expenditures and Donations</h4>
@@ -97,7 +97,7 @@
 
 <p>I obtained the locations of each of the 786 Obama offices and 284 Romney offices [2] from John Sides who generously sent me a well formatted file.  Obama placed anywhere from 1 to 21 offices in a county (with by far most having one office), so I used the presence of 1 office or 2+ offices as dummy variables as well as interacting the Cook score with a boolean variable indicating the presence of an office.  Thus offices have three layers of importance: their presence, their quantity, and their interaction with the Cook score.  In the end, counties with larger Cook scores (indicating more partisan historical voting) had a larger effect from office placement.</p>
 
-<p>I won't include a map here, but please refer to <a href="http://blogs.lse.ac.uk/usappblog/2014/05/12/when-placed-strategically-campaign-field-offices-can-be-very-important-in-turning-battleground-states-during-presidential-elections/"> Joshua Darr's and Matthew Levendusky's maps </a> for additional clarity [15] on office placement.</p>
+<p>I won't include a map here, but please refer to <a href="http://blogs.lse.ac.uk/usappblog/2014/05/12/when-placed-strategically-campaign-field-offices-can-be-very-important-in-turning-battleground-states-during-presidential-elections/"> Joshua Darr's and Matthew Levendusky's maps </a> for additional clarity [3] on office placement.</p>
 
 <h3>
 <a id="linear-model-results" class="anchor" href="#linear-model-results" aria-hidden="true"><span class="octicon octicon-link"></span></a>Linear Model Results</h3>
@@ -147,9 +147,14 @@
 
 <p>So, what is going on?  Why is New Hampshire, with all 4 of its electoral votes the key battleground for political strategy.</p>
 
-<p>The answer is that in order to flip a state, one county must contain an appreciable percentage of the total state voting population and there must be relatively few counties so that the effect is not negated by random fluctuations in other counties.  When this is the case in New Hampshire some counties have a randomly small effect (possible with only 4 counties) and Sullivan County (maybe need to check) has a strong effect, enough to turn the whole state.</p>
+<p>The answer is that in order to flip a state, one county must contain an appreciable percentage of the total state voting population and there must be relatively few counties so that the effect is not negated by random fluctuations in other counties.  When this is the case in New Hampshire some counties have a randomly small effect (possible with only 4 counties) and Hillborough County has a randomly strong effect, enough to turn the whole state.  In Callifornia, this isn't possible despite Los Angeles being so important in terms of population.</p>
 
 <p>The visualization below shows this.</p>
+
+<div>
+    <a href="https://plot.ly/~SGShuman/61/" target="_blank" title="NH has one very influential county"><img src="https://plot.ly/~SGShuman/61.png" alt="NH has one very influential county" width="600"></a>
+    
+</div>
 
 <h4>
 <a id="the-ideal-strategy" class="anchor" href="#the-ideal-strategy" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Ideal Strategy</h4>
@@ -163,35 +168,59 @@
 <h4>
 <a id="references" class="anchor" href="#references" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h4>
 
-<p>[1] <a href="http://www.mischiefsoffaction.com/2013/01/the-ground-game-in-2012.html">http://www.mischiefsoffaction.com/2013/01/the-ground-game-in-2012.html</a></p>
+<p>[1] The Ground Game in 2012, Seth Masket. Mischiefs of Faction</p>
 
-<p>[2] <a href="http://themonkeycage.org/2013/05/how-much-did-the-2012-air-war-and-ground-game-matter/">http://themonkeycage.org/2013/05/how-much-did-the-2012-air-war-and-ground-game-matter/</a></p>
+<p><a href="http://www.mischiefsoffaction.com/2013/01/the-ground-game-in-2012.html">http://www.mischiefsoffaction.com/2013/01/the-ground-game-in-2012.html</a></p>
 
-<p>[3] <a href="http://www.personal.psu.edu/ljk20/GroundGame.pdf">http://www.personal.psu.edu/ljk20/GroundGame.pdf</a></p>
+<p>[2] How Much Did the 2012 Air War and Ground Game Matter?, John Sides. The Monkey Cage</p>
 
-<p>[4] <a href="http://poq.oxfordjournals.org/content/73/5/1023.full">http://poq.oxfordjournals.org/content/73/5/1023.full</a></p>
+<p><a href="http://themonkeycage.org/2013/05/how-much-did-the-2012-air-war-and-ground-game-matter/">http://themonkeycage.org/2013/05/how-much-did-the-2012-air-war-and-ground-game-matter/</a></p>
 
-<p>[5] <a href="http://www.acweinschenk.net/uploads/1/7/3/6/17361647/psq12213.pdf">http://www.acweinschenk.net/uploads/1/7/3/6/17361647/psq12213.pdf</a></p>
+<p>[3] Relying on the Ground Game: The Placement and Effect of Campaign Field Offices, Joshua P. Darr, Matthew S. Levendusky. American Politics Research May 2014 vol. 42 no. 3 529-548</p>
+
+<p><a href="http://apr.sagepub.com/content/42/3/529">http://apr.sagepub.com/content/42/3/529</a></p>
+
+<p>[4] Did Obama's Ground Game Matter?, Seth E. Masket. Public Opin Q (2009) 73 (5): 1023-1039.</p>
+
+<p><a href="http://poq.oxfordjournals.org/content/73/5/1023.full">http://poq.oxfordjournals.org/content/73/5/1023.full</a></p>
+
+<p>[5] Campaign Field Offices and Voter Mobilization in 2012, Aaron C. Weinschenk. Presidential Studies Quarterly 45, no. 3 (September)</p>
+
+<p><a href="http://www.acweinschenk.net/uploads/1/7/3/6/17361647/psq12213.pdf">http://www.acweinschenk.net/uploads/1/7/3/6/17361647/psq12213.pdf</a></p>
 
 <p>[6] <a href="http://static1.1.sqspcdn.com/static/f/864938/25350207/1408716516677/Allen+et+al.+APSA+2014.pdf?token=8SQWbYH63TzRnaVXi9JXF1mWlTY%3D">http://static1.1.sqspcdn.com/static/f/864938/25350207/1408716516677/Allen+et+al.+APSA+2014.pdf?token=8SQWbYH63TzRnaVXi9JXF1mWlTY%3D</a></p>
 
-<p>[7] <a href="http://www.ers.usda.gov/data-products/county-level-data-sets.aspx">http://www.ers.usda.gov/data-products/county-level-data-sets.aspx</a></p>
+<p>[7] United States Department of Agriculture Economic Research Service</p>
 
-<p>[8] <a href="http://www.thearda.com/Archive/Files/Downloads/RCMSCY10_DL2.asp">http://www.thearda.com/Archive/Files/Downloads/RCMSCY10_DL2.asp</a></p>
+<p><a href="http://www.ers.usda.gov/data-products/county-level-data-sets.aspx">http://www.ers.usda.gov/data-products/county-level-data-sets.aspx</a></p>
 
-<p>[9] <a href="http://bipartisanpolicy.org/library/2012-voter-turnout/">http://bipartisanpolicy.org/library/2012-voter-turnout/</a></p>
+<p>[8] Association of Relgion Data Archives</p>
 
-<p>[10] <a href="http://cookpolitical.com/house/pvi">http://cookpolitical.com/house/pvi</a></p>
+<p><a href="http://www.thearda.com/Archive/Files/Downloads/RCMSCY10_DL2.asp">http://www.thearda.com/Archive/Files/Downloads/RCMSCY10_DL2.asp</a></p>
 
-<p>[11] <a href="https://github.com/huffpostdata/election-2012-results">https://github.com/huffpostdata/election-2012-results</a></p>
+<p>[9] Bipartisan Policy Center, 2012 Voter Turnout Report.</p>
 
-<p>[12] <a href="https://www.udel.edu/johnmack/frec682/red_state_blue_state/">https://www.udel.edu/johnmack/frec682/red_state_blue_state/</a></p>
+<p><a href="http://bipartisanpolicy.org/library/2012-voter-turnout/">http://bipartisanpolicy.org/library/2012-voter-turnout/</a></p>
 
-<p>[13] <a href="http://www.fec.gov/finance/disclosure/ftpdet.shtml#a2011_2012">http://www.fec.gov/finance/disclosure/ftpdet.shtml#a2011_2012</a></p>
+<p>[10] Cook Partisan Voting Index (Self Calculated)</p>
 
-<p>[14] <a href="https://sunlightfoundation.com/blog/2013/10/23/political-influence-by-county-a-new-way-to-look-at-campaign-finance-data/">https://sunlightfoundation.com/blog/2013/10/23/political-influence-by-county-a-new-way-to-look-at-campaign-finance-data/</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Cook_Partisan_Voting_Index">https://en.wikipedia.org/wiki/Cook_Partisan_Voting_Index</a></p>
 
-<p>[15] <a href="http://blogs.lse.ac.uk/usappblog/2014/05/12/when-placed-strategically-campaign-field-offices-can-be-very-important-in-turning-battleground-states-during-presidential-elections/">http://blogs.lse.ac.uk/usappblog/2014/05/12/when-placed-strategically-campaign-field-offices-can-be-very-important-in-turning-battleground-states-during-presidential-elections/</a></p>
+<p>[11] HuffPostData Election 2012 Results, Aaron Bycoffe, Jay Boice.</p>
+
+<p><a href="https://github.com/huffpostdata/election-2012-results">https://github.com/huffpostdata/election-2012-results</a></p>
+
+<p>[12] Homework Data Set, John Mackenzie.</p>
+
+<p><a href="https://www.udel.edu/johnmack/frec682/red_state_blue_state/">https://www.udel.edu/johnmack/frec682/red_state_blue_state/</a></p>
+
+<p>[13] Federal Election Commission: Detailed Files About Candidates, Parties and Other Committees</p>
+
+<p><a href="http://www.fec.gov/finance/disclosure/ftpdet.shtml#a2011_2012">http://www.fec.gov/finance/disclosure/ftpdet.shtml#a2011_2012</a></p>
+
+<p>[14] Political influence by county: A new way to look at campaign finance data, Ryan Sibley, Bob Lannon, Ben Chartoff. Sunlight Foundation Blog</p>
+
+<p><a href="https://sunlightfoundation.com/blog/2013/10/23/political-influence-by-county-a-new-way-to-look-at-campaign-finance-data/">https://sunlightfoundation.com/blog/2013/10/23/political-influence-by-county-a-new-way-to-look-at-campaign-finance-data/</a></p>
       </section>
     </div>
 
