@@ -226,7 +226,7 @@ class simulation(object):
     	self.states['color'] = self.states['dem'] > self.states['rep']
     	self.states['color'] = self.states['color'].apply(lambda x: 'b' if x else 'r')
     	output = self.states.drop(['AK', 'SD'], axis=0)
-    	print output.sort_values(by='swing').head(25)
+    	print output#.sort_values(by='color').head(50)
     	if plots_on:
             sizes = (1. / output['swing']) * 1000
             plt.scatter(output['dem'], sizes, s=100, alpha=.4, c=self.states['color'])
@@ -236,41 +236,46 @@ class simulation(object):
             plt.show()
 
 if __name__ == '__main__':
-	featurizer = Featurize()
-	print 'Loading Data...'
-	# 2013 ACS summary data
-	census_data = featurizer.load_summary_cols()
-	# 2012 Election Data
-	election_data = pd.read_csv('data/election_2012_cleaned.csv')
-	election_data.drop('Unnamed: 0', axis=1, inplace=True)
-	# 2013 Citizens of voting age by county
-	CVAP = featurizer.load_CVAP()
-	# Location of Field offices 2012
-	obama_offices = featurizer.load_offices('data/Obama_Office_Locations_Parsed_Cleaned.csv', suffix='dem')
-	romney_offices = featurizer.load_offices('data/Romney_Office_Locations_Parsed_Cleaned.csv', suffix='rep')
-	# Turnout by state
-	dem_turnout = featurizer.load_turnout('data/turnout/democratic_turnout.csv', prefix='dem')
-	rep_turnout = featurizer.load_turnout('data/turnout/republican_turnout.csv', prefix='rep')
+    featurizer = Featurize()
+    print 'Loading Data...'
+    # 2013 ACS summary data
+    census_data = featurizer.load_summary_cols()
+    # 2012 Election Data
+    election_data = pd.read_csv('data/election_2012_cleaned.csv')
+    election_data.drop('Unnamed: 0', axis=1, inplace=True)
+    # 2013 Citizens of voting age by county
+    CVAP = featurizer.load_CVAP()
+    # Location of Field offices 2012
+    obama_offices = featurizer.load_offices('data/Obama_Office_Locations_Parsed_Cleaned.csv', suffix='dem')
+    romney_offices = featurizer.load_offices('data/Romney_Office_Locations_Parsed_Cleaned.csv', suffix='rep')
+    # Turnout by state
+    dem_turnout = featurizer.load_turnout('data/turnout/democratic_turnout.csv', prefix='dem')
+    rep_turnout = featurizer.load_turnout('data/turnout/republican_turnout.csv', prefix='rep')
 
-	print 'Making df and fitting NMF...'
-	obama_df = make_joined_df(census_data, CVAP, dem_turnout, election_data, obama_offices, featurizer, mod_type='dem', k=2)
-	romney_df = make_joined_df(census_data, CVAP, rep_turnout, election_data, romney_offices, featurizer, mod_type='rep', k=2)
+    print 'Making df and fitting NMF...'
+    obama_df = make_joined_df(census_data, CVAP, dem_turnout, election_data, obama_offices, featurizer, mod_type='dem', k=2)
+    romney_df = make_joined_df(census_data, CVAP, rep_turnout, election_data, romney_offices, featurizer, mod_type='rep', k=2)
 
-	X_obama, y_obama, feat_names_obama = make_X_y(obama_df, mod_type='dem')
-	X_romney, y_romney, feat_names_romney = make_X_y(romney_df, mod_type='rep')
+    X_obama, y_obama, feat_names_obama = make_X_y(obama_df, mod_type='dem')
+    X_romney, y_romney, feat_names_romney = make_X_y(romney_df, mod_type='rep')
 
-	dem = one_party_strat(obama_df, X_obama, y_obama, 800)
-	rep = one_party_strat(romney_df, X_romney, y_romney, 800, mod_type='rep')
+    dem = one_party_strat(obama_df, X_obama, y_obama, 800)
+    rep = one_party_strat(romney_df, X_romney, y_romney, 800, mod_type='rep')
 
-	# Activate these lines to set the republican effect equal to the democtratic effect
-	model = sm.GLSAR(y_obama, X_obama, rho=1).iterative_fit(1)
-	[one_coef, two_coef, int_coef] = model.params[-3:]
-	[one_std, two_std, int_std] = model.bse[-3:]
-	rep.set_params(one_coef, two_coef, -int_coef, one_std, two_std, int_std)
+    # Activate these lines to set the republican effect equal to the democtratic effect
+    model = sm.GLSAR(y_obama, X_obama, rho=1).iterative_fit(1)
+    [one_coef, two_coef, int_coef] = model.params[-3:]
+    [one_std, two_std, int_std] = model.bse[-3:]
+    rep.set_params(one_coef, two_coef, -int_coef, one_std, two_std, int_std)
 
-	electoral = featurizer.get_electoral_df()
+    # Simulate No Offices Placed
+    a = .000001
+    # dem.set_params(a, a, a, a, a, a)
+    # rep.set_params(a, a, a, a, a, a)
 
-	print 'Running Simulation'
-	sim = simulation(100, electoral, dem, rep)
-	sim.run()
-	sim.plot_swing()
+    electoral = featurizer.get_electoral_df()
+
+    print 'Running Simulation'
+    sim = simulation(100, electoral, dem, rep)
+    sim.run()
+    sim.plot_swing()

@@ -80,7 +80,7 @@ def plot_feat_vs_y_true(x_dem, x_rep, x_label, title, red, blue, bins):
 	    )
 	)
 	fig = go.Figure(data=data, layout=layout)
-	plot_url = py.plot(fig, filename='title')
+	plot_url = py.plot(fig, filename=title)
 
 def split_bar_vars(dem_strat, rep_strat):
 	state_inc_dem = dem_strat.get_av_increase().groupby('state_abbr').sum()
@@ -112,9 +112,176 @@ def split_bar_plot(state_inc_dem, state_inc_rep, title, red, blue):
 	layout = go.Layout(
 	    barmode='overlay',
 	    title=title,
+	    height=1000
 	)
 	fig = go.Figure(data=data, layout=layout)
 	plot_url = py.plot(fig, filename=title)
+
+
+def swing_state_bubble_vars(obama_df, romney_df, electoral_dict, red, blue, thresh=.1):
+    state_obama_df = obama_df.groupby('state_abbr').sum()
+    state_romney_df = romney_df.groupby('state_abbr').sum()
+    
+    winner = state_obama_df['votes'] - state_romney_df['votes']
+    voting_pop = state_obama_df['CVAP_EST']
+    
+    close_calls = []
+    for x in xrange(winner.shape[0]):
+        if np.absolute(winner[x] / float(voting_pop[x])) < thresh:
+            close_calls.append(1)
+        else:
+            close_calls.append(.3)
+            
+            
+    color = []
+    for x in winner:
+        if x > 0:
+            color.append(blue)
+        else:
+            color.append(red)
+            
+    size = []
+    for x in state_obama_df.index:
+        size.append(electoral_dict[x])
+
+    text = []
+    for idx in xrange(len(winner)):
+        row = state_obama_df.iloc[idx]
+        r_row = state_romney_df.iloc[idx]
+        name = row.name
+        pop = row['CVAP_EST']
+        e_votes = size[idx]
+        ob_v = np.round(row['votes'] / float(pop), 3) * 100
+        ro_v = np.round(r_row['votes'] / float(pop), 3) * 100
+        temp = 'State: %s<br>Electoral Votes: %s<br>Voting Age Pop: %s<br>Obama Vote: %s<br>Romney Vote: %s' %(name, e_votes, pop, str(ob_v)+'%', str(ro_v)+'%')
+        text.append(temp)
+    return state_obama_df, state_romney_df, color, close_calls, voting_pop, size, text
+
+def swing_state_bubble_plot(state_obama_df, state_romney_df, color, close_calls, voting_pop, size, text, title):
+	trace0 = go.Scatter(
+	    x=state_obama_df['votes'] / voting_pop,
+	    y=state_romney_df['votes'] / voting_pop,
+	    mode='markers',
+	    text = text,
+	    marker=dict(
+	        color=color,
+	        opacity=close_calls,
+	        size=np.log(size) * 5
+	    )
+	)
+	data = [trace0]
+	layout = go.Layout(
+	    title=title,
+	    xaxis=dict(
+	        range=[0, .6],
+	        title='% Obama Vote',
+	        titlefont=dict(
+	            family='Courier New, monospace',
+	            size=18,
+	            color='#7f7f7f'
+	        )
+	    ),
+	    yaxis=dict(
+	        range=[0, .6],
+	        title='% Romney Vote',
+	        titlefont=dict(
+	            family='Courier New, monospace',
+	            size=18,
+	            color='#7f7f7f'
+	        )
+	    ),
+	    height=600,
+	    width=600,
+	)
+	fig = go.Figure(data=data, layout=layout)
+	plot_url = py.plot(fig, filename=title)
+
+def get_close_calls(state_obama_df, state_romney_df, state_inc_dem, state_inc_rep):
+	close_calls_smart = np.zeros(state_obama_df.shape[0])
+	winner = state_obama_df['votes'] - state_romney_df['votes']
+	winner = winner.apply(lambda x: x > 0)
+
+	for i in xrange(state_obama_df.shape[0]):
+	    row_dem = state_inc_dem.iloc[i]
+	    row_rep = state_inc_rep.iloc[i]
+	    if ((row_dem['max_vote_increase'] + row_dem['votes_predicted']) > row_rep['votes_predicted']) & np.logical_not(winner[i]):
+	        close_calls_smart[i] = 1
+	    elif ((row_rep['max_vote_increase'] + row_rep['votes_predicted']) > row_dem['votes_predicted']) & winner[i]:
+	        close_calls_smart[i] = 1
+	    else:
+	        close_calls_smart[i] = .3
+
+	return close_calls_smart
+
+def inlfu_counties_vars(dem_strat, rep_strat, state_inc_dem, obama_df, county_win_dict, state_win_dict, red, blue):
+	states = obama_df['state_abbr'].values
+	state_pop = state_inc_dem['CVAP_EST'].to_dict()
+	
+	population_perc = []
+	for i in xrange(obama_df.shape[0]):
+		row = obama_df.iloc[i]
+		population_perc.append(row['CVAP_EST'] / float(state_pop[row['state_abbr']]))
+
+	colors = []
+	for x in obama_df['NAME']:
+		if county_win_dict[x]:
+			colors.append(blue)
+		else:
+			colors.append(red)
+
+	size_effect = []
+	effect_dem = dem.get_av_increase()['vote_effect']
+	effect_rep = rep.get_av_increase()['vote_effect']
+	for i, x in enumerate(obama_df['state_abbr'].values):
+		if state_win_dict[x]:
+			size_effect.append(effect_rep[i])
+		else:
+			size_effect.append(effect_dem[i])
+
+	# temp_df = obama_df[['state_abbr', 'NAME']].copy()
+	# temp_df['population_perc'] = population_perc
+	# temp_df['colors'] = colors
+	# temp_df['size_effect'] = size_effect
+	# state_by_county_dict = temp_df.set_index('state_abbr').to_dict('series')
+
+	return states, population_perc, colors, size_effect
+
+
+def influ_counties_plot(states, population_perc, colors, size_effect, title):
+	trace0 = go.Scatter(
+	    x=states,
+	    y=population_perc,
+	    mode='markers',
+	    #text = text,
+	    marker=dict(
+	        color=colors,
+	        size=size_effect * 10000
+	    )
+	)
+	data = [trace0]
+	layout = go.Layout(
+	    title=title,
+	    showlegend=True,
+	    xaxis=dict(
+	        title='State',
+	        titlefont=dict(
+	            family='Courier New, monospace',
+	            size=18,
+	            color='#7f7f7f'
+	        )
+	    ),
+	    yaxis=dict(
+	        title='Percent of State Population',
+	        titlefont=dict(
+	            family='Courier New, monospace',
+	            size=18,
+	            color='#7f7f7f'
+	        )
+	    )
+	)
+	fig = go.Figure(data=data, layout=layout)
+	plot_url = py.plot(fig, filename=title)
+	        
 
 if __name__ == '__main__':
 
@@ -136,6 +303,7 @@ if __name__ == '__main__':
 
 	# Electoral College
 	electoral = featurizer.get_electoral_df()
+	electoral_dict = electoral.set_index('state_abbr').to_dict()['electoral_votes']
 
 	print 'Making df and fitting NMF...'
 	obama_df = make_joined_df(census_data, CVAP, dem_turnout, election_data, obama_offices, featurizer, mod_type='dem', k=2)
@@ -157,13 +325,13 @@ if __name__ == '__main__':
 	county_win_dict, state_win_dict = get_winners(obama_df, romney_df)
 
 	# By Religion NMF
-	# x_dem, x_rep, feat = feat_vs_y_true_vars(county_win_dict, obama_df, 'relig_nmf_feat_0')
-	# bins = dict(start=0, end=10, size=.25)
+	x_dem, x_rep, feat = feat_vs_y_true_vars(county_win_dict, obama_df, 'relig_nmf_feat_0')
+	bins = dict(start=0, end=10, size=.25)
 	# plot_feat_vs_y_true(x_dem, x_rep, 'Religion NMF Feat', 'Religion NMF Feature vs. Target', red, blue, bins)
 
 	# By Cook Score
-	# x_dem, x_rep, feat = feat_vs_y_true_vars(county_win_dict, obama_df, 'cook_score')
-	# bins = dict(start=-.5, end=.5, size=.1)
+	x_dem, x_rep, feat = feat_vs_y_true_vars(county_win_dict, obama_df, 'cook_score')
+	bins = dict(start=-.5, end=.5, size=.1)
 	# plot_feat_vs_y_true(x_dem, x_rep, 'Cook Score', 'Historical Democratic Bias vs. Target', red, blue, bins)
 
 	# By Democratic Expenditure
@@ -171,5 +339,19 @@ if __name__ == '__main__':
 	# bins = dict(start=0, end=3500000, size=250000)
 	# plot_feat_vs_y_true(x_dem, x_rep, 'Democratic Expenditure', 'Democractic Expenditure vs. Target', red, blue, bins)
 
+	# Vertical split Bar Plot
 	state_inc_dem, state_inc_rep = split_bar_vars(dem, rep)
-	split_bar_plot(state_inc_dem, state_inc_rep, 'Average Percent Vote Increase by State', red, blue)
+	# split_bar_plot(state_inc_dem, state_inc_rep, 'Average Percent Vote Increase by State', red, blue)
+
+	# Swing State Bubble - Naive
+	state_obama_df, state_romney_df, color, close_calls, voting_pop, size, text = swing_state_bubble_vars(obama_df, romney_df, electoral_dict, red, blue, thresh=.05)
+	# swing_state_bubble_plot(state_obama_df, state_romney_df, color, close_calls, voting_pop, size, text, 'Swing States - by Close Votes')
+
+	# Swing State Bubble - Smart
+	close_calls_smart = get_close_calls(state_obama_df, state_romney_df, state_inc_dem, state_inc_rep)
+	# swing_state_bubble_plot(state_obama_df, state_romney_df, color, close_calls_smart, voting_pop, size, text, 'Swing States - Simulation Results')
+
+	# States by County Effect
+	states, population_perc, colors, size_effect = inlfu_counties_vars(dem, rep, state_inc_dem, obama_df, county_win_dict, state_win_dict, red, blue)
+	influ_counties_plot(states, population_perc, colors, size_effect, 'NH has one very influential county')
+
