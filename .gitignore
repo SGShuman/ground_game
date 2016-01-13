@@ -58,3 +58,6 @@ target/
 
 # Huge Data Files
 data/raw_data/expenditures/oppexp.txt
+
+# Ipython Notebooks
+*.ipynb
