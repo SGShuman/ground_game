@@ -99,7 +99,7 @@ class Featurize(object):
 	def load_demo(self, path='data/summary_census', profile_path='data/profile_census/census_data_profile.csv', k=5):
 		'''Return nmf features from demographic census data, both Summary and Profile'''
 		df = self.load_summary_cols(path)
-		df = df.join(pd.read_csv(profile_path).drop(['NAME', 'state', 'county'], axis=1))
+		df = df.join(pd.read_csv(profile_path, low_memory=False).drop(['NAME', 'state', 'county'], axis=1))
 		id_df = df[['state', 'county']].copy()
 		id_df.columns = ['st_num', 'county_num']
 		df = df.drop(['state', 'county'], axis=1)
@@ -181,7 +181,7 @@ class Featurize(object):
 		            '1996_delta',
 		            '1992_delta']
 
-		df = pd.read_csv(fname, ' ', header=None)
+		df = pd.read_csv(fname, ' ', header=None, low_memory=False)
 		if columns:
 			df.columns = columns
 		else:
@@ -221,7 +221,7 @@ class Featurize(object):
 	def load_expenditures(self, path='data/expenditures_cleaned.csv'):
 		'''Return a DataFrame of Expenditures by county'''
 		# http://www.fec.gov/finance/disclosure/ftpdet.shtml#a2011_2012
-		df = pd.read_csv(path)
+		df = pd.read_csv(path, low_memory=False)
 		df = df.groupby(['STATE'], as_index=False).sum()
 		# df['county_id'] = df['STATE'] + '_' + df['county']
 		df = df[['STATE', 'TRANSACTION_AMT']].copy()
