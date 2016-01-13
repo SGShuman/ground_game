@@ -90,9 +90,15 @@ The big surprise is New Hampshire, where small changes can have a larger effect.
 
 So, what is going on?  Why is New Hampshire, with all 4 of its electoral votes the key battleground for political strategy.
 
-The answer is that in order to flip a state, one county must contain an appreciable percentage of the total state voting population and there must be relatively few counties so that the effect is not negated by random fluctuations in other counties.  When this is the case in New Hampshire some counties have a randomly small effect (possible with only 4 counties) and Sullivan County (maybe need to check) has a strong effect, enough to turn the whole state.
+The answer is that in order to flip a state, one county must contain an appreciable percentage of the total state voting population and there must be relatively few counties so that the effect is not negated by random fluctuations in other counties.  When this is the case in New Hampshire some counties have a randomly small effect (possible with only 4 counties) and Hillborough County has a randomly strong effect, enough to turn the whole state.  In Callifornia, this isn't possible despite Los Angeles being so important in terms of population.
 
 The visualization below shows this.
+
+<div>
+    <a href="https://plot.ly/~SGShuman/61/" target="_blank" title="NH has one very influential county" style="display: block; text-align: center;"><img src="https://plot.ly/~SGShuman/61.png" alt="NH has one very influential county" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+    <script data-plotly="SGShuman:61"  src="https://plot.ly/embed.js" async></script>
+</div>
+
 
 #### The Ideal Strategy
 This simulation shows that field office placement could play a vital role in Republican strategy in 2012, with a more effective strategy getting out the vote in Florida, its 29 electoral votes can be turned.  With a longshot in NH (especially against Bernie Sanders), field offices can optimally change the single party turnout in a state by up to 5-7% but, in order for that to make a difference first the other party must not play, and secondly the margin must be sufficiently small that a state can be flipped.
