@@ -213,7 +213,9 @@ def get_close_calls(state_obama_df, state_romney_df, state_inc_dem, state_inc_re
 
 	return close_calls_smart
 
-def inlfu_counties_vars(dem_strat, rep_strat, state_inc_dem, obama_df, county_win_dict, state_win_dict, red, blue):
+def inlfu_counties_vars(dem_strat, rep_strat, state_inc_dem, obama_df, county_win_dict, state_win_dict, states, red, blue):
+	mask = obama_df['state_abbr'].isin(states)
+	obama_df = obama_df[mask].copy()
 	states = obama_df['state_abbr'].values
 	state_pop = state_inc_dem['CVAP_EST'].to_dict()
 	
@@ -352,6 +354,7 @@ if __name__ == '__main__':
 	# swing_state_bubble_plot(state_obama_df, state_romney_df, color, close_calls_smart, voting_pop, size, text, 'Swing States - Simulation Results')
 
 	# States by County Effect
-	states, population_perc, colors, size_effect = inlfu_counties_vars(dem, rep, state_inc_dem, obama_df, county_win_dict, state_win_dict, red, blue)
+	state_list = ['NH', 'OH', 'FL', 'NC', 'VA', 'CA', 'MO', 'IN']
+	states, population_perc, colors, size_effect = inlfu_counties_vars(dem, rep, state_inc_dem, obama_df, county_win_dict, state_win_dict, state_list, red, blue)
 	influ_counties_plot(states, population_perc, colors, size_effect, 'NH has one very influential county')
 

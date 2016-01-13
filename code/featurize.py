@@ -25,7 +25,7 @@ class Featurize(object):
 
 		# Append unique columns to the inital data frame
 		for f in files:
-			temp = pd.read_csv(path + '/' + f)
+			temp = pd.read_csv(path + '/' + f, low_memory=False)
 			temp.drop(['Unnamed: 0', 'NAME', 'state', 'county'], 
 				      axis=1, inplace=True)
 			df = pd.concat([df, temp], axis=1, join_axes=[df.index])
