@@ -119,12 +119,12 @@ With the results of the linear model able to offer a statistical range of effect
 7. Compare results.  Calculate state winners.
 8. Repeat 1000 times.
 
-[Calculation Details]:
-office_effect is drawn from a normal distribution with a mean of office_coef and std of office_stderr  
-interaction_effect is drawn from similar normal distribution multiplied by County Cook Index  
-Votes Added = Voting Age Population x (office_effect + interaction_effect)
+[Calculation Details]:  
+* office_effect is drawn from a normal distribution with a mean of office_coef and std of office_stderr  
+* interaction_effect is drawn from similar normal distribution multiplied by County Cook Index  
+*Votes Added = Voting Age Population x (office_effect + interaction_effect)
 
-```
+```python
 office_effect = np.random.normal(loc=office_coef, scale=office_stderr)
 interaction_effect = Cook_Index['county_name'] * np.random.normal(loc=interaction_coef, 
                                                                   scale=interaction_stderr)
