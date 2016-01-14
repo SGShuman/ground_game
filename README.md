@@ -54,30 +54,33 @@ I obtained the locations of each of the 786 Obama offices and 284 Romney offices
 I won't include a map here, but please refer to <a href='http://blogs.lse.ac.uk/usappblog/2014/05/12/when-placed-strategically-campaign-field-offices-can-be-very-important-in-turning-battleground-states-during-presidential-elections/'> Joshua Darr's and Matthew Levendusky's maps </a> for additional clarity <a href=http://apr.sagepub.com/content/42/3/529>[3]</a> on office placement.  Cook Indexes also follow the typical pattern of showing population centers as blue and rural counties as red <a href=https://en.wikipedia.org/wiki/Cook_Partisan_Voting_Index>[10]</a>.
 
 ### Linear Model Results
-As found in previous papers, Democratic and Republican field offices offer starkly different results.  While a field office placed by Democrats offers the chance for an increase in votes, Republican field offices have no statistical effect.  Essentially, the RepublicanObama's offices in my model were responsible for about 2.0M votes.
+As found in previous papers, Democratic and Republican field offices offer starkly different results.  While a field office placed by Democrats offers the chance for an increase in votes, Republican field offices have no statistical effect.  Essentially, the Republican field office strategy had no effect on turnout while Obama's offices in my model were responsible for about 2.0M votes.
 
 Although these numbers are significantly higher than what other researchers found, the interaction term in the model changes the magnitude of the effect, but not its importance to the overall election.
 
-### Simulation and Strategy - Intro paragraph is unclear, explain assumption better, why make the assumption. More chart explanation. Next steps, why county?
-With the results of the linear model able to offer a statistical range of effects that are possible by placing a field office, I simulated the 2012 election 1000 times to see if any states could be flipped by placing field offices.  In this simulation, I assumed the Republican's field office bump was statistically significant.  I make this assumption because in 2016 it is possible that lessons learned from the 2012 campaign could cause equal effect to Democratic strategy.
+### Simulation and Strategy
+
+With the results of the linear model able to offer a statistical range of effects that are possible by placing a field office, I simulated the 2012 election 1000 times to see if any states could be flipped by placing field offices.  In this simulation, I assumed that Republican's field office placement was statistically significant.  I make this assumption because in 2016 it is possible that lessons learned from the 2012 campaign could cause equal effect to Democratic strategy.  My findings do not show any causality behind the ineffective Republican operation, it could be due to bad strategy or a difference in voter habits.
 
 First the simulation calculates the number of votes per county without any field office placement.  Then the simulation places a limited number of field offices in counties, weighted by how close an election it was in the state the county is located.  Once the offices are placed, the vote increase is drawn from a normal distribution based off the coefficients and standard errors from the linear model.
+
+We can then calculate the average expected number of votes to be gained by state by adding field offices to every county.  This is seen below with the error bars indicating the maximum and minimum possible effects.
 
 <div>
     <a href="https://plot.ly/~SGShuman/53/" target="_blank" title="Average Percent Vote Increase by State" style="display: block; text-align: center;"><img src="https://plot.ly/~SGShuman/53.png" alt="Average Percent Vote Increase by State" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
     <script data-plotly="SGShuman:53"  src="https://plot.ly/embed.js" async></script>
 </div>
 
-This leads to an average expected number of votes to be gained by state by adding field offices to every county.  We need to identify states where the projected difference in votes is covered by the difference between the right hand and left hand sides of the above graph.  In fact, since we can expect some statistical variation, we can identify all the states who will flip in any simulation, even extreme ones.
+Our goal is to identify states where the projected difference in votes is covered by the difference between the right hand and left hand sides of the above graph.  In fact, since we can expect some statistical variation, we can identify all the states who will flip in any simulation.
 
-This takes the states that we would consider battlegrounds from a group looking like the below.
+The below graph shows the battleground states under traditional understanding.  The highlighted bubbles indicate which states have single party vote percentages for each party within 5% of each other.  The size indicates the number of electoral votes.  This means the states that we would consider battlegrounds create the highlighted group below.
 
 <div>
     <a href="https://plot.ly/~SGShuman/55/" target="_blank" title="Swing States - by Close Votes" style="display: block; text-align: center;"><img src="https://plot.ly/~SGShuman/55.png" alt="Swing States - by Close Votes" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
     <script data-plotly="SGShuman:55"  src="https://plot.ly/embed.js" async></script>
 </div>
 
-And limits it to only these states: - more explanation here.
+However, applying what we learned about the possible range of the field office effect in each state, we find that only the highlighted states below could possibly switch.
 <div>
     <a href="https://plot.ly/~SGShuman/57/" target="_blank" title="Swing States - Simulation Results" style="display: block; text-align: center;"><img src="https://plot.ly/~SGShuman/57.png" alt="Swing States - Simulation Results" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
     <script data-plotly="SGShuman:57"  src="https://plot.ly/embed.js" async></script>
@@ -108,6 +111,9 @@ This simulation shows that field office placement could play a vital role in Rep
 In many of the swing states, if each party mounts an effective ground game, then nothing is gained or lost.  In Ohio, where there was a 3% difference in vote share in 2012 in favor of the Dems, an average ground game gives a 3% shift in favor of Obama.  In states where the margin is less close, the ground game matters even less.
 
 But much can change between now and election day. Some states may have smaller projected voting gaps (although wider is more likely). For Florida and New Hampshire and those hypothetical states this model can be used to find the most important counties to place field offices in. And help develop an overall strategy.
+
+### Next Steps
+The unit of analysis for this research was the county level.  However, as counties are contiguous, it is not at all clear that this is an appropriate unit of analysis (although it is a convenient one).  Next steps could focus on both a more granular approach and the causes or predictors or ineffectiveness in a field office.  Clues as to what could make the Republican ground game more effective could be very important.
 
 
 #### References
