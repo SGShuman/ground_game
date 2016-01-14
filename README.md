@@ -96,9 +96,10 @@ The answer is that in order to flip a state, one county must contain an apprecia
 The visualization below shows this.  The size of the bubble is the size of the effect unscaled to population while the height is the percentage of the population that lives in that county.
 
 <div>
-    <a href="https://plot.ly/~SGShuman/61/" target="_blank" title="NH has one very influential county" style="display: block; text-align: center;"><img src="https://plot.ly/~SGShuman/61.png" alt="NH has one very influential county" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
-    <script data-plotly="SGShuman:61"  src="https://plot.ly/embed.js" async></script>
+    <a href="https://plot.ly/~SGShuman/65/" target="_blank" title="Top 10 Counties by Population" style="display: block; text-align: center;"><img src="https://plot.ly/~SGShuman/65.png" alt="Top 10 Counties by Population" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+    <script data-plotly="SGShuman:65"  src="https://plot.ly/embed.js" async></script>
 </div>
+
 
 
 #### The Ideal Strategy
