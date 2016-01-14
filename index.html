@@ -1,192 +1,499 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Ground Game by SGShuman</title>
+    <meta name="description" content="Ground Game : Analysis of the effect of a field office in the 2012 presidential election">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Ground Game</title>
   </head>
 
   <body>
-    <div id="container">
-      <div class="inner">
 
-        <header>
-          <h1>Ground Game</h1>
-          <h2>Analysis of the effect of a field office in the 2012 presidential election</h2>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/SGShuman/ground_game">View on GitHub</a>
+
+          <h1 id="project_title">Ground Game</h1>
+          <h2 id="project_tagline">Analysis of the effect of a field office in the 2012 presidential election</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/SGShuman/ground_game/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/SGShuman/ground_game/tarball/master">Download this project as a tar.gz file</a>
+            </section>
         </header>
+    </div>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/SGShuman/ground_game/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/SGShuman/ground_game/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/SGShuman/ground_game" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
-
-        <hr>
-
-        <section id="main_content">
-          <h1>
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
 <a id="creating-the-ideal-field-office-strategy-for-the-presidential-election" class="anchor" href="#creating-the-ideal-field-office-strategy-for-the-presidential-election" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating the Ideal Field Office Strategy for the Presidential Election</h1>
 
 <h4>
-<a id="an-analysis-of-the-2012-presidential-election-with-an-eye-towards-2016" class="anchor" href="#an-analysis-of-the-2012-presidential-election-with-an-eye-towards-2016" aria-hidden="true"><span class="octicon octicon-link"></span></a>An analysis of the 2012 presidential election with an eye towards 2016</h4>
+<a id="an-analysis-of-the-2012-presidential-election-ground-game-with-an-eye-towards-2016" class="anchor" href="#an-analysis-of-the-2012-presidential-election-ground-game-with-an-eye-towards-2016" aria-hidden="true"><span class="octicon octicon-link"></span></a>An analysis of the 2012 presidential election ground game with an eye towards 2016</h4>
 
 <h3>
 <a id="tldr" class="anchor" href="#tldr" aria-hidden="true"><span class="octicon octicon-link"></span></a>TL;DR</h3>
 
-<p>The goal of this research is to analyze the effect of field office placement in 2012.  In agreement with literature, I find that field office placement was responsible for a Democratic victory in Florida.  For the first time, I show an effective ground game for Republicans is the path to victory in Florida and potentially New Hampshire. Smaller states with sharply partisan counties are more susceptible to field office placement.</p>
+<p>The goal of this research is to analyze the effect of field office placement in the 2012 presidential election.  In agreement with literature, I find that field office placement was responsible for a Democratic victory in Florida.  For the first time, I show an effective ground game for Republicans is the path to victory in Florida and potentially New Hampshire.  I also show smaller states with sharply partisan counties are more susceptible to an effective ground game and strategic field office placement.</p>
 
 <h3>
 <a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h3>
 
-<p>The folk wisdom of the 2008 and 2012 presidential elections is that the Democrat's superior 'ground game' handed them the crucial swing states needed for an electoral victory.  By mobilizing 786 field offices <a href="http://www.mischiefsoffaction.com/2013/01/the-ground-game-in-2012.html">[1]</a> located in key counties, grass roots supporters were able to get out the vote and just edge Obama over the top.  But how much truth is there to this traditional narrative?</p>
+<p>The folk wisdom of the 2008 and 2012 presidential elections is that the Democrat's superior 'ground game' handed them the crucial swing states needed for an electoral victory.  By mobilizing 786 field offices <a href="http://www.mischiefsoffaction.com/2013/01/the-ground-game-in-2012.html">[1]</a> located in key counties, grassroots organizers were able to get out the vote and just edge Obama over the top.  But how much truth is there to this traditional narrative?</p>
 
-<p>In a previous analyses by John Sides and Lynn Vavrek <a href="http://themonkeycage.org/2013/05/how-much-did-the-2012-air-war-and-ground-game-matter/">[2]</a>, field offices were found to have had a strong role in winning Florida for the democrats and along with other factors such as advertising spend about helping to gain 248,000 votes nationally.  Similarly Joshua Darr, Luke Keele, and Matthew Levendusky <a href="http://apr.sagepub.com/content/42/3/529">[3]</a> have estimated that Obama's 2008 field operation won him about 275,000 votes and Seth Masket <a href="http://poq.oxfordjournals.org/content/73/5/1023.full">[4]</a> found ground game influential in North Carolina, Florida, and Indiana.</p>
+<p>In a previous analysis by John Sides and Lynn Vavrek <a href="http://themonkeycage.org/2013/05/how-much-did-the-2012-air-war-and-ground-game-matter/">[2]</a>, field offices were found to have had a strong role in winning Florida for the Democrats. Field office placement along with other factors such as advertising spend helped Democrats to gain 248,000 votes nationally.  Similarly Joshua Darr, Luke Keele, and Matthew Levendusky <a href="http://apr.sagepub.com/content/42/3/529">[3]</a> have estimated that Obama's 2008 field operation won him about 275,000 votes and Seth Masket <a href="http://poq.oxfordjournals.org/content/73/5/1023.full">[4]</a> found ground game influential in North Carolina, Florida, and Indiana.</p>
 
-<p>These analyses have typically relied on factors like median income, unemployment, demographic factors and historical voting patterns [<a href="http://apr.sagepub.com/content/42/3/529">3</a>, <a href="http://www.acweinschenk.net/uploads/1/7/3/6/17361647/psq12213.pdf">5</a>] to regress the share of the two party vote each candidate receives.  While similar features will be used in my approach, I regress instead the single party vote as a percentage of voting age population.  Recent analysis <a href="http://static1.1.sqspcdn.com/static/f/864938/25350207/1408716516677/Allen+et+al.+APSA+2014.pdf?token=8SQWbYH63TzRnaVXi9JXF1mWlTY%3D">[6]</a> has shown that field office placement has the main effect of causing party aligned voters to actually vote.  So, regressing single party turnout for each party is a meaningful target.</p>
+<p>These analyses have typically relied on factors like median income, unemployment, demographic factors and historical voting patterns [<a href="http://apr.sagepub.com/content/42/3/529">3</a>, <a href="http://www.acweinschenk.net/uploads/1/7/3/6/17361647/psq12213.pdf">5</a>] to regress the share of the two party vote each candidate receives.  Two party vote share is the single party vote as a percentage of the total votes cast in the state for Republicans and Democrats.</p>
 
-<p>I find that counties with a historical voting bias are more susceptible to a large turnout effect for the historically enfranchised party and present a strategy of office placement to maximize this effect.</p>
+<p>While similar features will be used in my approach, I regress instead the single party vote as a percentage of voting age population.  Recent analysis <a href="http://static1.1.sqspcdn.com/static/f/864938/25350207/1408716516677/Allen+et+al.+APSA+2014.pdf?token=8SQWbYH63TzRnaVXi9JXF1mWlTY%3D">[6]</a> has shown that field office placement has the main effect of causing party aligned voters to actually vote on election day.  Ground game does not flip voters.  Thus, typical analysis of two party vote share, which depends on both the number of Democrats and Republicans, might miss part of the effect.  Instead, regressing single party vote as a percentage of voting age population removes the dependency on the other party's vote and allows us to analyze each strategy in a vacuum.</p>
+
+<p>I find that counties with a historical voting bias have a larger effect from locating a field office there.  I present a strategy to maximize this effect while balancing state effects. In addition I show that only a few states are susceptible to changing their electoral votes keeping all else constant.</p>
 
 <h3>
 <a id="methodology" class="anchor" href="#methodology" aria-hidden="true"><span class="octicon octicon-link"></span></a>Methodology</h3>
 
-<p>In order to understand the effect of a field office being placed in a county, I gathered data from a large number of sources to fit a linear model.  The exogenous variables bear out a detailed explanation since all were statistically significant.</p>
+<p>In order to understand and quantify the effect of a field office being placed in a county, I gathered data from a large number of sources to fit a linear model.  Coefficients from that linear model can estimate the effect of a field office on the single party vote.  The exogenous variables besides the field office placement bear out a detailed explanation and some visualizations of exploratory data analysis.</p>
 
 <h4>
 <a id="demographic-factors" class="anchor" href="#demographic-factors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demographic Factors</h4>
 
-<p>Two education factors were used <a href="http://www.ers.usda.gov/data-products/county-level-data-sets.aspx">[7]</a> the percentage of adults without a highschool diploma and the percentage of those with a bachelor's degree or higher.  In addition the county unemployment rate <a href="http://www.ers.usda.gov/data-products/county-level-data-sets.aspx">[7]</a>  was also used.  These economic indicators were combined with 2 religion factors.  From <a href="http://www.thearda.com/Archive/Files/Downloads/RCMSCY10_DL2.asp">[8]</a> nearly 15,000 columns on the rate of denomination participation within county populations I used non-negative matrix factorization to reduce these columns to two latent topics.</p>
+<p>Two education factors were used: <a href="http://www.ers.usda.gov/data-products/county-level-data-sets.aspx">[7]</a> the percentage of adults without a high school diploma and the percentage of those with a bachelor's degree or higher.  In addition the county unemployment rate <a href="http://www.ers.usda.gov/data-products/county-level-data-sets.aspx">[7]</a>  was also used.</p>
+
+<p>From <a href="http://www.thearda.com/Archive/Files/Downloads/RCMSCY10_DL2.asp">[8]</a> nearly 15,000 columns on the rate of religious denomination participation within county populations, I used non-negative matrix factorization to reduce these columns to two latent 'topics'.  These 'topics' basically subdivide counties into two groups.  If there are different concentrations of Democratic and Republican leaning counties in these topics, then this feature will allow us to tell Democratic and Republican counties apart.</p>
+
+<p>In fact, by looking at just one of the NMF features a good separation between red and blue counties is apparent as shown by the below figure.  The blue counties are much further concentrated to the left side of the chart.  Many more of the blue counties are concentrated at low values of this feature while Republican counties are concentrated at larger values.  Here Target refers to voting Democratic or Republican.</p>
 
 <div>
-    <a href="https://plot.ly/~SGShuman/49/" target="_blank" title="Religion NMF Feature vs. Target"><img src="https://plot.ly/~SGShuman/49.png" alt="Religion NMF Feature vs. Target" width="600"></a>
+    <a href="https://plot.ly/~SGShuman/67/" target="_blank" title="Religion NMF Feature by County Winners"><img src="https://plot.ly/~SGShuman/67.png" alt="Religion NMF Feature by County Winners" width="600"></a>
     
 </div>
 
-<p>In fact, this NMF feature has good separation between red and blue counties as shown by the above figure.</p>
+<h6>
+<a id="figure-1-religion-nmf-feature-histogram" class="anchor" href="#figure-1-religion-nmf-feature-histogram" aria-hidden="true"><span class="octicon octicon-link"></span></a>Figure 1: Religion NMF Feature Histogram</h6>
 
-<h4>
-<a id="state-level-effects" class="anchor" href="#state-level-effects" aria-hidden="true"><span class="octicon octicon-link"></span></a>State Level Effects</h4>
+<p><em>Histogram of the religion NMF feature split by which party the county voted for.  Democratic counties are concentrated towards the left while Republican counties have a larger mean and range.</em></p>
 
-<p>To counter state level effects, I used the 2012 state level partisan turnout <a href="http://bipartisanpolicy.org/library/2012-voter-turnout/">[9]</a> as a feature as well.  This provides a state level fixed effect, sort of like an intercept per state.</p>
+<p>I did a similar analysis to the religion NMF with 16,000 more typical demographic factors taken from the US Census.  Using data points like population of a certain age, race, and residential factors, an NMF based purely on this has very strong predictive power (R2 of ~.9 without other factors).  However, it is collinear with other demographic factors and so does not appear in the final analysis.</p>
 
 <h4>
 <a id="county-factors" class="anchor" href="#county-factors" aria-hidden="true"><span class="octicon octicon-link"></span></a>County Factors</h4>
 
-<p>The Rural-urban Continuum Code <a href="http://www.ers.usda.gov/data-products/county-level-data-sets.aspx">[7]</a> offers insight on the nature of population density inside a county.  Low scores indicate high population density somewhere inside the county and high scores indicate lower population density everywhere inside the county.</p>
+<p>The Rural-urban Continuum Code <a href="http://www.ers.usda.gov/data-products/county-level-data-sets.aspx">[7]</a> offers insight on the nature of population density inside a county.  Low scores show localized high population density and high scores have homogeneous lower population density.</p>
 
 <h4>
 <a id="historical-factors" class="anchor" href="#historical-factors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Historical Factors</h4>
 
-<p>The Cook score <a href="https://en.wikipedia.org/wiki/Cook_Partisan_Voting_Index">[10]</a>, which here I calucated on a county basis although it is typically on a state or congressional district basis, provides detail on the historical voting bias of a particular county.  The change in two party vote share from 2012 to 2008 [<a href="https://github.com/huffpostdata/election-2012-results">11</a>, <a href="https://www.udel.edu/johnmack/frec682/red_state_blue_state/">12</a>] also gives the model the ability to predict the trend from year to year.</p>
+<p>The Cook Partisan Voting Index <a href="https://en.wikipedia.org/wiki/Cook_Partisan_Voting_Index">[10]</a> provides detail on the historical voting bias of a particular county.  The larger the magnitude of the Cook Index, the more unequal the vote in the last two presidential elections have been.  Though this is typically calculated at the state or congressional district level, here I calculated at the census county level to match the rest of the analysis.  </p>
 
 <div>
-    <a href="https://plot.ly/~SGShuman/59/" target="_blank" title="Historical Democratic Bias vs. Target"><img src="https://plot.ly/~SGShuman/59.png" alt="Historical Democratic Bias vs. Target" width="600"></a>
+    <a href="https://plot.ly/~SGShuman/69/" target="_blank" title="Historical Democratic Bias by County Winners"><img src="https://plot.ly/~SGShuman/69.png" alt="Historical Democratic Bias by County Winners" width="600"></a>
     
 </div>
 
-<p>Interestingly the cook score is not entirely predictive of the results (see the big block of historically Republican counties in the blue), but does provide an interesting look at which party has more counties on the extreme and overall.</p>
+<h6>
+<a id="figure-2-cook-partisan-voting-index-feature-histogram" class="anchor" href="#figure-2-cook-partisan-voting-index-feature-histogram" aria-hidden="true"><span class="octicon octicon-link"></span></a>Figure 2: Cook Partisan Voting Index Feature Histogram</h6>
+
+<p><em>Histogram of the Cook Index feature split by which party the county voted for.  81 historically Republican counties voted Democrat while only 5 historically Democratic counties voted Republican.</em></p>
+
+<p>Interestingly the Cook Partisan Voting Index is not entirely predictive of the results, some counties with negative (Republican) Cook Indexes were won by Democrats. It also provides a look at which party has more counties on the extreme and overall.</p>
+
+<p>The change in two party vote share (explained above) from 2008 to 2012 [<a href="https://github.com/huffpostdata/election-2012-results">11</a>, <a href="https://www.udel.edu/johnmack/frec682/red_state_blue_state/">12</a>] also gives the model the ability to predict the trend from year to year.  This feature takes the two party vote share results from 2008 and contrasts them with 2012.</p>
+
+<div>
+    <a href="https://plot.ly/~SGShuman/73/" target="_blank" title="Change in Two Party Vote Share by County Winners"><img src="https://plot.ly/~SGShuman/73.png" alt="Change in Two Party Vote Share by County Winners" width="600"></a>
+    
+</div>
+
+<h6>
+<a id="figure-3-change-in-two-party-vote-share-feature-histogram" class="anchor" href="#figure-3-change-in-two-party-vote-share-feature-histogram" aria-hidden="true"><span class="octicon octicon-link"></span></a>Figure 3: Change in Two Party Vote Share Feature Histogram</h6>
+
+<p><em>Histogram of the change in two party vote share feature split by which party the county voted for.  There was a large regression to the mean for 414 Democratic Counties, less than 250 Republican Counties became less extreme.</em></p>
 
 <h4>
 <a id="campaign-expenditures-and-donations" class="anchor" href="#campaign-expenditures-and-donations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Campaign Expenditures and Donations</h4>
 
-<p>Campaign expenditures <a href="http://www.fec.gov/finance/disclosure/ftpdet.shtml#a2011_2012">[13]</a> in a county summed over all monthly finance reports available offers some predictive power but donations <a href="https://sunlightfoundation.com/blog/2013/10/23/political-influence-by-county-a-new-way-to-look-at-campaign-finance-data/">[14]</a> weren't statistically significant in the result and so are not included in the model.</p>
+<p>Campaign expenditures <a href="http://www.fec.gov/finance/disclosure/ftpdet.shtml#a2011_2012">[13]</a> in a county summed over all monthly finance reports available offers some predictive power. Donations <a href="https://sunlightfoundation.com/blog/2013/10/23/political-influence-by-county-a-new-way-to-look-at-campaign-finance-data/">[14]</a> were investigated but not included in the final model.</p>
+
+<h4>
+<a id="state-level-effects---explain-how-this-is-different-from-the-other-effects" class="anchor" href="#state-level-effects---explain-how-this-is-different-from-the-other-effects" aria-hidden="true"><span class="octicon octicon-link"></span></a>State Level Effects - Explain how this is different from the other effects</h4>
+
+<p>To counter state level fixed effects, I used the 2012 state level partisan turnout <a href="http://bipartisanpolicy.org/library/2012-voter-turnout/">[9]</a> as a feature as well.  This allows the model to account for state by state differences. </p>
 
 <h4>
 <a id="office-data-and-interaction" class="anchor" href="#office-data-and-interaction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Office Data and Interaction</h4>
 
-<p>I obtained the locations of each of the 786 Obama offices and 284 Romney offices <a href="http://themonkeycage.org/2013/05/how-much-did-the-2012-air-war-and-ground-game-matter/">[2]</a> from John Sides who generously sent me a well formatted file.  Obama placed anywhere from 1 to 21 offices in a county (with by far most having one office), so I used the presence of 1 office or 2+ offices as dummy variables as well as interacting the Cook score with a boolean variable indicating the presence of an office.  Thus offices have three layers of importance: their presence, their quantity, and their interaction with the Cook score.  In the end, counties with larger Cook scores (indicating more partisan historical voting) had a larger effect from office placement.</p>
+<p>Locations of each of the 786 Obama offices and 284 Romney offices <a href="http://themonkeycage.org/2013/05/how-much-did-the-2012-air-war-and-ground-game-matter/">[2]</a> were obtained from John Sides who generously sent me data.  Offices have two layers of importance: their quantity, and their interaction with the Cook Index.  </p>
 
-<p>I won't include a map here, but please refer to <a href="http://blogs.lse.ac.uk/usappblog/2014/05/12/when-placed-strategically-campaign-field-offices-can-be-very-important-in-turning-battleground-states-during-presidential-elections/"> Joshua Darr's and Matthew Levendusky's maps </a> for additional clarity <a href="http://apr.sagepub.com/content/42/3/529">[3]</a> on office placement.</p>
+<p>Obama placed anywhere from 1 to 21 offices in a county (with by far most having one office), so I used the presence of 1 office or 2+ offices as categorical features.  I also interacted (multiplying) the Cook Index with a boolean variable indicating the presence of any number of offices.  This means that the number of votes expected from placing a field office in a county will depend on both the number of offices placed and the Cook Index.  In the end, counties with larger Cook Indexes (indicating more partisan historical voting) had a larger effect from office placement.</p>
+
+<p>I won't include a map here (I'm sure you can picture a map of the US in your head), but please refer to <a href="http://blogs.lse.ac.uk/usappblog/2014/05/12/when-placed-strategically-campaign-field-offices-can-be-very-important-in-turning-battleground-states-during-presidential-elections/"> Joshua Darr's and Matthew Levendusky's maps </a> for additional clarity <a href="http://apr.sagepub.com/content/42/3/529">[3]</a> on office placement.  Cook Indexes also follow the typical pattern of showing population centers as blue and rural counties as red <a href="https://en.wikipedia.org/wiki/Cook_Partisan_Voting_Index">[10]</a>.</p>
 
 <h3>
 <a id="linear-model-results" class="anchor" href="#linear-model-results" aria-hidden="true"><span class="octicon octicon-link"></span></a>Linear Model Results</h3>
 
-<p>As found in previous papers, Democratic and Republican field offices offer starkly different in results.  While a field office placed by Democrats offers the chance for an increase in votes, Republican field offices have no statistical effect.  Obama's offices in my model were responsible for about 2.0M votes.</p>
+<p>As found in previous papers, I established Democratic and Republican field offices offer starkly different results.  While a field office placed by Democrats offers the chance for an increase in votes, Republican field offices have no statistical effect.  Essentially, the Republican field office strategy had no effect on turnout while Obama's offices in my model were responsible for about 2.0M votes.</p>
 
-<p>Altough these numbers are significantly higher than other researchers found, the effect of the interaction term in the model changes the magnitude of the effect, but not its importance.</p>
+<p>Although these numbers are significantly higher than what other researchers found, the interaction term in the model changes the magnitude of the effect, but not its importance to the overall election.</p>
 
-<h3>
-<a id="simulation-and-strategy" class="anchor" href="#simulation-and-strategy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Simulation and Strategy</h3>
+<p>There is one regression result per party, each using similar factors.  The state average turnout refers to the single party turnout and so is different for Republicans and Democrats.</p>
 
-<p>With the results of the linear model able to offer a statistical range of effects that are possible by placing a field office, I simulated the 2012 election 1000 times to see if any states could be flipped by placing field offices.  In this simulation, I assumed the Republican's field office bump was statistically significant.  I make this assumption because in 2016 it is possible that lessons learned from the 2012 campaign could cause equal effect to democratic strategy.</p>
+<h5>
+<a id="democratic-regression" class="anchor" href="#democratic-regression" aria-hidden="true"><span class="octicon octicon-link"></span></a>Democratic Regression</h5>
 
-<p>First the simulation calculates the number of votes per county without any field office placement.  Then the simulation places a limited number of field offices in counties, weighted by how close an election it was in the state the county is located.  Once the offices are placed, the vote increase is drawn from a normal distribution based off the coefficients and standard errors from the linear model.</p>
+<p><em>Adjusted R2 - .978</em></p>
+
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Coeff</th>
+<th>Std Err</th>
+<th>P Val</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>State Average Turnout</td>
+<td>0.0048</td>
+<td>0.000</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Rural-urban Continuum Code</td>
+<td>0.0046</td>
+<td>0.000</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Perc Less than Highschool Diploma</td>
+<td>0.0006</td>
+<td>0.000</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Perc with Bachelor's</td>
+<td>0.0032</td>
+<td>8.54e-05</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Unemployment Rate</td>
+<td>0.0041</td>
+<td>0.000</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Religion NMF Feature 1</td>
+<td>0.0091</td>
+<td>0.001</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Religion NMF Feature 2</td>
+<td>0.0063</td>
+<td>0.000</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Campaign Expenditure</td>
+<td>-4.084e-10</td>
+<td>5.09e-11</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Cook Index</td>
+<td>0.4752</td>
+<td>0.006</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Change in Vote Share 2008-&gt;2012</td>
+<td>0.2689</td>
+<td>0.024</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>1 Field Office</td>
+<td>0.0088</td>
+<td>0.002</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>2+ Field Offices</td>
+<td>0.0257</td>
+<td>0.004</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Field Office - Cook Index Interaction</td>
+<td>0.0348</td>
+<td>0.017</td>
+<td>0.041</td>
+</tr>
+</tbody>
+</table>
+
+<h6>
+<a id="figure-4-democratic-turnout-regression-results" class="anchor" href="#figure-4-democratic-turnout-regression-results" aria-hidden="true"><span class="octicon octicon-link"></span></a>Figure 4: Democratic Turnout Regression Results</h6>
+
+<p><em>The factors and coefficients from the linear model.  All coefficients are significant.  Because the data are not normalized, the coefficients are not directly comparable.  In addition, to understand the effect of a field office in terms of votes added, more computation is needed.  See Simulation in Action</em></p>
+
+<p>Republicans with a similar R2 to Democrats show a strong fit but not a strong statistical certainty for field office placement having an effect.</p>
+
+<h5>
+<a id="republican-regression" class="anchor" href="#republican-regression" aria-hidden="true"><span class="octicon octicon-link"></span></a>Republican Regression</h5>
+
+<p><em>Adjusted R2 - .982</em></p>
+
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Coeff</th>
+<th>Std Err</th>
+<th>P Val</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>State Average Turnout</td>
+<td>0.0060</td>
+<td>0.000</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Rural-urban Continuum Code</td>
+<td>0.0044</td>
+<td>0.000</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Perc Less than Highschool Diploma</td>
+<td>-0.0024</td>
+<td>0.000</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Perc with Bachelor's</td>
+<td>0.0025</td>
+<td>0.000</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Unemployment Rate</td>
+<td>0.0054</td>
+<td>0.000</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Religion NMF Feature 1</td>
+<td>0.0003</td>
+<td>0.001</td>
+<td>0.700</td>
+</tr>
+<tr>
+<td>Religion NMF Feature 2</td>
+<td>0.0072</td>
+<td>0.001</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Campaign Expenditure</td>
+<td>4.905e-10</td>
+<td>6.44e-11</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Cook Index</td>
+<td>-0.5827</td>
+<td>0.008</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Change in Vote Share 2008-&gt;2012</td>
+<td>-0.0543</td>
+<td>0.032</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>1 Field Office</td>
+<td>0.0087</td>
+<td>0.004</td>
+<td>0.035</td>
+</tr>
+<tr>
+<td>2+ Field Offices</td>
+<td>0.0143</td>
+<td>0.008</td>
+<td>0.080</td>
+</tr>
+<tr>
+<td>Field Office - Cook Index Interaction</td>
+<td>-0.1054</td>
+<td>0.029</td>
+<td>0.000</td>
+</tr>
+</tbody>
+</table>
+
+<h6>
+<a id="figure-5-republican-turnout-regression-results" class="anchor" href="#figure-5-republican-turnout-regression-results" aria-hidden="true"><span class="octicon octicon-link"></span></a>Figure 5: Republican Turnout Regression Results</h6>
+
+<p><em>Not all features are significant in this model, most importantly locating 2+ field offices was not significant.</em></p>
+
+<p>From these results, we can find the number of votes added to each county by placing a field office there, as explained in the simulation section.</p>
+
+<h4>
+<a id="state-by-state-results---might-one-more-graph-showing-the-difference-between-bars" class="anchor" href="#state-by-state-results---might-one-more-graph-showing-the-difference-between-bars" aria-hidden="true"><span class="octicon octicon-link"></span></a>State by State Results - might one more graph showing the difference between bars</h4>
+
+<p>We can now calculate the average expected number of votes to be gained by adding field offices to every county in a state.  This is seen below with the error bars indicating the maximum and minimum possible effects by state.</p>
 
 <div>
     <a href="https://plot.ly/~SGShuman/53/" target="_blank" title="Average Percent Vote Increase by State"><img src="https://plot.ly/~SGShuman/53.png" alt="Average Percent Vote Increase by State" width="600"></a>
     
 </div>
 
-<p>This leads to an average expected number of votes to be gained by state by adding field offices to every county.  We need to identify states where the projected difference in votes is covered by the difference between the right hand and left hand sides of the above graph.  In fact, since we can expect some statistical variation, we can identify all the counties who will flip in any simulation, even extreme ones.</p>
+<h6>
+<a id="figure-6-average-percent-vote-increase-by-state" class="anchor" href="#figure-6-average-percent-vote-increase-by-state" aria-hidden="true"><span class="octicon octicon-link"></span></a>Figure 6: Average Percent Vote Increase by State</h6>
 
-<p>This takes the counties that we would consider battlegrounds from a group looking like the below.</p>
+<p><em>The expected change in single party turnout by state.  Error bars indicate a maximum and minimum.  States like Arizona and NJ have a roughly equal effect, while some states like Wyoming and Alabama are very one sided.</em></p>
+
+<p>Our goal in the simulation is to identify states where the projected difference in votes is less than the difference between the right hand and left hand sides of the above graph.  In fact, since we can expect some statistical variation, the simulation can identify all the states who could possibly flip in any situation.  This means including simulations where one party has no ground game and the other party puts offices in every county.</p>
+
+<h3>
+<a id="simulation-and-strategy" class="anchor" href="#simulation-and-strategy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Simulation and Strategy</h3>
+
+<p>With the results of the linear model able to offer a statistical range of effects that are possible by placing a field office, I simulated the 2012 election 1000 times to see if any states could be flipped by placing field offices.  The goal of this simulation is to see if any statistical fluctuations can produce different results in the 2012 election.</p>
+
+<p>In this simulation, I assumed that Republican's field office placement was statistically significant.  I make this assumption because in 2016 it is possible that lessons learned from the 2012 campaign could cause equal effect to Democratic strategy.  My findings do not show any causality behind the ineffective Republican operation, it could be due to bad strategy or a difference in voter habits.</p>
+
+<h4>
+<a id="simulation-in-action" class="anchor" href="#simulation-in-action" aria-hidden="true"><span class="octicon octicon-link"></span></a>Simulation in Action</h4>
+
+<ol>
+<li>Pick one party.</li>
+<li>Determine the predicted votes without placing any field offices using the linear model coefficients but setting all office coefficients to zero.</li>
+<li>Place 800 offices in counties around the country.  Place more offices in states with closely contested elections.  Place either one or two offices, drawn randomly. - talk about where the random comes in.</li>
+<li>Draw from a normal distribution to determine the effect of a field office in every county that got one or two offices.</li>
+<li>Calculate the votes added to each county and sum.</li>
+<li>Repeat for the other political party.</li>
+<li>Compare results.  Calculate state winners.</li>
+<li>Repeat 1000 times.</li>
+</ol>
+
+<h5>
+<a id="calculation-details" class="anchor" href="#calculation-details" aria-hidden="true"><span class="octicon octicon-link"></span></a>Calculation Details:</h5>
+
+<ul>
+<li>office_effect is drawn from a normal distribution with a mean of office_coef and std of office_stderr<br>
+</li>
+<li>interaction_effect is drawn from similar normal distribution multiplied by County Cook Index<br>
+</li>
+<li>Votes Added = Voting Age Population x (office_effect + interaction_effect)</li>
+</ul>
+
+<div class="highlight highlight-source-python"><pre>office_effect <span class="pl-k">=</span> np.random.normal(<span class="pl-smi">loc</span><span class="pl-k">=</span>office_coef, <span class="pl-smi">scale</span><span class="pl-k">=</span>office_stderr)
+interaction_effect <span class="pl-k">=</span> Cook_Index[<span class="pl-s"><span class="pl-pds">'</span>county_name<span class="pl-pds">'</span></span>] <span class="pl-k">*</span> np.random.normal(<span class="pl-smi">loc</span><span class="pl-k">=</span>interaction_coef, 
+                                                                  <span class="pl-smi">scale</span><span class="pl-k">=</span>interaction_stderr)
+Votes Added <span class="pl-k">=</span> CVAP <span class="pl-k">*</span> (office_effect <span class="pl-k">+</span> interaction_effect)</pre></div>
+
+<p>The below graph shows the battleground states under traditional understanding.  The highlighted bubbles indicate which states have single party vote percentages for each party within 5% of each other.  The size indicates the number of electoral votes.  This means the states that we would consider battlegrounds create the highlighted group below.</p>
 
 <div>
     <a href="https://plot.ly/~SGShuman/55/" target="_blank" title="Swing States - by Close Votes"><img src="https://plot.ly/~SGShuman/55.png" alt="Swing States - by Close Votes" width="600"></a>
     
 </div>
 
-<p>And limits it to only these counties:</p>
+<h6>
+<a id="figure-7-swing-states-with-the-traditional-view" class="anchor" href="#figure-7-swing-states-with-the-traditional-view" aria-hidden="true"><span class="octicon octicon-link"></span></a>Figure 7: Swing States with the Traditional View</h6>
+
+<p><em>Highlighted states reveal the typical battleground states.  The size of the bubble is the number of electoral votes.  The color reveals the winner in the 2012 election.  Click to enable hover.</em></p>
+
+<p>However, applying what we learned about the possible range of the field office effect in each state, we find that only the highlighted states below could possibly switch.  Conventional Wisdom on swing states is upheld but limited.</p>
 
 <div>
     <a href="https://plot.ly/~SGShuman/57/" target="_blank" title="Swing States - Simulation Results"><img src="https://plot.ly/~SGShuman/57.png" alt="Swing States - Simulation Results" width="600"></a>
     
 </div>
 
-<p>As you can see (click to enable hover over), the expected swing states of North Carolina, Florida and Ohio all remain with in statistical contention, as well as New Hampshire.  This jives with some conventional wisdom about swing states.</p>
+<h6>
+<a id="figure-8-swing-states-according-to-the-simulation" class="anchor" href="#figure-8-swing-states-according-to-the-simulation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Figure 8: Swing States according to the Simulation</h6>
+
+<p><em>Only Ohio, North Carolina, Florida and New Hampshire remain as battleground states.</em></p>
 
 <h4>
-<a id="simulation-results" class="anchor" href="#simulation-results" aria-hidden="true"><span class="octicon octicon-link"></span></a>Simulation Results</h4>
+<a id="simulation-results-and-insights" class="anchor" href="#simulation-results-and-insights" aria-hidden="true"><span class="octicon octicon-link"></span></a>Simulation Results and Insights</h4>
 
-<p>My model predicts every state correctly (Florida by only 10,000 votes)and indeed shows Obama flipping Florida with his effective field organization.  The other insight my model provides into Florida is that Democrats only win Florida in one out of every one thousand simulations when the Republicans mount a strong field organization there.  Obama did indeed flip it in 2012 but the Republicans could easily have answered with an effective field game of their own.</p>
+<p>My model predicts every state correctly (Florida by only 10,000 votes) and indeed shows Obama flipping Florida with his effective field office organization.  This means that Obama loses Florida if neither party mounts a ground game, and wins if Democrats do have ground game (remember Republican ground game was ineffective).  The other insight my model provides into Florida is that Democrats only win Florida in one out of every one thousand simulations when the Republicans mount a strong field organization there.  That is, if Republicans can match the Democrats effect, they take Florida nearly every time.  Obama did indeed flip Florida in 2012 but the Republicans could easily have answered with an effective field game of their own.</p>
 
-<p>The big surprise is New Hampshire, where small changes can have a larger effect.  For every thousand times the simulation is run, New Hampshire will swith to the Republicans 250 times, while the other swing states will only swith 1 out of every 1000 times (hardly enough to focus a strategy there, at least on human timescales).</p>
+<p>Another big surprise is New Hampshire, where small changes can have a larger effect.  For every thousand times the simulation is run, New Hampshire will switch to the Republicans 100-250 times, while Florida, Ohio, and North Carolina will only switch 5-10 out of every 1000 times.</p>
 
-<p>So, what is going on?  Why is New Hampshire, with all 4 of its electoral votes the key battleground for political strategy.</p>
+<p>So, what is going on?  Why is New Hampshire, with all 4 of its electoral votes so susceptible to field office placement strategy.</p>
 
-<p>The answer is that in order to flip a state, one county must contain an appreciable percentage of the total state voting population and there must be relatively few counties so that the effect is not negated by random fluctuations in other counties.  When this is the case in New Hampshire some counties have a randomly small effect (possible with only 4 counties) and Hillborough County has a randomly strong effect, enough to turn the whole state.  In Callifornia, this isn't possible despite Los Angeles being so important in terms of population.</p>
+<p>First let's discuss what two factors are important in adding votes: the county size, and the office effect.  The county size is the most important factor, the larger a county is, the more votes are added to the state due to field office placement.  If that county contains a large percentage of the state population, then this can dominate the states total added votes.  The other factor is the office effect which is the magnitude of the expected increase in votes drawn from the normal distributions defined above.  County size does not change simulation to simulation, but the size of office effect does because of its random nature.</p>
 
-<p>The visualization below shows this.  The size of the bubble is the size of the effect unscaled to population while the height is the percentage of the population that lives in that county.</p>
+<p>So, in order to flip a state, one county must contain an appreciable percentage of the total state voting population and there must be a strong office effect in this particular simulation.  In addition the state must have few counties so the office effect is not negated by random fluctuations in other counties.</p>
+
+<p>The visualization below shows this.  The size of the bubble is the size of the office effect unscaled while the height is the percentage of the population that lives in that county.  Counties with higher positions are more influential in terms of population and larger bubbles also indicates larger average office effect.</p>
+
+<h1>
+<a id="this-figure-looks-broken-to-me" class="anchor" href="#this-figure-looks-broken-to-me" aria-hidden="true"><span class="octicon octicon-link"></span></a>This figure looks broken to me</h1>
 
 <div>
-    <a href="https://plot.ly/~SGShuman/65/" target="_blank" title="Top 10 Counties by Population"><img src="https://plot.ly/~SGShuman/65.png" alt="Top 10 Counties by Population" width="600"></a>
+    <a href="https://plot.ly/~SGShuman/71/" target="_blank" title="Influential Counties by State"><img src="https://plot.ly/~SGShuman/71.png" alt="Influential Counties by State" width="600"></a>
     
 </div>
+
+<h6>
+<a id="figure-9-largest-counties-in-several-important-states" class="anchor" href="#figure-9-largest-counties-in-several-important-states" aria-hidden="true"><span class="octicon octicon-link"></span></a>Figure 9: Largest Counties in Several Important states</h6>
+
+<p><em>The top ten largest counties in several states are shown.  The height is the influence due to population and the size is the size of the office effect (closely tied to Cook Index).  Coloring is the winner of the county in the 2012 election.  New Hampshire clearly shows a pattern other states don't.</em></p>
+
+<p>Let's go over a scenario in New Hampshire where Republicans might win.  First the Republicans play and see a strong office effect in Rockingham and Hillsborough Counties (Rockingham is much more likely to have a large office effect due to its Cook Index).  The Democrats then play and see small office effects in Hillsborough and Rockingham counties.  So, New Hampshire swings red due to statistical fluctuations, even with a smart ground game strategy on both sides.  In California, this isn't possible despite Los Angeles being so important in terms of population.</p>
 
 <h4>
 <a id="the-ideal-strategy" class="anchor" href="#the-ideal-strategy" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Ideal Strategy</h4>
 
-<p>This simulation shows that field office placement could play a vital role in Republican strategy in 2012, with a more effective strategy getting out the vote in Florida, its 29 electoral votes can be turned.  With a longshot in NH (especially against Bernie Sanders), field offices can optimally change the single party turnout in a state by up to 5-7% but, in order for that to make a difference first the other party must not play, and secondly the margin must be sufficiently small that a state can be flipped.</p>
+<p>This simulation shows that field office placement could play a vital role in Republican strategy in 2012. With a more effective strategy getting out the vote in Florida, its 29 electoral votes will be collected by the Republicans.  With a long shot in NH (especially against Bernie Sanders), field offices can optimally change the single party turnout in a state by up to 5-7%.</p>
 
-<p>In many of the swing states, if each party mounts an effective ground game, then nothing is gained or lost.  In Ohio, where there was a 3% in vote share difference in 2012 in favor of the Dems, has a 3% shift in favor of Obama given two effective ground games.  In states where the margin is less close, the ground game matters even less.</p>
+<p>In many of the swing states, if each party mounts an effective ground game, then nothing is gained or lost.  In Ohio, where there was a 3% difference in vote share in 2012 in favor of the Dems, an average ground game gives a 3% shift in favor of Obama.  In states where the margin is less close, the ground game matters even less.</p>
 
-<p>But much can change between now and election day. Some states may have smaller projected voting gaps (although wider is more likely). For Florida and New Hampshire and those hypothetical states this model can be used to find the most important counties to place field offices in. And help develop an overall strategy.</p>
+<p>However, this assumes that both Democrats and Republicans blanket every county with field offices.  What these findings suggest is a more subtle strategy.  Closer to election day, the probable county results will be known with much more precision.  By choosing states that are very close near election day, the field office strategy can have a large effect.  By placing offices in historically biased counties with large populations, each party can limit the resources spent on each state while maximizing votes gained.  For Democrats this can essentially mean target cities while for Republicans it may suggest a more local approach of finding strongly partisan pockets in densely populated areas.</p>
+
+<p>Overall given limited resources, only states that are statistically close enough to be turned should be considered.  Given the bar chart above, we can now find those.</p>
+
+<h3>
+<a id="next-steps" class="anchor" href="#next-steps" aria-hidden="true"><span class="octicon octicon-link"></span></a>Next Steps</h3>
+
+<p>The unit of analysis for this research was the county level.  However, as counties are contiguous, it is not at all clear that this is an appropriate unit of analysis (although it is a convenient one).  Next steps could focus on both a more granular approach and the causes or predictors or ineffectiveness in a field office.  Clues as to what could make the Republican ground game more effective could be very important.</p>
+
+<p>The simulation also assumed an even strategy between Democrats and Republicans.  In other simulations, even giving Dems no offices and Republicans thousands, we see similar results.  Not all states can be flipped.  Further analysis should focus on this asymmetry to find more innovative strategies for each party.</p>
 
 <h4>
 <a id="references" class="anchor" href="#references" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h4>
 
-<p>[1] The Ground Game in 2012, Seth Masket. Mischiefs of Faction<br>
+<p>[1] <em>The Ground Game in 2012</em>, Seth Masket. Mischiefs of Faction<br>
 <a href="http://www.mischiefsoffaction.com/2013/01/the-ground-game-in-2012.html">http://www.mischiefsoffaction.com/2013/01/the-ground-game-in-2012.html</a></p>
 
-<p>[2] How Much Did the 2012 Air War and Ground Game Matter?, John Sides. The Monkey Cage<br>
+<p>[2] <em>How Much Did the 2012 Air War and Ground Game Matter?</em>, John Sides. The Monkey Cage<br>
 <a href="http://themonkeycage.org/2013/05/how-much-did-the-2012-air-war-and-ground-game-matter/">http://themonkeycage.org/2013/05/how-much-did-the-2012-air-war-and-ground-game-matter/</a></p>
 
-<p>[3] Relying on the Ground Game: The Placement and Effect of Campaign Field Offices, Joshua P. Darr, Matthew S. Levendusky. American Politics Research May 2014 vol. 42 no. 3 529-548<br>
+<p>[3] <em>Relying on the Ground Game: The Placement and Effect of Campaign Field Offices</em>, Joshua P. Darr, Matthew S. Levendusky. American Politics Research May <strong>2014</strong> vol. 42 no. 3 529-548<br>
 <a href="http://apr.sagepub.com/content/42/3/529">http://apr.sagepub.com/content/42/3/529</a></p>
 
-<p>[4] Did Obama's Ground Game Matter?, Seth E. Masket. Public Opin Q (2009) 73 (5): 1023-1039.<br>
+<p>[4] <em>Did Obama's Ground Game Matter?</em>, Seth E. Masket. Public Opin Q (<strong>2009</strong>) 73 (5): 1023-1039.<br>
 <a href="http://poq.oxfordjournals.org/content/73/5/1023.full">http://poq.oxfordjournals.org/content/73/5/1023.full</a></p>
 
-<p>[5] Campaign Field Offices and Voter Mobilization in 2012, Aaron C. Weinschenk. Presidential Studies Quarterly 45, no. 3 (September)<br>
+<p>[5] <em>Campaign Field Offices and Voter Mobilization in 2012</em>, Aaron C. Weinschenk. Presidential Studies Quarterly 45, no. 3 (September)<br>
 <a href="http://www.acweinschenk.net/uploads/1/7/3/6/17361647/psq12213.pdf">http://www.acweinschenk.net/uploads/1/7/3/6/17361647/psq12213.pdf</a></p>
 
-<p>[6] Office Space: A Geo-Spatial Analysis of the Effects of Field Offices on Voter Turnout, Seth Masket et al. American Political Science Association, August 28-31, 2014, Washington, D.C.<br>
+<p>[6] <em>Office Space: A Geo-Spatial Analysis of the Effects of Field Offices on Voter Turnout</em>, Seth Masket et al. American Political Science Association, August 28-31, <strong>2014</strong>, Washington, D.C.<br>
 <a href="http://static1.1.sqspcdn.com/static/f/864938/25350207/1408716516677/Allen+et+al.+APSA+2014.pdf?token=8SQWbYH63TzRnaVXi9JXF1mWlTY%3D">http://static1.1.sqspcdn.com/static/f/864938/25350207/1408716516677/Allen+et+al.+APSA+2014.pdf?token=8SQWbYH63TzRnaVXi9JXF1mWlTY%3D</a></p>
 
 <p>[7] United States Department of Agriculture Economic Research Service<br>
@@ -210,17 +517,20 @@
 <p>[13] Federal Election Commission: Detailed Files About Candidates, Parties and Other Committees<br>
 <a href="http://www.fec.gov/finance/disclosure/ftpdet.shtml#a2011_2012">http://www.fec.gov/finance/disclosure/ftpdet.shtml#a2011_2012</a></p>
 
-<p>[14] Political influence by county: A new way to look at campaign finance data, Ryan Sibley, Bob Lannon, Ben Chartoff. Sunlight Foundation Blog<br>
+<p>[14] <em>Political influence by county: A new way to look at campaign finance data</em>, Ryan Sibley, Bob Lannon, Ben Chartoff. Sunlight Foundation Blog<br>
 <a href="https://sunlightfoundation.com/blog/2013/10/23/political-influence-by-county-a-new-way-to-look-at-campaign-finance-data/">https://sunlightfoundation.com/blog/2013/10/23/political-influence-by-county-a-new-way-to-look-at-campaign-finance-data/</a></p>
-        </section>
-
-        <footer>
-          Ground Game is maintained by <a href="https://github.com/SGShuman">SGShuman</a><br>
-          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
-
-        
-      </div>
+      </section>
     </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Ground Game maintained by <a href="https://github.com/SGShuman">SGShuman</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
   </body>
 </html>
