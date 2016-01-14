@@ -43,7 +43,7 @@ def feat_vs_y_true_vars(county_win_dict, df, feat):
 def plot_feat_vs_y_true(x_dem, x_rep, x_label, title, red, blue, bins):
 	'''Plot Histogram of feature split by county winner'''
 	trace1 = go.Histogram(
-	    x=x_dem * 100,
+	    x=x_dem,
 	    opacity=0.75,
 	    name='Democratic Won',
 	    autobinx=False,
@@ -53,7 +53,7 @@ def plot_feat_vs_y_true(x_dem, x_rep, x_label, title, red, blue, bins):
 	    	),
 	)
 	trace2 = go.Histogram(
-	    x=x_rep * 100,
+	    x=x_rep,
 	    opacity=0.75,
 	    name='Republican Won',
 	    autobinx=False,
@@ -76,7 +76,7 @@ def plot_feat_vs_y_true(x_dem, x_rep, x_label, title, red, blue, bins):
 	        )
 	    ),
 	    yaxis=dict(
-	        title='Count',
+	        title='Number of Counties Won',
 	        titlefont=dict(
 	            family='Courier New, monospace',
 	            size=18,
@@ -111,7 +111,7 @@ def split_bar_plot(state_inc_dem, state_inc_rep, title, red, blue):
 	'''Plot the split bar plot from the blog post'''
 	tracea = go.Bar(
 	    y=state_inc_rep.index[::-1],
-	    x=-1 * state_inc_rep['av_increase % of Predicted'][::-1],
+	    x=-100 * state_inc_rep['av_increase % of Predicted'][::-1],
 	    name='Republican Effect',
 	    orientation='h',
 	    marker=dict(
@@ -119,7 +119,7 @@ def split_bar_plot(state_inc_dem, state_inc_rep, title, red, blue):
 	    ),
 	    error_x=dict(
             type='data',
-            array=state_inc_rep['error_x'][::-1],
+            array=100 * state_inc_rep['error_x'][::-1],
             visible=True,
             thickness=1.5,
             width=3,
@@ -128,7 +128,7 @@ def split_bar_plot(state_inc_dem, state_inc_rep, title, red, blue):
 	)
 	traceb = go.Bar(
 	    y=state_inc_rep.index[::-1],
-	    x=state_inc_dem['av_increase % of Predicted'][::-1],
+	    x=100 * state_inc_dem['av_increase % of Predicted'][::-1],
 	    name='Democratic Effect',
 	    orientation='h',
 	    marker=dict(
@@ -136,7 +136,7 @@ def split_bar_plot(state_inc_dem, state_inc_rep, title, red, blue):
 	    ),
 	    error_x=dict(
             type='data',
-            array=state_inc_dem['error_x'][::-1],
+            array=100 * state_inc_dem['error_x'][::-1],
             visible=True,
             thickness=1.5,
             width=3,
@@ -428,15 +428,15 @@ if __name__ == '__main__':
 		                                     obama_df,
 		                                     'relig_nmf_feat_0')
 	bins = dict(start=0, end=10, size=.25)
-	plot_feat_vs_y_true(x_dem, x_rep, 'Religion NMF Feature',
-		                'Religion NMF Feature by County Winners', red, blue, bins)
+	# plot_feat_vs_y_true(x_dem, x_rep, 'Religion NMF Feature',
+	# 	                'Religion NMF Feature by County Winners', red, blue, bins)
 
 	# By Cook Score
 	x_dem, x_rep, feat = feat_vs_y_true_vars(county_win_dict,
 		                                     obama_df,
 		                                     'cook_score')
 	bins = dict(start=-.5, end=.5, size=.1)
-	plot_feat_vs_y_true(x_dem, x_rep, 'Cook Score',
+	plot_feat_vs_y_true(x_dem, x_rep, 'Cook Partisan Voting Index',
 		                'Historical Democratic Bias by County Winners', red, blue, bins)
 
 	# By Democratic Expenditure
@@ -447,10 +447,18 @@ if __name__ == '__main__':
 	# plot_feat_vs_y_true(x_dem, x_rep, 'Democratic Expenditure',
 	#                     'Democractic Expenditure by County Winners', red, blue, bins)
 
+	# By Delta Vote Share
+	x_dem, x_rep, feat = feat_vs_y_true_vars(county_win_dict,
+	 	                                       obama_df,
+	                                         'delta_vote_share')
+	bins = dict(start=-.25, end=.25, size=.05)
+	# plot_feat_vs_y_true(x_dem, x_rep, 'Change in Two Party Vote Share',
+	#                     'Change in Two Party Vote Share by County Winners', red, blue, bins)
+
 	# Vertical split Bar Plot
 	state_inc_dem, state_inc_rep = split_bar_vars(dem, rep)
-	split_bar_plot(state_inc_dem, state_inc_rep,
-		           'Average Percent Vote Increase by State', red, blue)
+	# split_bar_plot(state_inc_dem, state_inc_rep,
+	# 	           'Average Percent Vote Increase by State', red, blue)
 
 	# Swing State Bubble - Naive
 	state_obama_df, state_romney_df, color, close_calls, voting_pop, size, text =\
@@ -474,5 +482,5 @@ if __name__ == '__main__':
 		                obama_df, county_win_dict,
 		                state_win_dict, state_list, red, blue)
 
-	influ_counties_plot(states, population_perc, colors,
-		size_effect, text, 'Influential Counties by State')
+	# influ_counties_plot(states, population_perc, colors,
+	# 	size_effect, text, 'Influential Counties by State')
