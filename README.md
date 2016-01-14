@@ -234,22 +234,22 @@ The unit of analysis for this research was the county level.  However, as counti
 The simulation also assumed an even strategy between Democrats and Republicans.  In other simulations, even giving Dems no offices and Republicans thousands, we see similar results.  Not all states can be flipped.  Further analysis should focus on this asymmetry to find more innovative strategies for each party.
 
 #### References
-[1] The Ground Game in 2012, Seth Masket. Mischiefs of Faction  
+[1] *The Ground Game in 2012*, Seth Masket. Mischiefs of Faction  
 http://www.mischiefsoffaction.com/2013/01/the-ground-game-in-2012.html
 
-[2] How Much Did the 2012 Air War and Ground Game Matter?, John Sides. The Monkey Cage  
+[2] *How Much Did the 2012 Air War and Ground Game Matter?*, John Sides. The Monkey Cage  
 http://themonkeycage.org/2013/05/how-much-did-the-2012-air-war-and-ground-game-matter/
 
-[3] Relying on the Ground Game: The Placement and Effect of Campaign Field Offices, Joshua P. Darr, Matthew S. Levendusky. American Politics Research May 2014 vol. 42 no. 3 529-548  
+[3] *Relying on the Ground Game: The Placement and Effect of Campaign Field Offices*, Joshua P. Darr, Matthew S. Levendusky. American Politics Research May **2014** vol. 42 no. 3 529-548  
 http://apr.sagepub.com/content/42/3/529
 
-[4] Did Obama's Ground Game Matter?, Seth E. Masket. Public Opin Q (2009) 73 (5): 1023-1039.  
+[4] *Did Obama's Ground Game Matter?*, Seth E. Masket. Public Opin Q (**2009**) 73 (5): 1023-1039.  
 http://poq.oxfordjournals.org/content/73/5/1023.full
 
-[5] Campaign Field Offices and Voter Mobilization in 2012, Aaron C. Weinschenk. Presidential Studies Quarterly 45, no. 3 (September)  
+[5] *Campaign Field Offices and Voter Mobilization in 2012*, Aaron C. Weinschenk. Presidential Studies Quarterly 45, no. 3 (September)  
 http://www.acweinschenk.net/uploads/1/7/3/6/17361647/psq12213.pdf
 
-[6] Office Space: A Geo-Spatial Analysis of the Effects of Field Offices on Voter Turnout, Seth Masket et al. American Political Science Association, August 28-31, 2014, Washington, D.C.  
+[6] *Office Space: A Geo-Spatial Analysis of the Effects of Field Offices on Voter Turnout*, Seth Masket et al. American Political Science Association, August 28-31, **2014**, Washington, D.C.  
 http://static1.1.sqspcdn.com/static/f/864938/25350207/1408716516677/Allen+et+al.+APSA+2014.pdf?token=8SQWbYH63TzRnaVXi9JXF1mWlTY%3D
 
 [7] United States Department of Agriculture Economic Research Service  
@@ -273,5 +273,5 @@ https://www.udel.edu/johnmack/frec682/red_state_blue_state/
 [13] Federal Election Commission: Detailed Files About Candidates, Parties and Other Committees  
 http://www.fec.gov/finance/disclosure/ftpdet.shtml#a2011_2012
 
-[14] Political influence by county: A new way to look at campaign finance data, Ryan Sibley, Bob Lannon, Ben Chartoff. Sunlight Foundation Blog  
+[14] *Political influence by county: A new way to look at campaign finance data*, Ryan Sibley, Bob Lannon, Ben Chartoff. Sunlight Foundation Blog  
 https://sunlightfoundation.com/blog/2013/10/23/political-influence-by-county-a-new-way-to-look-at-campaign-finance-data/
