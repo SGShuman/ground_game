@@ -88,16 +88,16 @@ However, applying what we learned about the possible range of the field office e
 
 As you can see (click to enable hover over), the expected swing states of North Carolina, Florida and Ohio all remain with in statistical contention, as well as New Hampshire.  This jives with some conventional wisdom about swing states.
 
-#### Simulation Results - Seems to be a reversal, why didn't the republican's actually win. What makes an effective ground game (in terms of placement). future study on why republicans suck.
-My model predicts every state correctly (Florida by only 10,000 votes) and indeed shows Obama flipping Florida with his effective field organization.  The other insight my model provides into Florida is that Democrats only win Florida in one out of every one thousand simulations when the Republicans mount a strong field organization there.  Obama did indeed flip it in 2012 but the Republicans could easily have answered with an effective field game of their own.
+#### Simulation Results
+My model predicts every state correctly (Florida by only 10,000 votes) and indeed shows Obama flipping Florida with his effective field organization.  This means that Obama loses Florida if neither party mounts a ground game, and wins if Democrats do have ground game (remember Republican ground game was ineffective).  The other insight my model provides into Florida is that Democrats only win Florida in one out of every one thousand simulations when the Republicans mount a strong field organization there.  That is, if Republicans can match the Democrats effect, they take Florida nearly every time.  Obama did indeed flip Florida in 2012 but the Republicans could easily have answered with an effective field game of their own.
 
-Another big surprise is New Hampshire, where small changes can have a larger effect.  For every thousand times the simulation is run, New Hampshire will switch to the Republicans 250 times, while the other swing states will only switch 1 out of every 1000 times (hardly enough to focus a strategy there, at least on human timescales).
+Another big surprise is New Hampshire, where small changes can have a larger effect.  For every thousand times the simulation is run, New Hampshire will switch to the Republicans 100-250 times, while Florida, Ohio, and North Carolina will only switch 5-10 out of every 1000 times (hardly enough to focus a strategy there, at least on human timescales).
 
-So, what is going on?  Why is New Hampshire, with all 4 of its electoral votes the key battleground for political strategy?
+So, what is going on?  Why is New Hampshire, with all 4 of its electoral votes so susceptible to field office placement strategy.
 
 The answer is that in order to flip a state, one county must contain an appreciable percentage of the total state voting population and there must be relatively few counties so that the effect is not negated by random fluctuations in other counties.  When this is the case in New Hampshire some counties have a randomly small effect (possible with only 4 counties) and Hillborough County has a randomly strong effect, enough to turn the whole state.  In California, this isn't possible despite Los Angeles being so important in terms of population.
 
-The visualization below shows this.  The size of the bubble is the size of the effect unscaled to population while the height is the percentage of the population that lives in that county.
+The visualization below shows this.  The size of the bubble is the size of the effect unscaled to population while the height is the percentage of the population that lives in that county.  Counties with higher positions are more influential and larger bubbles also indicates more influence (although if there is little population in the county the influence doesn't matter).
 
 <div>
     <a href="https://plot.ly/~SGShuman/65/" target="_blank" title="Top 10 Counties by Population" style="display: block; text-align: center;"><img src="https://plot.ly/~SGShuman/65.png" alt="Top 10 Counties by Population" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
@@ -106,11 +106,13 @@ The visualization below shows this.  The size of the bubble is the size of the e
 
 
 #### The Ideal Strategy
-This simulation shows that field office placement could play a vital role in Republican strategy in 2012, with a more effective strategy getting out the vote in Florida, its 29 electoral votes can be turned.  With a long shot in NH (especially against Bernie Sanders), field offices can optimally change the single party turnout in a state by up to 5-7% but, in order for that to make a difference first the other party must not play, and secondly the margin must be sufficiently small that a state can be flipped.
+This simulation shows that field office placement could play a vital role in Republican strategy in 2012, with a more effective strategy getting out the vote in Florida, its 29 electoral votes can be turned.  With a long shot in NH (especially against Bernie Sanders), field offices can optimally change the single party turnout in a state by up to 5-7%.
 
 In many of the swing states, if each party mounts an effective ground game, then nothing is gained or lost.  In Ohio, where there was a 3% difference in vote share in 2012 in favor of the Dems, an average ground game gives a 3% shift in favor of Obama.  In states where the margin is less close, the ground game matters even less.
 
-But much can change between now and election day. Some states may have smaller projected voting gaps (although wider is more likely). For Florida and New Hampshire and those hypothetical states this model can be used to find the most important counties to place field offices in. And help develop an overall strategy.
+However, this assumes that both Democrats and Republicans blanket every county with field offices.  What these findings suggest is a more subtle strategy.  Closer to election day, the probable county results will be known with much more precision.  By choosing states that are very close near election day, the field office strategy can have a large effect.  By placing offices in historical biased counties with large populations, each party can limit the resources spent on each state while maximizing votes gained.  For Democrats this can essentially mean target cities while for Republicans it may suggest a more local approach of finding strongly partisan pockets in densely populated areas.
+
+Overall given limited resources, only states that are statistically close enough to be turned should be considered.  Given the bar chart above, we can now find those.
 
 ### Next Steps
 The unit of analysis for this research was the county level.  However, as counties are contiguous, it is not at all clear that this is an appropriate unit of analysis (although it is a convenient one).  Next steps could focus on both a more granular approach and the causes or predictors or ineffectiveness in a field office.  Clues as to what could make the Republican ground game more effective could be very important.
