@@ -128,12 +128,13 @@ Votes Added = Voting Age Population x (office_effect + interaction_effect)
 office_effect = np.random.normal(loc=office_coef, scale=office_stderr)
 interaction_effect = Cook_Index['county_name'] x np.random.normal(loc=interaction_coef, scale=interaction_stderr)
 Votes Added = CVAP x (office_effect + interaction_effect)
+''''
 
 
 We can similarly calculate the average expected number of votes to be gained by adding field offices to every county in a state.  This is seen below with the error bars indicating the maximum and minimum possible effects by state.
 
 <div>
-    <a href="https://plot.ly/~SGShuman/53/" target="_blank" title="Average Percent Vote Increase by State" style="display: block; text-align: center;"><img src="https://plot.ly/~SGShuman/53.png" alt="Average Percent Vote Increase by State" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+    <a href="https://plot.ly/~SGShuman/53/" target="_blank" title="Average Percent Vote Increase by State" style="display: block; text-align: center;"><img src="https://plot.ly/~SGShuman/53.png" alt="Average Percent Vote Increase by State" style="max-widgth: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
     <script data-plotly="SGShuman:53"  src="https://plot.ly/embed.js" async></script>
 </div>
 
