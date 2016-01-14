@@ -58,20 +58,86 @@ As found in previous papers, Democratic and Republican field offices offer stark
 
 Although these numbers are significantly higher than what other researchers found, the interaction term in the model changes the magnitude of the effect, but not its importance to the overall election.
 
+There is one regression result per party, each using similar factors.  The state average turnout refers to the single party turnout and so is different for Republicans and Democrats.
+
+##### Democratic Regression  
+*Adjusted R2 - .978*
+
+| Feature                               | Coeff      | Std Err  | P Val |
+|---------------------------------------|------------|----------|-------|
+| State Average Turnout                 | 0.0048     | 0.000    | 0.000 |
+| Rural-urban Continuum Code            | 0.0046     | 0.000    | 0.000 |
+| Perc Less than Highschool Diploma     | 0.0006     | 0.000    | 0.000 |
+| Perc with Bachelor's                  | 0.0032     | 8.54e-05 | 0.000 |
+| Unemployment Rate                     | 0.0041     | 0.000    | 0.000 |
+| Religion NMF Feature 1                | 0.0091     | 0.001    | 0.000 |
+| Religion NMF Feature 2                | 0.0063     | 0.000    | 0.000 |
+| Campaign Expenditure                  | -4.084e-10 | 5.09e-11 | 0.000 |
+| Cook Index                            | 0.4752     | 0.006    | 0.000 |
+| Change in Vote Share 2008->2012       | 0.2689     | 0.024    | 0.000 |
+| 1 Field Office                        | 0.0088     | 0.002    | 0.000 |
+| 2+ Field Offices                      | 0.0257     | 0.004    | 0.000 |
+| Field Office - Cook Index Interaction | 0.0348     | 0.017    | 0.041 |
+
+#### 
+Republicans with a similar R2 to Democrats show a strong fit but not a strong statistical certainty for field office placement having an effect.
+
+##### Republican Regression  
+*Adjusted R2 - .982*
+
+| Feature                               | Coeff      | Std Err  | P Val |
+|---------------------------------------|------------|----------|-------|
+| State Average Turnout                 | 0.0060     | 0.000    | 0.000 |
+| Rural-urban Continuum Code            | 0.0044     | 0.000    | 0.000 |
+| Perc Less than Highschool Diploma     | -0.0024    | 0.000    | 0.000 |
+| Perc with Bachelor's                  | 0.0025     | 0.000    | 0.000 |
+| Unemployment Rate                     | 0.0054     | 0.000    | 0.000 |
+| Religion NMF Feature 1                | 0.0003     | 0.001    | 0.700 |
+| Religion NMF Feature 2                | 0.0072     | 0.001    | 0.000 |
+| Campaign Expenditure                  | 4.905e-10  | 6.44e-11 | 0.000 |
+| Cook Index                            | -0.5827    | 0.008    | 0.000 |
+| Change in Vote Share 2008->2012       | -0.0543    | 0.032    | 0.000 |
+| 1 Field Office                        | 0.0087     | 0.004    | 0.035 |
+| 2+ Field Offices                      | 0.0143     | 0.008    | 0.080 |
+| Field Office - Cook Index Interaction | -0.1054    | 0.029    | 0.000 |
+
+#### 
+From these results, we can find the number of votes added to each county by placing a field office there, as explained in the simulation.
+
 ### Simulation and Strategy
 
 With the results of the linear model able to offer a statistical range of effects that are possible by placing a field office, I simulated the 2012 election 1000 times to see if any states could be flipped by placing field offices.  In this simulation, I assumed that Republican's field office placement was statistically significant.  I make this assumption because in 2016 it is possible that lessons learned from the 2012 campaign could cause equal effect to Democratic strategy.  My findings do not show any causality behind the ineffective Republican operation, it could be due to bad strategy or a difference in voter habits.
 
-First the simulation calculates the number of votes per county without any field office placement.  Then the simulation places a limited number of field offices in counties, weighted by how close an election it was in the state the county is located.  Once the offices are placed, the vote increase is drawn from a normal distribution based off the coefficients and standard errors from the linear model.
+#### Simulation in Action
 
-We can then calculate the average expected number of votes to be gained by state by adding field offices to every county.  This is seen below with the error bars indicating the maximum and minimum possible effects.
+1. Pick one party
+2. Determine the predicted votes without placing any field offices.
+3. Place a limited number of offices in counties around the country.  Place more offices in states with closely contested elections.  Place either one or two offices, drawn randomly.
+4. Draw from a normal distribution to determine the effect of a field office in every county that got one or two offices.
+5. Calculate the votes added to each county and sum. [note]
+6. Repeat for the other political party.
+7. Compare results.  Calculate state winners.
+8. Repeat 1000 times.
+
+[Calculation Details]:
+office_effect is drawn from a normal distribution with a mean of office_coef and std of office_stderr  
+interaction_effect is drawn from similar normal distribution multiplied by County Cook Index  
+Votes Added = Voting Age Population x (office_effect + interaction_effect)
+
+''''
+office_effect = np.random.normal(loc=office_coef, scale=office_stderr)
+interaction_effect = Cook_Index['county_name'] x np.random.normal(loc=interaction_coef, scale=interaction_stderr)
+Votes Added = CVAP x (office_effect + interaction_effect)
+
+
+We can similarly calculate the average expected number of votes to be gained by adding field offices to every county in a state.  This is seen below with the error bars indicating the maximum and minimum possible effects by state.
 
 <div>
     <a href="https://plot.ly/~SGShuman/53/" target="_blank" title="Average Percent Vote Increase by State" style="display: block; text-align: center;"><img src="https://plot.ly/~SGShuman/53.png" alt="Average Percent Vote Increase by State" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
     <script data-plotly="SGShuman:53"  src="https://plot.ly/embed.js" async></script>
 </div>
 
-Our goal is to identify states where the projected difference in votes is covered by the difference between the right hand and left hand sides of the above graph.  In fact, since we can expect some statistical variation, we can identify all the states who will flip in any simulation.
+Our goal is to identify states where the projected difference in votes is less than the difference between the right hand and left hand sides of the above graph.  In fact, since we can expect some statistical variation, we can identify all the states who will flip in any simulation.  This means including simulations where one party has no ground game and the other party puts offices in every county.
 
 The below graph shows the battleground states under traditional understanding.  The highlighted bubbles indicate which states have single party vote percentages for each party within 5% of each other.  The size indicates the number of electoral votes.  This means the states that we would consider battlegrounds create the highlighted group below.
 

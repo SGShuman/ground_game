@@ -37,13 +37,13 @@ def feat_vs_y_true_vars(county_win_dict, df, feat):
 	x_dem = df[mask][feat].values
 	x_rep = df[np.logical_not(mask)][feat].values
 
-	return x_dem, x_rep, feat
+	return np.array(x_dem), np.array(x_rep), feat
 
 
 def plot_feat_vs_y_true(x_dem, x_rep, x_label, title, red, blue, bins):
 	'''Plot Histogram of feature split by county winner'''
 	trace1 = go.Histogram(
-	    x=x_dem,
+	    x=x_dem * 100,
 	    opacity=0.75,
 	    name='Democratic Won',
 	    autobinx=False,
@@ -53,7 +53,7 @@ def plot_feat_vs_y_true(x_dem, x_rep, x_label, title, red, blue, bins):
 	    	),
 	)
 	trace2 = go.Histogram(
-	    x=x_rep,
+	    x=x_rep * 100,
 	    opacity=0.75,
 	    name='Republican Won',
 	    autobinx=False,
@@ -428,16 +428,16 @@ if __name__ == '__main__':
 		                                     obama_df,
 		                                     'relig_nmf_feat_0')
 	bins = dict(start=0, end=10, size=.25)
-	# plot_feat_vs_y_true(x_dem, x_rep, 'Religion NMF Feat',
-	# 	                'Religion NMF Feature vs. Target', red, blue, bins)
+	plot_feat_vs_y_true(x_dem, x_rep, 'Religion NMF Feature',
+		                'Religion NMF Feature by County Winners', red, blue, bins)
 
 	# By Cook Score
 	x_dem, x_rep, feat = feat_vs_y_true_vars(county_win_dict,
 		                                     obama_df,
 		                                     'cook_score')
 	bins = dict(start=-.5, end=.5, size=.1)
-	# plot_feat_vs_y_true(x_dem, x_rep, 'Cook Score',
-	# 	                'Historical Democratic Bias vs. Target', red, blue, bins)
+	plot_feat_vs_y_true(x_dem, x_rep, 'Cook Score',
+		                'Historical Democratic Bias by County Winners', red, blue, bins)
 
 	# By Democratic Expenditure
 	# x_dem, x_rep, feat = feat_vs_y_true_vars(county_win_dict,
@@ -445,12 +445,12 @@ if __name__ == '__main__':
 	#                                          'expenditure')
 	# bins = dict(start=0, end=3500000, size=250000)
 	# plot_feat_vs_y_true(x_dem, x_rep, 'Democratic Expenditure',
-	#                     'Democractic Expenditure vs. Target', red, blue, bins)
+	#                     'Democractic Expenditure by County Winners', red, blue, bins)
 
 	# Vertical split Bar Plot
 	state_inc_dem, state_inc_rep = split_bar_vars(dem, rep)
-	# split_bar_plot(state_inc_dem, state_inc_rep,
-	# 	           'Average Percent Vote Increase by State', red, blue)
+	split_bar_plot(state_inc_dem, state_inc_rep,
+		           'Average Percent Vote Increase by State', red, blue)
 
 	# Swing State Bubble - Naive
 	state_obama_df, state_romney_df, color, close_calls, voting_pop, size, text =\
@@ -475,4 +475,4 @@ if __name__ == '__main__':
 		                state_win_dict, state_list, red, blue)
 
 	influ_counties_plot(states, population_perc, colors,
-		size_effect, text, 'Top 10 Counties by Population')
+		size_effect, text, 'Influential Counties by State')
