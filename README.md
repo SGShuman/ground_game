@@ -127,7 +127,7 @@ Votes Added = Voting Age Population x (office_effect + interaction_effect)
 ```
 office_effect = np.random.normal(loc=office_coef, scale=office_stderr)
 interaction_effect = Cook_Index['county_name'] * np.random.normal(loc=interaction_coef, 
-scale=interaction_stderr)
+                                                                  scale=interaction_stderr)
 Votes Added = CVAP * (office_effect + interaction_effect)
 ```
 
