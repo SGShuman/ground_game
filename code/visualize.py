@@ -311,7 +311,7 @@ def inlfu_counties_vars(dem_strat, rep_strat,
 		row = obama_df.iloc[i]
 		name = row.NAME
 		cook_score = row.cook_score
-		temp = '%s<br>Cook Score: %s' % (name, cook_score)
+		temp = '%s<br>Cook Partisan Voting Index: %s' % (name, cook_score)
 		text.append(temp)
 
 	return states, population_perc, colors, np.array(size_effect), text
