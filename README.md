@@ -114,15 +114,15 @@ With the results of the linear model able to offer a statistical range of effect
 2. Determine the predicted votes without placing any field offices.
 3. Place a limited number of offices in counties around the country.  Place more offices in states with closely contested elections.  Place either one or two offices, drawn randomly.
 4. Draw from a normal distribution to determine the effect of a field office in every county that got one or two offices.
-5. Calculate the votes added to each county and sum. [note]
+5. Calculate the votes added to each county and sum.
 6. Repeat for the other political party.
 7. Compare results.  Calculate state winners.
 8. Repeat 1000 times.
 
-[Calculation Details]:  
+####Calculation Details:  
 * office_effect is drawn from a normal distribution with a mean of office_coef and std of office_stderr  
 * interaction_effect is drawn from similar normal distribution multiplied by County Cook Index  
-*Votes Added = Voting Age Population x (office_effect + interaction_effect)
+* Votes Added = Voting Age Population x (office_effect + interaction_effect)
 
 ```python
 office_effect = np.random.normal(loc=office_coef, scale=office_stderr)
