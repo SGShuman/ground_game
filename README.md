@@ -66,16 +66,16 @@ First the simulation calculates the number of votes per county without any field
     <script data-plotly="SGShuman:53"  src="https://plot.ly/embed.js" async></script>
 </div>
 
-This leads to an average expected number of votes to be gained by state by adding field offices to every county.  We need to identify states where the projected difference in votes is covered by the difference between the right hand and left hand sides of the above graph.  In fact, since we can expect some statistical variation, we can identify all the counties who will flip in any simulation, even extreme ones.
+This leads to an average expected number of votes to be gained by state by adding field offices to every county.  We need to identify states where the projected difference in votes is covered by the difference between the right hand and left hand sides of the above graph.  In fact, since we can expect some statistical variation, we can identify all the states who will flip in any simulation, even extreme ones.
 
-This takes the counties that we would consider battlegrounds from a group looking like the below.
+This takes the states that we would consider battlegrounds from a group looking like the below.
 
 <div>
     <a href="https://plot.ly/~SGShuman/55/" target="_blank" title="Swing States - by Close Votes" style="display: block; text-align: center;"><img src="https://plot.ly/~SGShuman/55.png" alt="Swing States - by Close Votes" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
     <script data-plotly="SGShuman:55"  src="https://plot.ly/embed.js" async></script>
 </div>
 
-And limits it to only these counties:
+And limits it to only these states:
 <div>
     <a href="https://plot.ly/~SGShuman/57/" target="_blank" title="Swing States - Simulation Results" style="display: block; text-align: center;"><img src="https://plot.ly/~SGShuman/57.png" alt="Swing States - Simulation Results" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
     <script data-plotly="SGShuman:57"  src="https://plot.ly/embed.js" async></script>
@@ -84,13 +84,13 @@ And limits it to only these counties:
 As you can see (click to enable hover over), the expected swing states of North Carolina, Florida and Ohio all remain with in statistical contention, as well as New Hampshire.  This jives with some conventional wisdom about swing states.
 
 #### Simulation Results
-My model predicts every state correctly (Florida by only 10,000 votes)and indeed shows Obama flipping Florida with his effective field organization.  The other insight my model provides into Florida is that Democrats only win Florida in one out of every one thousand simulations when the Republicans mount a strong field organization there.  Obama did indeed flip it in 2012 but the Republicans could easily have answered with an effective field game of their own.
+My model predicts every state correctly (Florida by only 10,000 votes) and indeed shows Obama flipping Florida with his effective field organization.  The other insight my model provides into Florida is that Democrats only win Florida in one out of every one thousand simulations when the Republicans mount a strong field organization there.  Obama did indeed flip it in 2012 but the Republicans could easily have answered with an effective field game of their own.
 
-The big surprise is New Hampshire, where small changes can have a larger effect.  For every thousand times the simulation is run, New Hampshire will swith to the Republicans 250 times, while the other swing states will only swith 1 out of every 1000 times (hardly enough to focus a strategy there, at least on human timescales).
+Another big surprise is New Hampshire, where small changes can have a larger effect.  For every thousand times the simulation is run, New Hampshire will switch to the Republicans 250 times, while the other swing states will only switch 1 out of every 1000 times (hardly enough to focus a strategy there, at least on human timescales).
 
-So, what is going on?  Why is New Hampshire, with all 4 of its electoral votes the key battleground for political strategy.
+So, what is going on?  Why is New Hampshire, with all 4 of its electoral votes the key battleground for political strategy?
 
-The answer is that in order to flip a state, one county must contain an appreciable percentage of the total state voting population and there must be relatively few counties so that the effect is not negated by random fluctuations in other counties.  When this is the case in New Hampshire some counties have a randomly small effect (possible with only 4 counties) and Hillborough County has a randomly strong effect, enough to turn the whole state.  In Callifornia, this isn't possible despite Los Angeles being so important in terms of population.
+The answer is that in order to flip a state, one county must contain an appreciable percentage of the total state voting population and there must be relatively few counties so that the effect is not negated by random fluctuations in other counties.  When this is the case in New Hampshire some counties have a randomly small effect (possible with only 4 counties) and Hillborough County has a randomly strong effect, enough to turn the whole state.  In California, this isn't possible despite Los Angeles being so important in terms of population.
 
 The visualization below shows this.  The size of the bubble is the size of the effect unscaled to population while the height is the percentage of the population that lives in that county.
 
@@ -102,9 +102,9 @@ The visualization below shows this.  The size of the bubble is the size of the e
 
 
 #### The Ideal Strategy
-This simulation shows that field office placement could play a vital role in Republican strategy in 2012, with a more effective strategy getting out the vote in Florida, its 29 electoral votes can be turned.  With a longshot in NH (especially against Bernie Sanders), field offices can optimally change the single party turnout in a state by up to 5-7% but, in order for that to make a difference first the other party must not play, and secondly the margin must be sufficiently small that a state can be flipped.
+This simulation shows that field office placement could play a vital role in Republican strategy in 2012, with a more effective strategy getting out the vote in Florida, its 29 electoral votes can be turned.  With a long shot in NH (especially against Bernie Sanders), field offices can optimally change the single party turnout in a state by up to 5-7% but, in order for that to make a difference first the other party must not play, and secondly the margin must be sufficiently small that a state can be flipped.
 
-In many of the swing states, if each party mounts an effective ground game, then nothing is gained or lost.  In Ohio, where there was a 3% in vote share difference in 2012 in favor of the Dems, has a 3% shift in favor of Obama given two effective ground games.  In states where the margin is less close, the ground game matters even less.
+In many of the swing states, if each party mounts an effective ground game, then nothing is gained or lost.  In Ohio, where there was a 3% difference in vote share in 2012 in favor of the Dems, an average ground game gives a 3% shift in favor of Obama .  In states where the margin is less close, the ground game matters even less.
 
 But much can change between now and election day. Some states may have smaller projected voting gaps (although wider is more likely). For Florida and New Hampshire and those hypothetical states this model can be used to find the most important counties to place field offices in. And help develop an overall strategy.
 
