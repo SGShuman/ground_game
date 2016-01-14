@@ -1,6 +1,9 @@
 # Creating the Ideal Field Office Strategy for the Presidential Election
 #### An analysis of the 2012 presidential election with an eye towards 2016
 
+### TL;DR
+The goal of this research is to analyze the effect of field office placement in 2012.  In agreement with literature, I find that field office placement was responsible for a Democratic victory in Florida.  For the first time, I show an effective ground game for Republicans is the path to victory in Florida and potentially New Hampshire. Smaller states with sharply partisan counties are more susceptible to field office placement.
+
 ### Introduction
 The folk wisdom of the 2008 and 2012 presidential elections is that the Democrat's superior 'ground game' handed them the crucial swing states needed for an electoral victory.  By mobilizing 786 field offices <a href=http://www.mischiefsoffaction.com/2013/01/the-ground-game-in-2012.html>[1]</a> located in key counties, grass roots supporters were able to get out the vote and just edge Obama over the top.  But how much truth is there to this traditional narrative?
 

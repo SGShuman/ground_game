@@ -73,7 +73,7 @@ def make_joined_df(census_data, CVAP, turnout, election_data,
     temp_df = join_turnout(temp_df, turnout[turnout_cols])
 
     # Add a minimum to this column to account for low outliers
-    temp_df[mod_type + '_' + '2012_p_vote'] =
+    temp_df[mod_type + '_' + '2012_p_vote'] =\
     temp_df[mod_type + '_' + '2012_p_vote'].apply(lambda x: max([x, 15]))
 
     # Choose cols to merge on
@@ -121,7 +121,7 @@ def make_joined_df(census_data, CVAP, turnout, election_data,
     temp_df.drop('Num_offices_' + mod_type, axis=1, inplace=True)
 
     # Add interaction term
-    temp_df['cook * office_bool'] =
+    temp_df['cook * office_bool'] =\
     (temp_df['1_office'] + temp_df['2_office']) * temp_df['cook_score']
 
     # Alaska and South Dakota are dropped since districts
@@ -168,7 +168,7 @@ def get_kfold(model, X, y):
         r2.append(r2_score(y[test_index], y_pred))
         mse.append(mean_squared_error(y[test_index], y_pred))
 
-    print 'Model: %s, R2: %s, MSE: %s' %
+    print 'Model: %s, R2: %s, MSE: %s' %\
           (model.__class__.__name__, np.mean(r2), np.mean(mse))
 
 
@@ -187,7 +187,7 @@ def plot_resids(fit_model, y):
 
 def plot_box_resids(fit_model, y_pred, subset=None):
     '''More than you ever wanted to know about your residuals'''
-    s_resid = (fit_model.resid - np.mean(fit_model.resid)) /
+    s_resid = (fit_model.resid - np.mean(fit_model.resid)) /\
                np.var(fit_model.resid)
     if subset:
         s_resid = np.random.choice(s_resid,
@@ -305,4 +305,4 @@ if __name__ == '__main__':
     print glsar_results.summary()
 
     # Plot residuals against fit target
-    plot_box_resids(glsar_results, glsar_results.fittedvalues)
+    # plot_box_resids(glsar_results, glsar_results.fittedvalues)

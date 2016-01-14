@@ -21,7 +21,7 @@ def get_winners(obama_df, romney_df):
 	county_win_dict = temp_df.set_index('NAME').to_dict()['winner']
 
 	# States Dems won
-	state_win = obama_df.groupby('state_abbr').sum()['votes'] >
+	state_win = obama_df.groupby('state_abbr').sum()['votes'] >\
 	            romney_df.groupby('state_abbr').sum()['votes']
 	state_win_dict = state_win.to_dict()
 
@@ -190,10 +190,10 @@ def swing_state_bubble_vars(obama_df, romney_df, electoral_dict,
         ob_v = np.round(row['votes'] / float(pop), 3) * 100
         ro_v = np.round(r_row['votes'] / float(pop), 3) * 100
         temp = 'State: %s<br>Electoral Votes: %s<br>Voting Age Pop: %s\
-               <br>Obama Vote: %s<br>Romney Vote: %s' %
+               <br>Obama Vote: %s<br>Romney Vote: %s' %\
                (name, e_votes, pop, str(ob_v) + '%', str(ro_v) + '%')
         text.append(temp)
-    return state_obama_df, state_romney_df, color,
+    return state_obama_df, state_romney_df, color,\
            close_calls, voting_pop, size, text
 
 
@@ -276,7 +276,7 @@ def inlfu_counties_vars(dem_strat, rep_strat,
 	df_list = []
 	for x in state_list:
 		mask = temp_df['state_abbr'] == x
-		temp = temp_df[mask].sort_values('CVAP_EST', ascending=False).head()
+		temp = temp_df[mask].sort_values('CVAP_EST', ascending=False).head(10)
 		df_list.append(temp)
 
 	obama_df = pd.concat(df_list)
@@ -470,5 +470,5 @@ if __name__ == '__main__':
 		                obama_df, county_win_dict,
 		                state_win_dict, state_list, red, blue)
 
-	# influ_counties_plot(states, population_perc, colors,
-	# 	size_effect, text, 'Top 5 Counties by Population')
+	influ_counties_plot(states, population_perc, colors,
+		size_effect, text, 'Top 10 Counties by Population')

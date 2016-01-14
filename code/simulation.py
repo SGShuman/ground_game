@@ -86,7 +86,7 @@ class one_party_strat(object):
             votes_added.append(self._get_vote_increase(num_offices, county))
 
         self.df['votes_added'] = votes_added
-        self.df['total_votes'] = self.df['votes_added'] +
+        self.df['total_votes'] = self.df['votes_added'] +\
                                  self.df['votes_predicted']
 
     def _get_vote_increase(self, num_offices, county):
@@ -113,26 +113,26 @@ class one_party_strat(object):
 
     def get_av_increase(self):
     	'''Return a DataFrame with several vote metrics'''
-        self.df['vote_effect'] = self.df['cook_score'] * self.int_coef +
-                                 self.df['1_office'] * self.one_coef +
+        self.df['vote_effect'] = self.df['cook_score'] * self.int_coef +\
+                                 self.df['1_office'] * self.one_coef +\
                                  self.df['2_office'] * self.two_coef
 
-        self.df['max_vote_effect'] = self.df['cook_score'] * (self.int_coef +
-                                                              self.int_std) +
-                                     self.df['1_office'] * (self.one_coef +
-                                                            self.one_std) +
-                                     self.df['2_office'] * (self.two_coef +
+        self.df['max_vote_effect'] = self.df['cook_score'] * (self.int_coef +\
+                                                              self.int_std) +\
+                                     self.df['1_office'] * (self.one_coef +\
+                                                            self.one_std) +\
+                                     self.df['2_office'] * (self.two_coef +\
                                                             self.two_std)
 
-        self.df['av_vote_increase'] = self.df['CVAP_EST'] *
+        self.df['av_vote_increase'] = self.df['CVAP_EST'] *\
                                       self.df['vote_effect']\
                                       .apply(lambda x: max([0, x]))
 
-        self.df['max_vote_increase'] = self.df['CVAP_EST'] *
+        self.df['max_vote_increase'] = self.df['CVAP_EST'] *\
                                        self.df['max_vote_effect']\
                                        .apply(lambda x: max([0, x]))
 
-        self.df['av_increase perc of Predicted'] = self.df['av_vote_increase'] /
+        self.df['av_increase perc of Predicted'] = self.df['av_vote_increase'] /\
                                                    self.df['votes_predicted']
 
         return self.df[['NAME', 'state_abbr', 'votes_predicted',
@@ -167,7 +167,7 @@ class simulation(object):
     def _calc_weights(self):
     	'''Return a list of weights of which counties to select first'''
         # Find the states that are swing states
-        weights = self.dem_strat.df.groupby('state_abbr').sum()['votes'] -
+        weights = self.dem_strat.df.groupby('state_abbr').sum()['votes'] -\
                   self.rep_strat.df.groupby('state_abbr').sum()['votes']
 
         # Match the state weights up with counties
