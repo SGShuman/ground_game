@@ -200,7 +200,7 @@ def swing_state_bubble_vars(obama_df, romney_df, electoral_dict,
 def swing_state_bubble_plot(state_obama_df, state_romney_df,
 	                        color, close_calls, voting_pop,
 	                        size, text, title):
-    '''Plot the swing state bubble plot'''
+	'''Plot the swing state bubble plot'''
 	trace0 = go.Scatter(
 	    x=state_obama_df['votes'] / voting_pop,
 	    y=state_romney_df['votes'] / voting_pop,
@@ -240,9 +240,9 @@ def swing_state_bubble_plot(state_obama_df, state_romney_df,
 	plot_url = py.plot(fig, filename=title)
 
 
-def get_close_calls(state_obama_df, state_romney_df,
+def get_close_calls(state_obama_df, state_romney_df, 
 	                state_inc_dem, state_inc_rep):
-    '''Return states that can be swung with ground game'''
+	'''Return states that can be swung with ground game'''
 	close_calls_smart = np.zeros(state_obama_df.shape[0])
 	winner = state_obama_df['votes'] - state_romney_df['votes']
 	winner = winner.apply(lambda x: x > 0)
@@ -317,9 +317,9 @@ def inlfu_counties_vars(dem_strat, rep_strat,
 	return states, population_perc, colors, np.array(size_effect), text
 
 
-def influ_counties_plot(states, population_perc, colors,
+def influ_counties_plot(states, population_perc, colors, 
 	                    size_effect, text, title):
-    '''Plot the infuential counties scatter'''
+	'''Plot the infuential counties scatter'''
 	trace0 = go.Scatter(
 	    x=states,
 	    y=population_perc,
@@ -335,7 +335,7 @@ def influ_counties_plot(states, population_perc, colors,
 	layout = go.Layout(
 	    title=title,
 	    xaxis=dict(
-	        title='State with Top 5 Counties by Voting Age Pop',
+	        title='State with Top 10 Counties by Voting Age Pop',
 	        titlefont=dict(
 	            family='Courier New, monospace',
 	            size=18,
@@ -369,46 +369,50 @@ def influ_counties_plot(states, population_perc, colors,
 
 
 if __name__ == '__main__':
-    featurizer = Featurize()
-    print 'Loading Data...'
-    # 2013 ACS summary data
-    census_data = featurizer.load_summary_cols()
-    # 2012 Election Data
-    election_data = pd.read_csv('data/election_2012_cleaned.csv')
-    election_data.drop('Unnamed: 0', axis=1, inplace=True)
-    # 2013 Citizens of voting age by county
-    CVAP = featurizer.load_CVAP()
-    # Location of Field offices 2012
-    dem_office_path = 'data/Obama_Office_Locations_Parsed_Cleaned.csv'
-    rep_office_path = 'data/Romney_Office_Locations_Parsed_Cleaned.csv'
-    obama_offices = featurizer.load_offices(dem_office_path, suffix='dem')
-    romney_offices = featurizer.load_offices(rep_office_path, suffix='rep')
-    # Turnout by state
-    dem_turnout_path = 'data/turnout/democratic_turnout.csv'
-    rep_turnout_path = 'data/turnout/republican_turnout.csv'
-    dem_turnout = featurizer.load_turnout(dem_turnout_path, prefix='dem')
-    rep_turnout = featurizer.load_turnout(rep_turnout_path, prefix='rep')
+	featurizer = Featurize()
+	print 'Loading Data...'
+	# 2013 ACS summary data
+	census_data = featurizer.load_summary_cols()
+	# 2012 Election Data
+	election_data = pd.read_csv('data/election_2012_cleaned.csv')
+	election_data.drop('Unnamed: 0', axis=1, inplace=True)
+	# 2013 Citizens of voting age by county
+	CVAP = featurizer.load_CVAP()
+	# Location of Field offices 2012
+	dem_office_path = 'data/Obama_Office_Locations_Parsed_Cleaned.csv'
+	rep_office_path = 'data/Romney_Office_Locations_Parsed_Cleaned.csv'
+	obama_offices = featurizer.load_offices(dem_office_path, suffix='dem')
+	romney_offices = featurizer.load_offices(rep_office_path, suffix='rep')
+	# Turnout by state
+	dem_turnout_path = 'data/turnout/democratic_turnout.csv'
+	rep_turnout_path = 'data/turnout/republican_turnout.csv'
+	dem_turnout = featurizer.load_turnout(dem_turnout_path, prefix='dem')
+	rep_turnout = featurizer.load_turnout(rep_turnout_path, prefix='rep')
 
-    print 'Making df and fitting NMF...'
-    obama_df = make_joined_df(census_data,
-                              CVAP,
-                              dem_turnout,
-                              election_data,
-                              obama_offices,
-                              featurizer, mod_type='dem', k=2)
+	print 'Making df and fitting NMF...'
+	obama_df = make_joined_df(census_data,
+	                          CVAP,
+	                          dem_turnout,
+	                          election_data,
+	                          obama_offices,
+	                          featurizer, mod_type='dem', k=2)
 
-    romney_df = make_joined_df(census_data,
-                               CVAP,
-                               rep_turnout,
-                               election_data,
-                               romney_offices,
-                               featurizer, mod_type='rep', k=2)
+	romney_df = make_joined_df(census_data,
+	                           CVAP,
+	                           rep_turnout,
+	                           election_data,
+	                           romney_offices,
+	                           featurizer, mod_type='rep', k=2)
 
-    X_obama, y_obama, feat_names_obama = make_X_y(obama_df, mod_type='dem')
-    X_romney, y_romney, feat_names_romney = make_X_y(romney_df, mod_type='rep')
+	X_obama, y_obama, feat_names_obama = make_X_y(obama_df, mod_type='dem')
+	X_romney, y_romney, feat_names_romney = make_X_y(romney_df, mod_type='rep')
 
 	dem = one_party_strat(obama_df, X_obama, y_obama, 800)
 	rep = one_party_strat(romney_df, X_romney, y_romney, 800, mod_type='rep')
+
+	electoral = featurizer.get_electoral_df()
+	electoral_dict = electoral.set_index('state_abbr')\
+	                          .to_dict()['electoral_votes']
 
 	# print 'Running Simulation'
 	# sim = simulation(1000, electoral, dem, rep)
@@ -449,7 +453,7 @@ if __name__ == '__main__':
 	# 	           'Average Percent Vote Increase by State', red, blue)
 
 	# Swing State Bubble - Naive
-	state_obama_df, state_romney_df, color, close_calls, voting_pop, size, text =
+	state_obama_df, state_romney_df, color, close_calls, voting_pop, size, text =\
 	swing_state_bubble_vars(obama_df, romney_df,
 		                    electoral_dict, red, blue, thresh=.05)
 	# swing_state_bubble_plot(state_obama_df, state_romney_df,
@@ -465,7 +469,7 @@ if __name__ == '__main__':
 
 	# States by County Effect
 	state_list = ['NH', 'OH', 'FL', 'NC', 'VA', 'CA', 'MO', 'IN']
-	states, population_perc, colors, size_effect, text =
+	states, population_perc, colors, size_effect, text =\
 	inlfu_counties_vars(dem, rep, state_inc_dem,
 		                obama_df, county_win_dict,
 		                state_win_dict, state_list, red, blue)
