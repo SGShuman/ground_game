@@ -5,8 +5,9 @@ from sklearn.preprocessing import normalize
 import os
 import matplotlib.pyplot as plt
 import us
-from load_data import get_st, get_county,
-                      get_2008_election_results, get_2012_election_results
+from load_data import get_st, get_county,\
+                      get_2008_election_results,\
+                      get_2012_election_results
 
 
 class Featurize(object):
@@ -267,21 +268,21 @@ class Featurize(object):
 		new_cols[-1] = 'votes_rep_12'
 		df_merged.columns = new_cols
 
-		df_merged['vote_share_12'] = df_merged['votes_dem_12'] /
+		df_merged['vote_share_12'] = df_merged['votes_dem_12'] /\
 		(df_merged['votes_dem_12'] + df_merged['votes_rep_12']).astype(float)
 
-		av_08 = df_08['OBAMA'].sum() /
+		av_08 = df_08['OBAMA'].sum() /\
 		float(df_08['OBAMA'].sum() + df_08['MCCAIN'].sum())
 
-		av_12 = df_12[dem_mask]['votes'].sum() /
+		av_12 = df_12[dem_mask]['votes'].sum() /\
 		float(df_12[dem_mask]['votes'].sum() + df_12[rep_mask]['votes'].sum())
 
 		av_overall = (av_08 + av_12) / 2.
 
-		df_merged['avg_vote_share'] = (df_merged['vote_share_08'] +
+		df_merged['avg_vote_share'] = (df_merged['vote_share_08'] +\
 			                           df_merged['vote_share_12']) / 2.
 		df_merged['cook_score'] = df_merged['avg_vote_share'] - av_overall
-		df_merged['delta_vote_share'] = df_merged['vote_share_12'] -
+		df_merged['delta_vote_share'] = df_merged['vote_share_12'] -\
 		                                df_merged['vote_share_08']
 
 		# More positive means more democratic bias
