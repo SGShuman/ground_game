@@ -124,11 +124,11 @@ office_effect is drawn from a normal distribution with a mean of office_coef and
 interaction_effect is drawn from similar normal distribution multiplied by County Cook Index  
 Votes Added = Voting Age Population x (office_effect + interaction_effect)
 
-''''
+```
 office_effect = np.random.normal(loc=office_coef, scale=office_stderr)
 interaction_effect = Cook_Index['county_name'] x np.random.normal(loc=interaction_coef, scale=interaction_stderr)
 Votes Added = CVAP x (office_effect + interaction_effect)
-''''
+```
 
 
 We can similarly calculate the average expected number of votes to be gained by adding field offices to every county in a state.  This is seen below with the error bars indicating the maximum and minimum possible effects by state.
