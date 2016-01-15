@@ -389,7 +389,8 @@ def swing_state_bubble_plot(state_obama_df, state_romney_df,
 			xref='x',
 			yref='y',
 			text='More Electoral Votes<br>Swing State',
-			showarrow=False
+			showarrow=False,
+			align='left'
 	        ),
 	    dict(
 			x=.5,
@@ -397,7 +398,8 @@ def swing_state_bubble_plot(state_obama_df, state_romney_df,
 			xref='x',
 			yref='y',
 			text='Fewer Electoral Votes<br>Not Swing State',
-			showarrow=False
+			showarrow=False,
+			align='left'
 	        ),
 
 	]
@@ -575,23 +577,37 @@ def inlfu_counties_vars(dem_strat, rep_strat,
 			text='Los Angeles County',
 			showarrow=True,
 			arrowhead=1,
-			arrowsize=.5
+			arrowsize=.5,
+			ax=-25
 	        ),
 	    dict(
-			x='IN',
+			x='NH',
+			y=.2246,
+			xref='x',
+			yref='y',
+			text='Rockingham County',
+			showarrow=True,
+			arrowhead=1,
+			arrowsize=.5,
+			ax=25
+	        ),
+	    dict(
+			x='MO',
 			y=.28,
 			xref='x',
 			yref='y',
-			text='Smaller Office Effect (dem)',
-			showarrow=False
+			text='   Smaller Office Effect (dem)',
+			showarrow=False,
+			xanchor='left'
 	        ),
 	    dict(
-			x='IN',
+			x='MO',
 			y=.32,
 			xref='x',
 			yref='y',
-			text='Larger Office Effect (rep)    ',
-			showarrow=False
+			text='   Larger Office Effect (rep)',
+			showarrow=False,
+			xanchor='left'
 	        ),
 
 	]
@@ -738,8 +754,8 @@ if __name__ == '__main__':
 
 	# Vertical split Bar Plot
 	state_inc_dem, state_inc_rep = split_bar_vars(dem, rep)
-	split_bar_plot(state_inc_dem, state_inc_rep,
-		           'Average Percent Vote Increase by State', red, blue)
+	# split_bar_plot(state_inc_dem, state_inc_rep,
+	# 	           'Average Percent Vote Increase by State', red, blue)
 
 	# Swing State Bubble - Naive
 	state_obama_df, state_romney_df, color, close_calls, voting_pop, size, text =\
@@ -765,5 +781,5 @@ if __name__ == '__main__':
 		                obama_df, county_win_dict,
 		                state_win_dict, state_list, red, blue)
 
-	# influ_counties_plot(states, population_perc, colors,
-	# 	size_effect, text, annotations, 'Influential Counties by State', red, blue)
+	influ_counties_plot(states, population_perc, colors,
+		size_effect, text, annotations, 'Influential Counties by State', red, blue)
