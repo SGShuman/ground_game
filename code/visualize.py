@@ -267,7 +267,7 @@ def get_more_annotations_state(state_list):
 			xref='x',
 			yref='y',
 			text='OH',
-			ax=0,
+			ax=-3,
 			showarrow=True,
 			arrowhead=1,
 			arrowsize=.3
@@ -279,7 +279,7 @@ def get_more_annotations_state(state_list):
 			yref='y',
 			text='VA',
 			ax=0,
-			ay=-40,
+			ay=-50,
 			showarrow=True,
 			arrowhead=1,
 			arrowsize=.3
@@ -292,7 +292,8 @@ def get_more_annotations_state(state_list):
 			text='IA',
 			showarrow=True,
 			arrowhead=1,
-			arrowsize=.3
+			arrowsize=.3,
+			ax=-6
 			),
 		CO=dict(
 			x=.3664,
@@ -374,7 +375,7 @@ def swing_state_bubble_plot(state_obama_df, state_romney_df,
 	    )
 	)
 	trace1 = go.Scatter(
-		x=[.375, .375],
+		x=[.4, .4],
 		y=[.53, .47],
 		mode='markers',
 		marker=dict(
@@ -722,5 +723,5 @@ if __name__ == '__main__':
 		                obama_df, county_win_dict,
 		                state_win_dict, state_list, red, blue)
 
-	influ_counties_plot(states, population_perc, colors,
-		size_effect, text, annotations, 'Influential Counties by State', red, blue)
+	# influ_counties_plot(states, population_perc, colors,
+	# 	size_effect, text, annotations, 'Influential Counties by State', red, blue)
