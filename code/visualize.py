@@ -196,11 +196,170 @@ def swing_state_bubble_vars(obama_df, romney_df, electoral_dict,
     return state_obama_df, state_romney_df, color,\
            close_calls, voting_pop, size, text
 
+def get_more_annotations_state(state_list):
+	#['AZ', 'GA', 'NC', 'NV', 'PA', 'FL', 'OH', 'VA', 'IA', 'CO', 'NH', 'WI'])
+	annotations = dict(
+		AZ=dict(
+			x=.2349,
+			y=.2827,
+			xref='x',
+			yref='y',
+			text='AZ',
+			showarrow=True,
+			arrowhead=1,
+			arrowsize=.3
+			),
+		GA=dict(
+			x=.2614,
+			y=.3063,
+			xref='x',
+			yref='y',
+			text='GA',
+			showarrow=True,
+			arrowhead=1,
+			arrowsize=.3
+			),
+		NC=dict(
+			x=.3146,
+			y=.3279,
+			xref='x',
+			yref='y',
+			text='NC',
+			showarrow=True,
+			arrowhead=1,
+			arrowsize=.3
+			),
+		NV=dict(
+			x=.2956,
+			y=.2579,
+			xref='x',
+			yref='y',
+			text='NV',
+			showarrow=True,
+			arrowhead=1,
+			arrowsize=.3
+			),
+		PA=dict(
+			x=.3102,
+			y=.2780,
+			xref='x',
+			yref='y',
+			text='PA',
+			showarrow=True,
+			arrowhead=1,
+			arrowsize=.3
+			),
+		FL=dict(
+			x=.3156,
+			y=.3101,
+			xref='x',
+			yref='y',
+			text='FL',
+			ax=-30,
+			showarrow=True,
+			arrowhead=1,
+			arrowsize=.3
+			),
+		OH=dict(
+			x=.3269,
+			y=.3077,
+			xref='x',
+			yref='y',
+			text='OH',
+			ax=0,
+			showarrow=True,
+			arrowhead=1,
+			arrowsize=.3
+			),
+		VA=dict(
+			x=.3393,
+			y=.3136,
+			xref='x',
+			yref='y',
+			text='VA',
+			ax=0,
+			showarrow=True,
+			arrowhead=1,
+			arrowsize=.3
+			),
+		IA=dict(
+			x=.3635,
+			y=.3229,
+			xref='x',
+			yref='y',
+			text='IA',
+			showarrow=True,
+			arrowhead=1,
+			arrowsize=.3
+			),
+		CO=dict(
+			x=.3664,
+			y=.3282,
+			xref='x',
+			yref='y',
+			text='CO',
+			ax=0,
+			ay=-50,
+			showarrow=True,
+			arrowhead=1,
+			arrowsize=.3
+			),
+		NH=dict(
+			x=.3669,
+			y=.3276,
+			xref='x',
+			yref='y',
+			text='NH',
+			ax=20,
+			showarrow=True,
+			arrowhead=1,
+			arrowsize=.3
+			),
+		WI=dict(
+			x=.3818,
+			y=.3323,
+			xref='x',
+			yref='y',
+			text='WI',
+			ax=25,
+			showarrow=True,
+			arrowhead=1,
+			arrowsize=.3
+			)
+		)
+
+	output = []
+	for state in state_list:
+		output.append(annotations[state])
+	return output
 
 def swing_state_bubble_plot(state_obama_df, state_romney_df,
 	                        color, close_calls, voting_pop,
-	                        size, text, title):
+	                        size, text, title, more_annotations):
 	'''Plot the swing state bubble plot'''
+	annotations = [
+	    dict(
+			x=.5,
+			y=.47,
+			xref='x',
+			yref='y',
+			text='Fewer Electoral Votes<br>Swing State',
+			showarrow=False
+	        ),
+	    dict(
+			x=.5,
+			y=.53,
+			xref='x',
+			yref='y',
+			text='More Electoral Votes (rep)<br>Not Swing State',
+			showarrow=False
+	        ),
+
+	]
+
+	if more_annotations:
+		annotations += more_annotations
+
 	trace0 = go.Scatter(
 	    x=state_obama_df['votes'] / voting_pop,
 	    y=state_romney_df['votes'] / voting_pop,
@@ -212,9 +371,20 @@ def swing_state_bubble_plot(state_obama_df, state_romney_df,
 	        size=np.log(size) * 5
 	    )
 	)
-	data = [trace0]
+	trace1 = go.Scatter(
+		x=[.375, .375],
+		y=[.53, .47],
+		mode='markers',
+		marker=dict(
+			color=['rgb(255, 65, 54, .3)', 'rgb(93, 164, 214, 1)'],
+			opacity=[.3, 1],
+			size=[10, 15])
+		)
+	data = [trace0, trace1]
 	layout = go.Layout(
 	    title=title,
+	    showlegend=False,
+	    annotations=annotations,
 	    xaxis=dict(
 	        range=[0, .6],
 	        title='% Obama Vote',
@@ -349,9 +519,8 @@ def inlfu_counties_vars(dem_strat, rep_strat,
 			yref='y',
 			text='Hillsborough County',
 			showarrow=True,
-			arrowhead=7,
-			ax=0,
-			ay=-40
+			arrowhead=1,
+			arrowsize=.5
 	        ),
 	    dict(
 			x='CA',
@@ -360,9 +529,8 @@ def inlfu_counties_vars(dem_strat, rep_strat,
 			yref='y',
 			text='Los Angeles County',
 			showarrow=True,
-			arrowhead=7,
-			ax=0,
-			ay=-40
+			arrowhead=1,
+			arrowsize=.5
 	        ),
 	    dict(
 			x='IN',
@@ -532,16 +700,18 @@ if __name__ == '__main__':
 	state_obama_df, state_romney_df, color, close_calls, voting_pop, size, text =\
 	swing_state_bubble_vars(obama_df, romney_df,
 		                    electoral_dict, red, blue, thresh=.05)
-	# swing_state_bubble_plot(state_obama_df, state_romney_df,
-	# 	                    color, close_calls, voting_pop,
-	# 	                    size, text, 'Swing States - by Close Votes')
+	more_annotations = get_more_annotations_state(['AZ', 'GA', 'NC', 'NV', 'PA', 'FL', 'OH', 'VA', 'IA', 'CO', 'NH', 'WI'])
+	swing_state_bubble_plot(state_obama_df, state_romney_df,
+		                    color, close_calls, voting_pop,
+		                    size, text, 'Swing States - by Close Votes', more_annotations)
 
 	# Swing State Bubble - Smart
 	close_calls_smart = get_close_calls(state_obama_df, state_romney_df,
 		                                state_inc_dem, state_inc_rep)
+	# more_annotations = get_more_annotations_state(['NC', 'FL', 'OH', 'NH'])
 	# swing_state_bubble_plot(state_obama_df, state_romney_df,
 	# 	                    color, close_calls_smart, voting_pop,
-	# 	                    size, text, 'Swing States - Simulation Results')
+	# 	                    size, text, 'Swing States - Simulation Results', more_annotations)
 
 	# States by County Effect
 	state_list = ['NH', 'OH', 'FL', 'NC', 'VA', 'CA', 'MO', 'IN']
@@ -550,5 +720,5 @@ if __name__ == '__main__':
 		                obama_df, county_win_dict,
 		                state_win_dict, state_list, red, blue)
 
-	influ_counties_plot(states, population_perc, colors,
-		size_effect, text, annotations, 'Influential Counties by State', red, blue)
+	# influ_counties_plot(states, population_perc, colors,
+	# 	size_effect, text, annotations, 'Influential Counties by State', red, blue)
