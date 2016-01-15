@@ -300,7 +300,7 @@ def inlfu_counties_vars(dem_strat, rep_strat,
 	size_effect = []
 	effect_dem = dem.get_av_increase()['vote_effect']
 	effect_rep = rep.get_av_increase()['vote_effect']
-	for i, x in enumerate(obama_df['state_abbr'].values):
+	for i, x in enumerate(dem.df['state_abbr'].values):
 		if state_win_dict[x]:
 			size_effect.append(effect_rep[i])
 		else:
@@ -314,11 +314,80 @@ def inlfu_counties_vars(dem_strat, rep_strat,
 		temp = '%s<br>Cook Partisan Voting Index: %s' % (name, cook_score)
 		text.append(temp)
 
-	return states, population_perc, colors, np.array(size_effect), text
+	shapes = [
+		# Bottom
+		dict(
+			type='circle',
+			fillcolor=red,
+			xref='paper',
+			yref='paper',
+			x0=.82,
+			x1=.83,
+			y0=.8,
+			y1=.825,
+			line=dict(color=red)
+			),
+		# Top
+		dict(
+			type='circle',
+			fillcolor=blue,
+			xref='paper',
+			yref='paper',
+			x0=.815,
+			x1=.835,
+			y0=.85,
+			y1=.9,
+			line=dict(color=blue)
+			)
+
+	]
+	annotations = [
+	    dict(
+			x='NH',
+			y=.29229539372092217,
+			xref='x',
+			yref='y',
+			text='Hillsborough County',
+			showarrow=True,
+			arrowhead=7,
+			ax=0,
+			ay=-40
+	        ),
+	    dict(
+			x='CA',
+			y=.2478272,
+			xref='x',
+			yref='y',
+			text='Los Angeles County',
+			showarrow=True,
+			arrowhead=7,
+			ax=0,
+			ay=-40
+	        ),
+	    dict(
+			x='IN',
+			y=.28,
+			xref='x',
+			yref='y',
+			text='Smaller Office Effect (dem)',
+			showarrow=False
+	        ),
+	    dict(
+			x='IN',
+			y=.32,
+			xref='x',
+			yref='y',
+			text='Larger Office Effect (rep)    ',
+			showarrow=False
+	        ),
+
+	]
+
+	return states, population_perc, colors, np.array(size_effect), text, annotations
 
 
 def influ_counties_plot(states, population_perc, colors, 
-	                    size_effect, text, title):
+	                    size_effect, text, annotations, title, red, blue):
 	'''Plot the infuential counties scatter'''
 	trace0 = go.Scatter(
 	    x=states,
@@ -327,13 +396,24 @@ def influ_counties_plot(states, population_perc, colors,
 	    text=text,
 	    marker=dict(
 	        color=colors,
-	        size=size_effect * 1000,
+	        size=np.absolute(size_effect) * 2000,
 	        opacity=.8
 	    )
 	)
-	data = [trace0]
+	trace1 = go.Scatter(
+		x=['MO', 'MO'],
+		y=[.32, .28],
+		mode='markers',
+		marker=dict(
+			color=[red, blue],
+			size=[7.5, 15])
+		)
+	data = [trace0, trace1]
 	layout = go.Layout(
 	    title=title,
+	    showlegend=False,
+	    #shapes=shapes,
+	    annotations=annotations,
 	    xaxis=dict(
 	        title='State with Top 10 Counties by Voting Age Pop',
 	        titlefont=dict(
@@ -344,25 +424,13 @@ def influ_counties_plot(states, population_perc, colors,
 	    ),
 	    yaxis=dict(
 	        title='Percent of State Population',
+	        range=[0, .35],
 	        titlefont=dict(
 	            family='Courier New, monospace',
 	            size=18,
 	            color='#7f7f7f'
 	        )
-	    ),
-	    annotations=[
-	        dict(
-	            x='NH',
-	            y=.29229539372092217,
-	            xref='x',
-	            yref='y',
-	            text='Hillsborough County',
-	            showarrow=True,
-	            arrowhead=7,
-	            ax=0,
-	            ay=-40
-	        )
-        ]
+	    )
 	)
 	fig = go.Figure(data=data, layout=layout)
 	plot_url = py.plot(fig, filename=title)
@@ -436,8 +504,8 @@ if __name__ == '__main__':
 		                                     obama_df,
 		                                     'cook_score')
 	bins = dict(start=-.5, end=.5, size=.1)
-	plot_feat_vs_y_true(x_dem, x_rep, 'Cook Partisan Voting Index',
-		                'Historical Democratic Bias by County Winners', red, blue, bins)
+	# plot_feat_vs_y_true(x_dem, x_rep, 'Cook Partisan Voting Index',
+	# 	                'Historical Democratic Bias by County Winners', red, blue, bins)
 
 	# By Democratic Expenditure
 	# x_dem, x_rep, feat = feat_vs_y_true_vars(county_win_dict,
@@ -477,10 +545,10 @@ if __name__ == '__main__':
 
 	# States by County Effect
 	state_list = ['NH', 'OH', 'FL', 'NC', 'VA', 'CA', 'MO', 'IN']
-	states, population_perc, colors, size_effect, text =\
+	states, population_perc, colors, size_effect, text, annotations =\
 	inlfu_counties_vars(dem, rep, state_inc_dem,
 		                obama_df, county_win_dict,
 		                state_win_dict, state_list, red, blue)
 
-	# influ_counties_plot(states, population_perc, colors,
-	# 	size_effect, text, 'Influential Counties by State')
+	influ_counties_plot(states, population_perc, colors,
+		size_effect, text, annotations, 'Influential Counties by State', red, blue)

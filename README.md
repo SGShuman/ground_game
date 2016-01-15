@@ -205,15 +205,13 @@ So, in order to flip a state, one county must contain an appreciable percentage 
 
 The visualization below shows this.  The size of the bubble is the size of the office effect unscaled while the height is the percentage of the population that lives in that county.  Counties with higher positions are more influential in terms of population and larger bubbles also indicates larger average office effect.
 
-# This figure looks broken to me
-
 <div>
     <a href="https://plot.ly/~SGShuman/71/" target="_blank" title="Influential Counties by State" style="display: block; text-align: center;"><img src="https://plot.ly/~SGShuman/71.png" alt="Influential Counties by State" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
     <script data-plotly="SGShuman:71"  src="https://plot.ly/embed.js" async></script>
 </div>
 
 ###### Figure 9: Largest Counties in Several Important states
-*The top ten largest counties in several states are shown.  The height is the influence due to population and the size is the size of the office effect (closely tied to Cook Index).  Coloring is the winner of the county in the 2012 election.  New Hampshire clearly shows a pattern other states don't.*
+*The top ten largest counties in several states are shown.  The height is the influence due to population and the size is the size of the office effect (closely tied to Cook Index) for the losing party.  Notice that Los Angeles is too tiny to see since Republicans will not ever raise many votes there with a ground game.  Coloring is the winner of the county in the 2012 election.  New Hampshire clearly shows a pattern other states don't.*
 
 
 Let's go over a scenario in New Hampshire where Republicans might win.  First the Republicans play and see a strong office effect in Rockingham and Hillsborough Counties (Rockingham is much more likely to have a large office effect due to its Cook Index).  The Democrats then play and see small office effects in Hillsborough and Rockingham counties.  So, New Hampshire swings red due to statistical fluctuations, even with a smart ground game strategy on both sides.  In California, this isn't possible despite Los Angeles being so important in terms of population.
