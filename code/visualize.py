@@ -186,12 +186,12 @@ def split_bar_plot(state_inc_dem, state_inc_rep, title, red, blue):
 	    height=1000
 	)
 
-	fig = tools.make_subplots(rows=1, cols=2, subplot_titles=('Average Vote Percent Increase', 
-		                                                      'Difference in Vote Single Party Vote Increase'))
+	fig = tools.make_subplots(rows=1, cols=2, subplot_titles=('Average Percent Vote Increase', 
+		                                                      'Net Percent Vote Increase'))
 	fig.append_trace(tracea, 1, 1)
 	fig.append_trace(traceb, 1, 1)
 	fig.append_trace(tracec, 1, 2)
-	fig['layout'].update(barmode='overlay', title='Vote Increase by State', height=1000)
+	fig['layout'].update(barmode='overlay', title='Vote Increase by State', height=1000, showlegend=False)
 	plot_url = py.plot(fig, filename=title)
 
 

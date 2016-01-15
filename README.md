@@ -140,7 +140,7 @@ We can now calculate the average expected number of votes to be gained by adding
 </div>
 
 ###### Figure 6: Average Percent Vote Increase by State
-*The expected change in single party turnout by state.  Error bars indicate a maximum and minimum.  States like Arizona and NJ have a roughly equal effect, while some states like Wyoming and Alabama are very one sided.*
+*The expected change in single party turnout by state ranked by the size of the change.  Error bars indicate a maximum and minimum to the possible net effect of ground games from both parties.  The left side shows each party separately and the right is the net effect.  Notice that most states with a Republican leaning net effect do not have a net Democratic effect scenario, while all Democratic leaning states do.*
 
 Our goal in the simulation is to identify states where the projected difference in votes is less than the difference between the right hand and left hand sides of the above graph.  In fact, since we can expect some statistical variation, the simulation can identify all the states who could possibly flip in any situation.  This means including simulations where one party has no ground game and the other party puts offices in every county.
 
