@@ -179,7 +179,7 @@ The below graph shows the battleground states under traditional understanding.  
     <a href="https://plot.ly/~SGShuman/55/" target="_blank" title="Swing States - by Close Votes" style="display: block; text-align: center;"><img src="https://plot.ly/~SGShuman/55.png" alt="Swing States - by Close Votes" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
     <script data-plotly="SGShuman:55"  src="https://plot.ly/embed.js" async></script>
 </div>
-###### Figure 7: Swing States with the Traditional View
+###### Figure 7: Swing States with the Traditional View  
 *Highlighted states reveal the typical battleground states.  The size of the bubble is the number of electoral votes.  The color reveals the winner in the 2012 election.  Click to enable hover.*
 
 However, applying what we learned about the possible range of the field office effect in each state, we find that only the highlighted states below could possibly switch.  Conventional Wisdom on swing states is upheld but limited.

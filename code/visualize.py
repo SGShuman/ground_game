@@ -247,7 +247,8 @@ def get_more_annotations_state(state_list):
 			text='PA',
 			showarrow=True,
 			arrowhead=1,
-			arrowsize=.3
+			arrowsize=.3,
+			ax=-15
 			),
 		FL=dict(
 			x=.3156,
@@ -278,6 +279,7 @@ def get_more_annotations_state(state_list):
 			yref='y',
 			text='VA',
 			ax=0,
+			ay=-40,
 			showarrow=True,
 			arrowhead=1,
 			arrowsize=.3
@@ -321,7 +323,7 @@ def get_more_annotations_state(state_list):
 			xref='x',
 			yref='y',
 			text='WI',
-			ax=25,
+			ax=30,
 			showarrow=True,
 			arrowhead=1,
 			arrowsize=.3
@@ -343,7 +345,7 @@ def swing_state_bubble_plot(state_obama_df, state_romney_df,
 			y=.47,
 			xref='x',
 			yref='y',
-			text='Fewer Electoral Votes<br>Swing State',
+			text='More Electoral Votes<br>Swing State',
 			showarrow=False
 	        ),
 	    dict(
@@ -351,7 +353,7 @@ def swing_state_bubble_plot(state_obama_df, state_romney_df,
 			y=.53,
 			xref='x',
 			yref='y',
-			text='More Electoral Votes (rep)<br>Not Swing State',
+			text='Fewer Electoral Votes<br>Not Swing State',
 			showarrow=False
 	        ),
 
@@ -708,10 +710,10 @@ if __name__ == '__main__':
 	# Swing State Bubble - Smart
 	close_calls_smart = get_close_calls(state_obama_df, state_romney_df,
 		                                state_inc_dem, state_inc_rep)
-	# more_annotations = get_more_annotations_state(['NC', 'FL', 'OH', 'NH'])
-	# swing_state_bubble_plot(state_obama_df, state_romney_df,
-	# 	                    color, close_calls_smart, voting_pop,
-	# 	                    size, text, 'Swing States - Simulation Results', more_annotations)
+	more_annotations = get_more_annotations_state(['NC', 'FL', 'OH', 'NH'])
+	swing_state_bubble_plot(state_obama_df, state_romney_df,
+		                    color, close_calls_smart, voting_pop,
+		                    size, text, 'Swing States - Simulation Results', more_annotations)
 
 	# States by County Effect
 	state_list = ['NH', 'OH', 'FL', 'NC', 'VA', 'CA', 'MO', 'IN']
@@ -720,5 +722,5 @@ if __name__ == '__main__':
 		                obama_df, county_win_dict,
 		                state_win_dict, state_list, red, blue)
 
-	# influ_counties_plot(states, population_perc, colors,
-	# 	size_effect, text, annotations, 'Influential Counties by State', red, blue)
+	influ_counties_plot(states, population_perc, colors,
+		size_effect, text, annotations, 'Influential Counties by State', red, blue)
