@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import statsmodels.stats.api as smf
 import plotly.plotly as py
 import plotly.graph_objs as go
+from plotly import tools
 
 
 def get_winners(obama_df, romney_df):
@@ -109,9 +110,12 @@ def split_bar_vars(dem_strat, rep_strat):
 
 def split_bar_plot(state_inc_dem, state_inc_rep, title, red, blue):
 	'''Plot the split bar plot from the blog post'''
+	net_effect = -100 * state_inc_rep['av_increase % of Predicted'] + 100 * state_inc_dem['av_increase % of Predicted']
+	idxes = np.argsort(net_effect)
+
 	tracea = go.Bar(
-	    y=state_inc_rep.index[::-1],
-	    x=-100 * state_inc_rep['av_increase % of Predicted'][::-1],
+	    y=state_inc_rep.index[idxes],
+	    x=-100 * state_inc_rep['av_increase % of Predicted'][idxes],
 	    name='Republican Effect',
 	    orientation='h',
 	    marker=dict(
@@ -119,7 +123,7 @@ def split_bar_plot(state_inc_dem, state_inc_rep, title, red, blue):
 	    ),
 	    error_x=dict(
             type='data',
-            array=100 * state_inc_rep['error_x'][::-1],
+            array=100 * state_inc_rep['error_x'][idxes],
             visible=True,
             thickness=1.5,
             width=3,
@@ -127,8 +131,8 @@ def split_bar_plot(state_inc_dem, state_inc_rep, title, red, blue):
         )
 	)
 	traceb = go.Bar(
-	    y=state_inc_rep.index[::-1],
-	    x=100 * state_inc_dem['av_increase % of Predicted'][::-1],
+	    y=state_inc_rep.index[idxes],
+	    x=100 * state_inc_dem['av_increase % of Predicted'][idxes],
 	    name='Democratic Effect',
 	    orientation='h',
 	    marker=dict(
@@ -136,7 +140,39 @@ def split_bar_plot(state_inc_dem, state_inc_rep, title, red, blue):
 	    ),
 	    error_x=dict(
             type='data',
-            array=100 * state_inc_dem['error_x'][::-1],
+            array=100 * state_inc_dem['error_x'][idxes],
+            visible=True,
+            thickness=1.5,
+            width=3,
+            opacity=.75
+        )
+	)
+	error_x = []
+	for i in xrange(len(net_effect)):
+		if net_effect[idxes][i] > 0:
+			error_x.append((state_inc_dem['av_increase % of Predicted'][idxes][i] + 
+				           state_inc_dem['error_x'][idxes][i]) -
+			               (state_inc_rep['av_increase % of Predicted'][idxes][i] -
+			               	state_inc_rep['error_x'][idxes][i]))
+		else:
+			error_x.append((state_inc_rep['av_increase % of Predicted'][idxes][i] + 
+				           state_inc_rep['error_x'][idxes][i]) -
+			               (state_inc_dem['av_increase % of Predicted'][idxes][i] -
+			               	state_inc_dem['error_x'][idxes][i]))
+
+
+	tracec = go.Bar(
+	    y=state_inc_rep.index[idxes],
+	    x=net_effect[idxes],
+	    name='Net Average Vote Increase',
+	    orientation='h',
+	    showlegend=False,
+	    marker=dict(
+	        color=[red if x < 0 else blue for x in net_effect[idxes]]
+	    ),
+	     error_x=dict(
+            type='data',
+            array=100 * np.array(error_x),
             visible=True,
             thickness=1.5,
             width=3,
@@ -146,10 +182,16 @@ def split_bar_plot(state_inc_dem, state_inc_rep, title, red, blue):
 	data = [tracea, traceb]
 	layout = go.Layout(
 	    barmode='overlay',
-	    title=title,
+	    title='Vote Increase by state',
 	    height=1000
 	)
-	fig = go.Figure(data=data, layout=layout)
+
+	fig = tools.make_subplots(rows=1, cols=2, subplot_titles=('Average Vote Percent Increase', 
+		                                                      'Difference in Vote Single Party Vote Increase'))
+	fig.append_trace(tracea, 1, 1)
+	fig.append_trace(traceb, 1, 1)
+	fig.append_trace(tracec, 1, 2)
+	fig['layout'].update(barmode='overlay', title='Vote Increase by State', height=1000)
 	plot_url = py.plot(fig, filename=title)
 
 
@@ -696,25 +738,25 @@ if __name__ == '__main__':
 
 	# Vertical split Bar Plot
 	state_inc_dem, state_inc_rep = split_bar_vars(dem, rep)
-	# split_bar_plot(state_inc_dem, state_inc_rep,
-	# 	           'Average Percent Vote Increase by State', red, blue)
+	split_bar_plot(state_inc_dem, state_inc_rep,
+		           'Average Percent Vote Increase by State', red, blue)
 
 	# Swing State Bubble - Naive
 	state_obama_df, state_romney_df, color, close_calls, voting_pop, size, text =\
 	swing_state_bubble_vars(obama_df, romney_df,
 		                    electoral_dict, red, blue, thresh=.05)
 	more_annotations = get_more_annotations_state(['AZ', 'GA', 'NC', 'NV', 'PA', 'FL', 'OH', 'VA', 'IA', 'CO', 'NH', 'WI'])
-	swing_state_bubble_plot(state_obama_df, state_romney_df,
-		                    color, close_calls, voting_pop,
-		                    size, text, 'Swing States - by Close Votes', more_annotations)
+	# swing_state_bubble_plot(state_obama_df, state_romney_df,
+	# 	                    color, close_calls, voting_pop,
+	# 	                    size, text, 'Swing States - by Close Votes', more_annotations)
 
 	# Swing State Bubble - Smart
 	close_calls_smart = get_close_calls(state_obama_df, state_romney_df,
 		                                state_inc_dem, state_inc_rep)
 	more_annotations = get_more_annotations_state(['NC', 'FL', 'OH', 'NH'])
-	swing_state_bubble_plot(state_obama_df, state_romney_df,
-		                    color, close_calls_smart, voting_pop,
-		                    size, text, 'Swing States - Simulation Results', more_annotations)
+	# swing_state_bubble_plot(state_obama_df, state_romney_df,
+	# 	                    color, close_calls_smart, voting_pop,
+	# 	                    size, text, 'Swing States - Simulation Results', more_annotations)
 
 	# States by County Effect
 	state_list = ['NH', 'OH', 'FL', 'NC', 'VA', 'CA', 'MO', 'IN']
