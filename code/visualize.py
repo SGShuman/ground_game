@@ -455,8 +455,8 @@ def swing_state_bubble_plot(state_obama_df, state_romney_df,
 		annotations += more_annotations
 
 	trace0 = go.Scatter(
-	    x=state_obama_df['votes'] / voting_pop,
-	    y=state_romney_df['votes'] / voting_pop,
+	    x=state_obama_df['votes'] / (voting_pop / 100),
+	    y=state_romney_df['votes'] / (voting_pop / 100),
 	    mode='markers',
 	    text=text,
 	    marker=dict(
