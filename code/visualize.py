@@ -455,8 +455,8 @@ def swing_state_bubble_plot(state_obama_df, state_romney_df,
 		annotations += more_annotations
 
 	trace0 = go.Scatter(
-	    x=state_obama_df['votes'] / (voting_pop / 100),
-	    y=state_romney_df['votes'] / (voting_pop / 100),
+	    x=state_obama_df['votes'] / voting_pop,
+	    y=state_romney_df['votes'] / voting_pop,
 	    mode='markers',
 	    text=text,
 	    marker=dict(
@@ -830,7 +830,7 @@ if __name__ == '__main__':
 		                obama_df, county_win_dict,
 		                state_win_dict, state_list, red, blue)
 
-	influ_counties_plot(states, population_perc, colors,
-		size_effect, text, annotations, 'Influential Counties by State', red, blue)
+	# influ_counties_plot(states, population_perc, colors,
+	# 	size_effect, text, annotations, 'Influential Counties by State', red, blue)
 
 	# plot_tables()
