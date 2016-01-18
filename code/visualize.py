@@ -9,6 +9,7 @@ import statsmodels.stats.api as smf
 import plotly.plotly as py
 import plotly.graph_objs as go
 from plotly import tools
+from plotly.tools import FigureFactory as FF 
 
 
 def get_winners(obama_df, romney_df):
@@ -193,6 +194,52 @@ def split_bar_plot(state_inc_dem, state_inc_rep, title, red, blue):
 	fig.append_trace(tracec, 1, 2)
 	fig['layout'].update(barmode='overlay', title='Vote Increase by State', height=1000, showlegend=False)
 	plot_url = py.plot(fig, filename=title)
+
+def plot_tables():
+	data_matrix_dem = [
+	['Feature', 'Coeff', 'Std Err', 'P Val'],
+	['State Average Turnout', 0.0048, 0.000, 0.000],
+	['Rural-urban Continuum Code', 0.0046, 0.000, 0.000],
+	['Perc Less than Highschool Diploma', 0.0006, 0.000, 0.000],
+	['Perc with Bachelor\'s', 0.0032, 8.54e-05, 0.000],
+	['Unemployment Rate', 0.0041, 0.000, 0.000],
+	['Religion NMF Feature 1', 0.0091, 0.001, 0.000],
+	['Religion NMF Feature 2', 0.0063, 0.000, 0.000],
+	['Campaign Expenditure', -4.084e-10, 5.09e-11, 0.000],
+	['Cook Index', 0.4752, 0.006, 0.000],
+	['Change in Vote Share 2008->2012', 0.2689, 0.024, 0.000],
+	['1 Field Office', 0.0088, 0.002, 0.000],
+	['2+ Field Offices', 0.0257, 0.004, 0.000],
+	['Field Office - Cook Index Interaction', 0.0348, 0.017, 0.041]
+	]
+
+	data_matrix_rep =[
+	['Feature', 'Coeff', 'Std Err', 'P Val'],
+	['State Average Turnout', 0.0060, 0.000, 0.000],
+	['Rural-urban Continuum Code', 0.0044, 0.000, 0.000],
+	['Perc Less than Highschool Diploma', -0.0024, 0.000, 0.000],
+	['Perc with Bachelor\'s', 0.0025, 0.000, 0.000],
+	['Unemployment Rate', 0.0054, 0.000, 0.000],
+	['Religion NMF Feature 1', 0.0003, 0.001, 0.700],
+	['Religion NMF Feature 2', 0.0072, 0.001, 0.000],
+	['Campaign Expenditure', -4.905e-10, 6.44e-11, 0.000],
+	['Cook Index', -0.5827, 0.008, 0.000],
+	['Change in Vote Share 2008->2012', -0.0543, 0.032, 0.000],
+	['1 Field Office', 0.0087, 0.004, 0.025],
+	['2+ Field Offices', 0.0143, 0.008, 0.080],
+	['Field Office - Cook Index Interaction', -.1054, 0.029, 0.000]
+	]
+
+	table_dem = FF.create_table(data_matrix_dem)
+	table_dem.layout.update({'title': 'Democratic Regression<br><i>Adj R2 0.978<i>'})
+	table_rep = FF.create_table(data_matrix_rep)
+	table_rep.layout.update({'title': 'Republican Regression<br><i>Adj R2 0.982<i>'})
+
+	# fig = tools.make_subplots(rows=1, cols=2, subplot_titles=('Democratic Regression<br><i>Adj R2 0.978<i>', 
+	#  	                                                      'Republican Regression<br><i>Adj R2 0.982<i>'))
+
+	plot_url = py.plot(table_dem, filename='Dem Regression Results')
+	plot_url = py.plot(table_rep, filename='Rep Regression Results')
 
 
 def swing_state_bubble_vars(obama_df, romney_df, electoral_dict,
@@ -431,10 +478,11 @@ def swing_state_bubble_plot(state_obama_df, state_romney_df,
 	layout = go.Layout(
 	    title=title,
 	    showlegend=False,
+	    hovermode='closest',
 	    annotations=annotations,
 	    xaxis=dict(
 	        range=[0, .6],
-	        title='% Obama Vote',
+	        title='% Democratic Vote',
 	        titlefont=dict(
 	            family='Courier New, monospace',
 	            size=18,
@@ -443,7 +491,7 @@ def swing_state_bubble_plot(state_obama_df, state_romney_df,
 	    ),
 	    yaxis=dict(
 	        range=[0, .6],
-	        title='% Romney Vote',
+	        title='% Republican Vote',
 	        titlefont=dict(
 	            family='Courier New, monospace',
 	            size=18,
@@ -596,7 +644,7 @@ def inlfu_counties_vars(dem_strat, rep_strat,
 			y=.28,
 			xref='x',
 			yref='y',
-			text='   Smaller Office Effect (dem)',
+			text='   Larger Office Effect (dem)',
 			showarrow=False,
 			xanchor='left'
 	        ),
@@ -605,7 +653,7 @@ def inlfu_counties_vars(dem_strat, rep_strat,
 			y=.32,
 			xref='x',
 			yref='y',
-			text='   Larger Office Effect (rep)',
+			text='   Smaller Office Effect (rep)',
 			showarrow=False,
 			xanchor='left'
 	        ),
@@ -641,6 +689,7 @@ def influ_counties_plot(states, population_perc, colors,
 	layout = go.Layout(
 	    title=title,
 	    showlegend=False,
+	    hovermode='closest',
 	    #shapes=shapes,
 	    annotations=annotations,
 	    xaxis=dict(
@@ -762,17 +811,17 @@ if __name__ == '__main__':
 	swing_state_bubble_vars(obama_df, romney_df,
 		                    electoral_dict, red, blue, thresh=.05)
 	more_annotations = get_more_annotations_state(['AZ', 'GA', 'NC', 'NV', 'PA', 'FL', 'OH', 'VA', 'IA', 'CO', 'NH', 'WI'])
-	# swing_state_bubble_plot(state_obama_df, state_romney_df,
-	# 	                    color, close_calls, voting_pop,
-	# 	                    size, text, 'Swing States - by Close Votes', more_annotations)
+	swing_state_bubble_plot(state_obama_df, state_romney_df,
+		                    color, close_calls, voting_pop,
+		                    size, text, 'Swing States - Traditional Understanding', more_annotations)
 
 	# Swing State Bubble - Smart
 	close_calls_smart = get_close_calls(state_obama_df, state_romney_df,
 		                                state_inc_dem, state_inc_rep)
 	more_annotations = get_more_annotations_state(['NC', 'FL', 'OH', 'NH'])
-	# swing_state_bubble_plot(state_obama_df, state_romney_df,
-	# 	                    color, close_calls_smart, voting_pop,
-	# 	                    size, text, 'Swing States - Simulation Results', more_annotations)
+	swing_state_bubble_plot(state_obama_df, state_romney_df,
+		                    color, close_calls_smart, voting_pop,
+		                    size, text, 'Swing States from Field Office Placement', more_annotations)
 
 	# States by County Effect
 	state_list = ['NH', 'OH', 'FL', 'NC', 'VA', 'CA', 'MO', 'IN']
@@ -783,3 +832,5 @@ if __name__ == '__main__':
 
 	influ_counties_plot(states, population_perc, colors,
 		size_effect, text, annotations, 'Influential Counties by State', red, blue)
+
+	# plot_tables()
