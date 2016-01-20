@@ -8,7 +8,7 @@ import itertools
 import geonameszip
 
 
-class Census_Data_Loader(object):
+class CensusDataLoader(object):
 	'''Load data from the American Communities Survey
 	INPUT: CENSUS_API_KEY, freely available at
 	http://api.census.gov/data/key_signup.html
@@ -273,7 +273,7 @@ def load_expenditures(path='data/raw_data/expenditures/'):
 
 if __name__ == '__main__':
 	API_KEY = os.environ['CENSUS_API']  # replace with your api key
-	census = Census_Data_Loader(API_KEY, year=2013)
+	census = CensusDataLoader(API_KEY, year=2013)
 
 	# Get the columns from the summary data
 	# print 'Getting cols table...'

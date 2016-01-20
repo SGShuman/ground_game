@@ -13,9 +13,6 @@ from load_data import get_st, get_county,\
 class Featurize(object):
 	'''Feature engineering made easy'''
 
-	def __init__(self):
-		pass
-
 	def load_summary_cols(self, path='data/summary_census'):
 		'''Join all the tables from a subfolder, remove excess columns'''
 		files = os.listdir(path)
@@ -92,7 +89,7 @@ class Featurize(object):
 		features = model.transform(nmf_data)
 		nmf_feats = pd.DataFrame(features)
 		# Name columns for interperatibility
-		nmf_feats.columns = ['relig_nmf_feat_' + str(x) 
+		nmf_feats.columns = ['relig_nmf_feat_' + str(x)
 		                     for x in list(nmf_feats.columns)]
 		# Join the NMF. k = number of topics / cols to add
 		output = id_df.join(nmf_feats)
@@ -199,7 +196,7 @@ class Featurize(object):
 	def load_offices(self, fname, suffix='dem'):
 		'''Load data on organizing offices by county'''
 		df = pd.read_csv(fname, "|")
-		df['county_stripped'] = df['County'].apply(lambda x: 
+		df['county_stripped'] = df['County'].apply(lambda x:
 			                                x.strip('"').replace('.', ''))
 
 		df['county_id'] = df['State'] + '_' + df['county_stripped']

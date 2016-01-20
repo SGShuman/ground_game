@@ -8,7 +8,7 @@ from code.build_model import *
 from random import random
 
 
-class one_party_strat(object):
+class OnePartyStrat(object):
     '''The strategy for a single party during one cycle'''
 
     def __init__(self, df, X, y, num_offices, mod_type='dem'):
@@ -141,7 +141,7 @@ class one_party_strat(object):
                         'max_vote_effect', 'cook_score', 'CVAP_EST']]
 
 
-class simulation(object):
+class Simulation(object):
     '''Given two strategy objects, run a simulation of the election'''
 
     def __init__(self, num_sims, electoral_df, dem_strat, rep_strat):
@@ -327,8 +327,8 @@ if __name__ == '__main__':
     X_obama, y_obama, feat_names_obama = make_X_y(obama_df, mod_type='dem')
     X_romney, y_romney, feat_names_romney = make_X_y(romney_df, mod_type='rep')
 
-    dem = one_party_strat(obama_df, X_obama, y_obama, 800)
-    rep = one_party_strat(romney_df, X_romney, y_romney, 800, mod_type='rep')
+    dem = OnePartyStrat(obama_df, X_obama, y_obama, 800)
+    rep = OnePartyStrat(romney_df, X_romney, y_romney, 800, mod_type='rep')
 
     # Activate these lines to set the republican effect equal
     # to the democtratic effect
@@ -345,6 +345,6 @@ if __name__ == '__main__':
     electoral = featurizer.get_electoral_df()
 
     print 'Running Simulation'
-    sim = simulation(100, electoral, dem, rep)
+    sim = Simulation(100, electoral, dem, rep)
     sim.run()
     sim.plot_swing()
