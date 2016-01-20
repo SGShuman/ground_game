@@ -61,3 +61,5 @@ data/raw_data/expenditures/oppexp.txt
 
 # Ipython Notebooks
 *.ipynb
+# DS Store
+*.DS_Store

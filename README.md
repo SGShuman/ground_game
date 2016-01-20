@@ -1,7 +1,7 @@
 # Creating the Ideal Field Office Strategy for the Presidential Election
 #### An analysis of the 2012 presidential election ground game with an eye towards 2016
 
-##### *Read time ~ 45 minutes*
+##### *Read time ~ 20 minutes*
 
 ### TL;DR
 The goal of this research is to analyze the effect of field office placement in the 2012 presidential election.  In agreement with literature, I find that field office placement was responsible for a Democratic victory in Florida.  For the first time, I show an effective ground game for Republicans is the path to victory in Florida and potentially New Hampshire.  I also show smaller states with sharply partisan counties are more susceptible to an effective ground game and strategic field office placement.
